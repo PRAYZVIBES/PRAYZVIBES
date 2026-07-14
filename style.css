@@ -1083,3 +1083,61 @@ font-size:38px;
 
 
 }
+
+/* =========================
+LOGO SVG FIX
+========================= */
+
+
+.logo,
+.hero-logo{
+
+width:auto;
+height:auto;
+
+object-fit:contain;
+
+}
+
+
+
+
+.site-header .logo{
+
+max-width:170px;
+
+}
+
+
+
+.hero-logo{
+
+max-width:260px;
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+.site-header .logo{
+
+width:150px;
+max-width:none;
+
+}
+
+
+
+.hero-logo{
+
+width:230px;
+max-width:none;
+
+}
+
+
+
+}
