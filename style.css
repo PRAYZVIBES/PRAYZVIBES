@@ -986,7 +986,38 @@ MOBILE FIX LOGOS
 .site-header{
 
 height:80px;
+width:100%;
 padding:0 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+overflow:hidden;
+
+}
+
+
+
+.site-header .logo{
+
+width:140px;
+height:auto;
+max-height:45px;
+object-fit:contain;
+
+}
+
+
+
+.menu-toggle{
+
+display:block;
+font-size:34px;
+margin-left:auto;
+flex-shrink:0;
+
+}
+
+
 
 }
 
