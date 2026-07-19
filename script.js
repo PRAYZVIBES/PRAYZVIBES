@@ -1,7 +1,11 @@
 /*
 PRAYZVIBES PROFESSIONAL FINAL SCRIPT
-BREVO COMPATIBLE VERSION
+OPTIMIZED VERSION
 */
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
 
 
 // =========================
@@ -9,13 +13,9 @@ BREVO COMPATIBLE VERSION
 // =========================
 
 
-const menuButton =
-document.getElementById("menuButton");
+const menuButton = document.getElementById("menuButton");
 
-
-const mobileMenu =
-document.getElementById("mobileMenu");
-
+const mobileMenu = document.getElementById("mobileMenu");
 
 
 if(menuButton && mobileMenu){
@@ -24,13 +24,12 @@ if(menuButton && mobileMenu){
 menuButton.addEventListener("click",()=>{
 
 
-const opened =
-mobileMenu.classList.toggle("active");
+const opened = mobileMenu.classList.toggle("active");
 
 
 menuButton.setAttribute(
 "aria-expanded",
-opened
+String(opened)
 );
 
 
@@ -67,35 +66,32 @@ menuButton.setAttribute(
 
 
 
-
 // =========================
-// HEADER SCROLL
+// CLOSE MENU WITH ESCAPE
 // =========================
 
 
-const header =
-document.querySelector(".site-header");
+document.addEventListener("keydown",(event)=>{
 
 
-
-if(header){
-
-
-window.addEventListener("scroll",()=>{
+if(event.key === "Escape"){
 
 
-if(window.scrollY > 50){
+if(mobileMenu){
 
-
-header.classList.add("scrolled");
-
+mobileMenu.classList.remove("active");
 
 }
 
-else{
 
+if(menuButton){
 
-header.classList.remove("scrolled");
+menuButton.setAttribute(
+"aria-expanded",
+"false"
+);
+
+}
 
 
 }
@@ -104,8 +100,71 @@ header.classList.remove("scrolled");
 });
 
 
+
+
+
+
+
+// =========================
+// HEADER SCROLL EFFECT
+// =========================
+
+
+const header = document.querySelector(".site-header");
+
+
+if(header){
+
+
+let ticking = false;
+
+
+window.addEventListener(
+"scroll",
+()=>{
+
+
+if(!ticking){
+
+
+window.requestAnimationFrame(()=>{
+
+
+if(window.scrollY > 50){
+
+header.classList.add("scrolled");
+
 }
 
+else{
+
+header.classList.remove("scrolled");
+
+}
+
+
+
+ticking = false;
+
+
+});
+
+
+ticking = true;
+
+
+}
+
+
+},
+{
+passive:true
+}
+
+);
+
+
+}
 
 
 
@@ -122,9 +181,12 @@ const sections =
 document.querySelectorAll("section");
 
 
+if("IntersectionObserver" in window){
+
 
 const observer =
 new IntersectionObserver(
+
 (entries)=>{
 
 
@@ -147,10 +209,9 @@ observer.unobserve(entry.target);
 
 
 },
+
 {
-
 threshold:0.15
-
 }
 
 );
@@ -166,51 +227,21 @@ observer.observe(section);
 });
 
 
-
-
-
-
-
-
-
-// =========================
-// CLOSE MENU ESCAPE
-// =========================
-
-
-document.addEventListener("keydown",(event)=>{
-
-
-if(event.key==="Escape"){
-
-
-if(mobileMenu){
-
-
-mobileMenu.classList.remove("active");
-
-
 }
 
-
-if(menuButton){
-
-
-menuButton.setAttribute(
-"aria-expanded",
-"false"
-);
+else{
 
 
-}
+sections.forEach(section=>{
 
 
-}
+section.classList.add("visible");
 
 
 });
 
 
+}
 
 
 
@@ -219,50 +250,20 @@ menuButton.setAttribute(
 
 
 // =========================
-// IMAGE ERROR HANDLING
+// BREVO FORM VALIDATION
 // =========================
-
-
-document.querySelectorAll("img")
-.forEach(image=>{
-
-
-image.addEventListener("error",()=>{
-
-
-image.style.opacity="0.5";
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-
-// =========================
-// BREVO FORM FIX
-// =========================
-
-
-// Prevent empty submit and make sure Brevo button works
 
 
 const brevoForm =
 document.getElementById("sib-form");
 
 
-
 if(brevoForm){
 
 
-brevoForm.addEventListener("submit",(event)=>{
+brevoForm.addEventListener(
+"submit",
+(event)=>{
 
 
 const email =
@@ -270,18 +271,31 @@ document.getElementById("EMAIL");
 
 
 
-if(!email || email.value.trim()===""){
+const emailPattern =
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
+if(
+!email ||
+!emailPattern.test(email.value.trim())
+){
 
 
 event.preventDefault();
 
 
 alert(
-"Please enter your email address."
+"Please enter a valid email address."
 );
 
 
-return false;
+}
+
+
+}
+
+);
 
 
 }
@@ -289,6 +303,3 @@ return false;
 
 
 });
-
-
-}
