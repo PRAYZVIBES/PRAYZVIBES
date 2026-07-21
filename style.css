@@ -396,9 +396,9 @@ padding:16px 45px;
 
 border-radius:50px;
 
-border:2px solid var(--gold);
+border:2px solid var(--brown);
 
-background:var(--brown);
+background:var(--gold);
 
 color:var(--gold);
 
@@ -414,9 +414,9 @@ transition:.35s;
 
 .button:hover {
 
-background:var(--gold);
+background:var(--brown);
 
-color:var(--brown);
+color:var(--gold);
 
 transform:translateY(-3px);
 
@@ -498,7 +498,7 @@ animation:heroAppear 1.2s ease;
 
 .hero h1 {
 
-font-size:110px;
+font-size:123px;
 
 line-height:1;
 
