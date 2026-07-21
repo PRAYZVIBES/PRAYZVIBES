@@ -1118,7 +1118,29 @@ MOBILE
 
 @media(max-width:600px){
 
+.hero{
 
+
+background:
+
+linear-gradient(
+rgba(20,25,12,.25),
+rgba(20,25,12,.60)
+),
+
+url("images/hero-background-mobile.jpg");
+
+
+background-size:cover;
+
+background-position:center;
+
+
+}
+
+
+
+}
 
 .site-header {
 
