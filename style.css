@@ -578,7 +578,7 @@ MUSIC
 
 background:var(--gold);
 
-color:var(--green);
+color:var(--sage);
 
 }
 
@@ -602,7 +602,7 @@ display:grid;
 
 grid-template-columns:repeat(4,1fr);
 
-gap:15px;
+gap:55px;
 
 }
 
@@ -612,7 +612,7 @@ gap:15px;
 
 .release-grid img {
 
-border-radius:15px;
+border-radius:5px;
 
 transition:.4s;
 
