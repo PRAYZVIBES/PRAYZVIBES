@@ -665,7 +665,7 @@ color:var(--gold);
 
 .newsletter p {
 
-max-width:700px;
+max-width:400px;
 
 margin:auto;
 
@@ -1155,28 +1155,6 @@ justify-content:space-between;
 align-items:center;
 
 overflow:hidden;
-
-}
-
-
-
-
-
-/*
-WORDMARK MOBILE FIX
-
-The logo is intentionally larger than before.
-This keeps PRAYZ readable.
-*/
-
-
-.site-header .logo {
-
-width:155px;
-
-height:auto;
-
-max-width:none;
 
 }
 
