@@ -229,7 +229,7 @@ border:0;
 
 font-size:36px;
 
-color:var(--gold);
+color:var(--brown);
 
 cursor:pointer;
 
@@ -396,11 +396,11 @@ padding:16px 45px;
 
 border-radius:50px;
 
-border:2px solid var(--brown);
+border:2px solid var(--gold);
 
-background:var(--gold);
+background:var(--brown);
 
-color:var(--gold);
+color:var(--brown);
 
 font-weight:700;
 
@@ -414,9 +414,9 @@ transition:.35s;
 
 .button:hover {
 
-background:var(--brown);
+background:var(--gold);
 
-color:var(--gold);
+color:var(--brown);
 
 transform:translateY(-3px);
 
@@ -498,7 +498,7 @@ animation:heroAppear 1.2s ease;
 
 .hero h1 {
 
-font-size:123px;
+font-size:150px;
 
 line-height:1;
 
