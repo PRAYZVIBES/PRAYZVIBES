@@ -1,0 +1,13 @@
+{
+  "name": "PRAYZVIBES",
+  "short_name": "PRAYZVIBES",
+  "description": "Independent indie-folk from Bavaria. Music for the soul. Stories for the journey.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#16190f",
+  "theme_color": "#16190f",
+  "icons": [
+    {"src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
