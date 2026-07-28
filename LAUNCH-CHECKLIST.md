@@ -5,6 +5,11 @@ Check each box after the GitHub upload.
 ## Website
 
 - [ ] Homepage opens at `https://www.prayzvibes.com/`
+- [ ] EN, DE and FR are clearly visible in the header on desktop and mobile
+- [ ] EN opens `/`, DE opens `/de/` and FR opens `/fr/`
+- [ ] A manual language choice remains selected on the next visit
+- [ ] In a fresh browser profile, German browser language opens German, French opens French and other languages open English
+- [ ] Language switching stays on the equivalent subpage, including About, Listen, Live, Connect and EPK
 - [ ] Mobile menu opens, closes and responds to Escape
 - [ ] Mobile menu words are bright and readable on every page
 - [ ] No heading is clipped and there is no sideways scrolling

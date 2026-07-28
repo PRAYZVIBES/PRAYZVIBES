@@ -3,6 +3,43 @@
 
   const GA_ID = "G-YL0ZXL9Q4D";
   const CONSENT_KEY = "prayzvibes-consent-v1";
+  const LANGUAGE_KEY = "prayzvibes-language";
+  const supportedLanguages = ["en", "de", "fr"];
+  const currentLanguage = (document.documentElement.lang || "en").slice(0, 2).toLowerCase();
+  const getStoredLanguage = () => {
+    try {
+      const stored = localStorage.getItem(LANGUAGE_KEY);
+      return supportedLanguages.includes(stored) ? stored : null;
+    } catch {
+      return null;
+    }
+  };
+  const getBrowserLanguage = () => {
+    const requested = Array.isArray(navigator.languages) && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || "en"];
+    const primary = requested.map((language) => String(language).toLowerCase().split("-")[0])
+      .find((language) => supportedLanguages.includes(language));
+    return primary || "en";
+  };
+  const preferredLanguage = getStoredLanguage() || getBrowserLanguage();
+  const preferredLink = document.querySelector(`[data-language-choice="${preferredLanguage}"]`);
+  if (preferredLanguage !== currentLanguage && preferredLink instanceof HTMLAnchorElement) {
+    const destination = new URL(preferredLink.href, window.location.href);
+    destination.search = window.location.search;
+    destination.hash = window.location.hash;
+    window.location.replace(destination.href);
+    return;
+  }
+  document.querySelectorAll("[data-language-choice]").forEach((link) => {
+    link.addEventListener("click", () => {
+      try {
+        localStorage.setItem(LANGUAGE_KEY, link.dataset.languageChoice || "en");
+      } catch {
+        // The links still work when storage is unavailable.
+      }
+    });
+  });
   const header = document.querySelector("[data-header]");
   const menuToggle = document.querySelector(".menu-toggle");
   const mobileMenu = document.querySelector(".mobile-menu");
@@ -16,7 +53,13 @@
     if (!menuToggle || !mobileMenu) return;
     menuToggle.classList.toggle("active", open);
     menuToggle.setAttribute("aria-expanded", String(open));
-    menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    const menuLabels = {
+      en: { open: "Open menu", close: "Close menu" },
+      de: { open: "Menü öffnen", close: "Menü schließen" },
+      fr: { open: "Ouvrir le menu", close: "Fermer le menu" },
+    };
+    const labels = menuLabels[currentLanguage] || menuLabels.en;
+    menuToggle.setAttribute("aria-label", open ? labels.close : labels.open);
     mobileMenu.classList.toggle("active", open);
     mobileMenu.setAttribute("aria-hidden", String(!open));
     document.body.classList.toggle("menu-open", open);

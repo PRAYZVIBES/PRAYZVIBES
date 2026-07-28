@@ -2,13 +2,19 @@
 
 ## Regular changes
 
+### Keep all three languages together
+
+English pages live at the root and in `pages`. German duplicates live in `de` and French duplicates in `fr`. When wording, dates or releases change, update the equivalent page in all three locations. Keep each EN/DE/FR language-switch link pointed at the same page in the other languages.
+
+The first visit uses the browser language: German opens `de`, French opens `fr`, and everything else stays in English. A manual choice is saved in the browser under `prayzvibes-language` and takes priority from then on.
+
 ### Add a confirmed live date
 
-Open `pages/live.html`. Add the real date only after the event is confirmed. Include date, city, venue, ticket link and status. Never publish an unconfirmed appearance.
+Open `pages/live.html`, `de/pages/live.html` and `fr/pages/live.html`. Add the real date only after the event is confirmed. Include date, city, venue, ticket link and status. Never publish an unconfirmed appearance.
 
 ### Add a release
 
-Update the featured release and current-chapter sections in `index.html`, then update `pages/listen.html`, `pages/epk.html` and `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
+Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html` and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
 
 ### Add press coverage
 
@@ -54,6 +60,7 @@ Before simplifying a section, confirm that its destination remains available som
 - `site.webmanifest`: installable-site information and icons
 - `CNAME`: custom-domain connection for GitHub Pages
 - `.nojekyll`: preserves the static website structure
+- `de` and `fr`: complete localized sites
 
 ## Safe workflow
 
