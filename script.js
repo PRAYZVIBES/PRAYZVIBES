@@ -38,6 +38,10 @@
       } catch {
         // The links still work when storage is unavailable.
       }
+      trackEvent("language_change", {
+        from_language: currentLanguage,
+        to_language: link.dataset.languageChoice || "en"
+      });
     });
   });
   const header = document.querySelector("[data-header]");
@@ -110,6 +114,7 @@
   const mountainDayRelease = Date.parse("2026-07-31T00:00:00+02:00");
   const transienceRelease = Date.parse("2026-08-07T00:00:00+02:00");
   const campaignPhase = Date.now() >= transienceRelease ? "ep" : Date.now() >= mountainDayRelease ? "single" : "before";
+  document.body.dataset.campaignPhase = campaignPhase;
 
   document.querySelectorAll(".campaign-switch").forEach((link) => {
     const label = link.dataset[`${campaignPhase}Label`];
@@ -122,6 +127,20 @@
     const text = element.dataset[`${campaignPhase}Text`];
     if (text) element.textContent = text;
   });
+
+  document.querySelectorAll(".campaign-anchor").forEach((link) => {
+    const label = link.dataset[`${campaignPhase}Label`];
+    const href = link.dataset[`${campaignPhase}Href`];
+    const labelNode = link.querySelector("span");
+    if (label && labelNode) labelNode.textContent = label;
+    if (href) link.href = href;
+  });
+
+  if (campaignPhase === "ep") {
+    const hero = document.querySelector(".hero");
+    const transienceSection = document.querySelector("#music");
+    if (hero && transienceSection) hero.insertAdjacentElement("afterend", transienceSection);
+  }
 
   const revealItems = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -172,14 +191,21 @@
     document.head.append(script);
   };
 
+  const trackEvent = (name, parameters = {}) => {
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", name, { page_language: currentLanguage, ...parameters });
+  };
+
   const videoBlocks = document.querySelectorAll("[data-video-id]");
-  const loadVideo = (block) => {
+  const loadVideo = (block, { autoplay = false } = {}) => {
     if (!block || block.querySelector("iframe")) return;
     const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(block.dataset.videoId)}?autoplay=1&rel=0`;
-    iframe.title = "PRAYZVIBES official music video";
+    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(block.dataset.videoId)}?autoplay=${autoplay ? "1" : "0"}&rel=0`;
+    iframe.title = block.dataset.videoTitle || "PRAYZVIBES video";
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
     block.replaceChildren(iframe);
   };
 
@@ -228,7 +254,11 @@
 
   videoBlocks.forEach((block) => {
     block.querySelector(".video-load")?.addEventListener("click", () => {
-      loadVideo(block);
+      trackEvent("video_play", {
+        video_id: block.dataset.videoId || "",
+        video_title: block.dataset.videoTitle || ""
+      });
+      loadVideo(block, { autoplay: true });
     });
   });
 
@@ -244,6 +274,7 @@
   };
   brevoForm?.addEventListener("focusin", loadBrevo, { once: true });
   brevoForm?.addEventListener("pointerenter", loadBrevo, { once: true });
+  brevoForm?.addEventListener("submit", () => trackEvent("newsletter_submit"));
 
   const storeExitDialog = document.querySelector("[data-store-exit-dialog]");
   const storeExitCopy = storeExitDialog?.querySelector("[data-store-exit-copy]");
@@ -291,7 +322,14 @@
     const link = event.target.closest("a[href]");
     if (!link || typeof window.gtag !== "function") return;
     const url = new URL(link.href, window.location.href);
-    if (url.origin === window.location.origin) return;
-    window.gtag("event", "outbound_click", { link_url: url.href, link_text: link.textContent.trim().slice(0, 100) });
+    const linkText = link.textContent.trim().slice(0, 100);
+    if (url.origin !== window.location.origin) {
+      trackEvent("outbound_click", { link_url: url.href, link_text: linkText });
+    }
+    if (link.closest("#live-preview")) trackEvent("live_click", { link_url: url.href, link_text: linkText });
+    if (link.closest("#shop")) trackEvent("shop_click", { link_url: url.href, link_text: linkText });
+    if (link.closest("#worlds") || link.closest(".remix-section")) trackEvent("playlist_click", { link_url: url.href, link_text: linkText });
+    if (link.matches(".campaign-switch, .release-switch") || link.closest("#listen")) trackEvent("listen_click", { link_url: url.href, link_text: linkText });
+    if (url.pathname.includes("epk.html")) trackEvent("epk_click", { link_url: url.href, link_text: linkText });
   });
 })();

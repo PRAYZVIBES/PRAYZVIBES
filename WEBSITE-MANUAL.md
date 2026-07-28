@@ -16,6 +16,8 @@ Open `pages/live.html`, `de/pages/live.html` and `fr/pages/live.html`. Add the r
 
 Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html` and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
 
+The homepage campaign labels change automatically on 31 July and 7 August 2026. From 7 August, the script also moves the Transience section directly below the hero so the EP becomes the primary action while Mountain Day remains its doorway.
+
 ### Add press coverage
 
 Open `index.html` and `pages/epk.html`. Copy one complete `press-card` and replace publication, headline and URL. Keep the homepage set short enough to scan; replace an existing card before removing the press path itself.
@@ -27,6 +29,12 @@ Open `index.html` and `pages/epk.html`. Copy one complete `press-card` and repla
 - Salzburg live teaser: `images/transience-tour-salzburg-teaser.mp4`
 
 Keep MP4 filenames unchanged unless the matching HTML source is updated too.
+
+The homepage live section presents the photographer's Salzburg film as part of the **PRAYZVIBES Street Clips** series and embeds it from YouTube using video ID `a4l_CL8RDBw`. Keep the series name, visible Mind Methaphor attribution, location and accessible video title aligned in `index.html`, `de/index.html` and `fr/index.html`.
+
+### Update PRAYZ REMIX
+
+The current Spotify destination is playlist ID `0CPFAsBogOHppa1epmYLNO`. Update the same clean Spotify URL in all three homepages if the playlist changes.
 
 ### Update store links
 

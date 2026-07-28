@@ -1010,3 +1010,94 @@ body[data-page="home"] .footer-main {
     grid-column: 1 / -1;
   }
 }
+
+/* Homepage alignment: real live proof, quieter satellites, clearer journeys. */
+body[data-page="home"] .live-feature-layout {
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  gap: clamp(48px, 7vw, 96px);
+}
+
+body[data-page="home"] .live-feature-copy h2 {
+  font-size: clamp(3.6rem, 5.2vw, 5.4rem);
+}
+
+html[lang="fr"] body[data-page="home"] .live-feature-copy h2 {
+  font-size: clamp(3.2rem, 4.55vw, 4.8rem);
+}
+
+.live-feature-media--video {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.live-feature-media--video .video-consent {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  box-shadow: 18px 18px 0 var(--sage-dark);
+}
+
+.live-feature-media--video .video-consent > img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: cover;
+  object-position: center 38%;
+}
+
+.live-feature-media--video figcaption {
+  margin-top: 22px;
+}
+
+.live-feature-media--video figcaption a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.live-feature-media--video figcaption a:hover {
+  color: var(--brown);
+}
+
+.live-feature-media--video .video-load {
+  max-width: calc(100% - 32px);
+  white-space: normal;
+}
+
+.remix-link {
+  margin-top: 28px;
+}
+
+@media (max-width: 820px) {
+  body[data-page="home"] .live-feature-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .live-feature-media--video {
+    width: 100%;
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-page="home"] .live-feature-copy h2 {
+    font-size: clamp(3.05rem, 14vw, 4.4rem);
+  }
+
+  html[lang="fr"] body[data-page="home"] .live-feature-copy h2 {
+    font-size: clamp(2.55rem, 11.2vw, 3.35rem);
+  }
+
+  .live-feature-media--video .video-consent {
+    border-radius: 20px;
+    box-shadow: 10px 10px 0 var(--sage-dark);
+  }
+
+  .live-feature-media--video .video-load {
+    padding: 13px 17px;
+    font-size: .66rem;
+  }
+}
