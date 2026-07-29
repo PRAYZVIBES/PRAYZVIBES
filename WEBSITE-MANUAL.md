@@ -44,6 +44,14 @@ The current Spotify destination is playlist ID `0CPFAsBogOHppa1epmYLNO`. Update 
 
 Change a link only when the replacement page has been opened and tested.
 
+### Update direct support
+
+The direct-support destination is `https://ko-fi.com/prayzvibes`.
+
+Keep the homepage support section, the localized `support.html` pages and footer links aligned in all three languages. The wording should stay voluntary and low-pressure. Do not promise rewards, memberships or a recurring publishing schedule unless those offers are active and can be fulfilled.
+
+Ko-fi clicks are tracked as `support_click` only after analytics consent. Payment itself happens on Ko-fi; the PRAYZVIBES website never collects payment data.
+
 ### Keep the homepage focused
 
 Mountain Day is the doorway and Transience is the current chapter. Developing work may appear as a quiet notebook note, but it must not compete with those two campaigns.

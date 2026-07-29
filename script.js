@@ -330,6 +330,7 @@
     if (link.closest("#shop")) trackEvent("shop_click", { link_url: url.href, link_text: linkText });
     if (link.closest("#worlds") || link.closest(".remix-section")) trackEvent("playlist_click", { link_url: url.href, link_text: linkText });
     if (link.matches(".campaign-switch, .release-switch") || link.closest("#listen")) trackEvent("listen_click", { link_url: url.href, link_text: linkText });
+    if (url.hostname === "ko-fi.com" && url.pathname.toLowerCase().includes("prayzvibes")) trackEvent("support_click", { link_url: url.href, link_text: linkText });
     if (url.pathname.includes("epk.html")) trackEvent("epk_click", { link_url: url.href, link_text: linkText });
   });
 })();

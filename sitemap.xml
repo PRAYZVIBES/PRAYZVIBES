@@ -6,7 +6,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/"/>
-    <lastmod>2026-07-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <lastmod>2026-07-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.prayzvibes.com/de/</loc>
@@ -14,7 +14,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/"/>
-    <lastmod>2026-07-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <lastmod>2026-07-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.prayzvibes.com/fr/</loc>
@@ -22,7 +22,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/"/>
-    <lastmod>2026-07-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
+    <lastmod>2026-07-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.prayzvibes.com/pages/about.html</loc>
@@ -143,5 +143,29 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/pages/epk.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/pages/epk.html"/>
     <lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.prayzvibes.com/pages/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.prayzvibes.com/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/pages/support.html"/>
+    <lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.prayzvibes.com/de/pages/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.prayzvibes.com/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/pages/support.html"/>
+    <lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.prayzvibes.com/fr/pages/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.prayzvibes.com/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.prayzvibes.com/de/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.prayzvibes.com/fr/pages/support.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.prayzvibes.com/pages/support.html"/>
+    <lastmod>2026-07-29</lastmod><changefreq>monthly</changefreq><priority>0.5</priority>
   </url>
 </urlset>
