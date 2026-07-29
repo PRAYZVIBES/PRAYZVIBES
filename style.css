@@ -1237,3 +1237,297 @@ html[lang="fr"] .support-copy h2 {
     box-shadow: 10px 10px 0 rgba(210, 180, 101, .28);
   }
 }
+
+/* A compact home for playlists, remix experiments and the High Week film. */
+.roads-section {
+  background:
+    radial-gradient(circle at 90% 12%, rgba(210, 180, 101, .18), transparent 30%),
+    var(--paper);
+  color: var(--brown);
+}
+
+.roads-section .section-heading {
+  margin-bottom: clamp(38px, 5vw, 58px);
+}
+
+.roads-section .section-heading > p,
+.roads-card > p {
+  color: #666b5d;
+}
+
+.roads-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(250px, .78fr) minmax(280px, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.roads-card {
+  min-width: 0;
+  padding: clamp(24px, 3vw, 38px);
+  overflow: hidden;
+  border: 1px solid rgba(49, 31, 20, .14);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 247, .82);
+  box-shadow: 0 18px 45px rgba(49, 31, 20, .08);
+}
+
+.roads-card h3 {
+  margin: 10px 0 24px;
+  font-size: clamp(2rem, 3vw, 3.4rem);
+}
+
+.road-playlists {
+  border-top: 1px solid rgba(49, 31, 20, .16);
+}
+
+.road-playlist {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  min-height: 78px;
+  padding: 10px 6px 10px 0;
+  border-bottom: 1px solid rgba(49, 31, 20, .16);
+  transition: padding var(--transition), color var(--transition);
+}
+
+.road-playlist:hover {
+  padding-left: 8px;
+  color: var(--gold-dark);
+}
+
+.road-playlist img {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.road-playlist span {
+  min-width: 0;
+}
+
+.road-playlist small,
+.road-playlist strong {
+  display: block;
+}
+
+.road-playlist small {
+  margin-bottom: 3px;
+  color: #6a6f60;
+  font-size: .64rem;
+  font-weight: 820;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.road-playlist strong {
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: 1.18rem;
+  letter-spacing: -.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.road-playlist b {
+  font-weight: 500;
+}
+
+.roads-card--remix {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.roads-card--remix .eyebrow,
+.roads-card--remix h3 {
+  color: var(--yellow);
+}
+
+.roads-card--remix p:not(.eyebrow) {
+  color: #d7d5d7;
+}
+
+.roads-card--remix .remix-link {
+  align-self: flex-start;
+}
+
+.roads-card--video {
+  display: flex;
+  flex-direction: column;
+  background: var(--brown);
+  color: var(--cream);
+}
+
+.roads-card--video .eyebrow {
+  color: var(--gold);
+}
+
+.roads-card--video h3 {
+  color: var(--gold-light);
+}
+
+.roads-video {
+  margin-top: auto;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.roads-video .video-load {
+  max-width: calc(100% - 24px);
+  padding: 13px 17px;
+  font-size: .66rem;
+  text-align: left;
+  white-space: normal;
+}
+
+/* A direct, privacy-friendly route into the local Mountain Day short after release. */
+.release-player {
+  position: fixed;
+  z-index: 2200;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  width: min(calc(100% - 36px), 520px);
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 20px;
+  background: rgba(22, 25, 15, .96);
+  color: var(--cream);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, .34);
+  backdrop-filter: blur(18px);
+}
+
+.release-player__play {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 5px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.release-player__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--brown);
+  font-size: .8rem;
+}
+
+.release-player__play small,
+.release-player__play strong {
+  display: block;
+}
+
+.release-player__play small {
+  margin-bottom: 2px;
+  color: var(--gold);
+  font-size: .57rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.release-player__play strong {
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: 1.02rem;
+  line-height: 1;
+  letter-spacing: -.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.release-player__link {
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  color: var(--gold-light);
+  font-size: .62rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.release-player__close {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, .68);
+  font-size: 1.35rem;
+}
+
+.release-player__play:hover .release-player__icon,
+.release-player__play:focus-visible .release-player__icon {
+  background: var(--gold-light);
+  transform: scale(1.04);
+}
+
+.release-player__link:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@media (max-width: 1050px) {
+  .roads-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roads-card--worlds {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 650px) {
+  .roads-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roads-card--worlds {
+    grid-column: auto;
+  }
+
+  .release-player {
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: calc(100% - 20px);
+  }
+
+  .release-player__link {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .roads-card {
+    padding: 22px;
+  }
+
+  .road-playlist {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+  }
+
+  .road-playlist img {
+    width: 48px;
+    height: 48px;
+  }
+}

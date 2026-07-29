@@ -196,6 +196,41 @@
     window.gtag("event", name, { page_language: currentLanguage, ...parameters });
   };
 
+  const releasePlayer = document.querySelector("[data-release-player]");
+  const releasePreviewButton = releasePlayer?.querySelector("[data-release-preview]");
+  const releasePlayerClose = releasePlayer?.querySelector("[data-release-player-close]");
+  let releasePlayerDismissed = false;
+  try {
+    releasePlayerDismissed = sessionStorage.getItem("pv-release-player-dismissed") === "true";
+  } catch {
+    // The release player still works when session storage is unavailable.
+  }
+
+  if (releasePlayer && campaignPhase !== "before" && !releasePlayerDismissed) {
+    releasePlayer.removeAttribute("hidden");
+  }
+
+  releasePlayerClose?.addEventListener("click", () => {
+    releasePlayer?.setAttribute("hidden", "");
+    try {
+      sessionStorage.setItem("pv-release-player-dismissed", "true");
+    } catch {
+      // Dismissal applies to this view when session storage is unavailable.
+    }
+  });
+
+  releasePreviewButton?.addEventListener("click", () => {
+    const reelSection = document.querySelector("#mountain-day-reel");
+    const reelVideo = reelSection?.querySelector("video");
+    if (!reelSection || !reelVideo) return;
+    trackEvent("preview_play", { release_title: "Mountain Day", campaign_phase: campaignPhase });
+    reelSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    reelVideo.muted = false;
+    reelVideo.currentTime = 0;
+    const playback = reelVideo.play();
+    if (playback?.catch) playback.catch(() => {});
+  });
+
   const videoBlocks = document.querySelectorAll("[data-video-id]");
   const loadVideo = (block, { autoplay = false } = {}) => {
     if (!block || block.querySelector("iframe")) return;
@@ -328,9 +363,15 @@
     }
     if (link.closest("#live-preview")) trackEvent("live_click", { link_url: url.href, link_text: linkText });
     if (link.closest("#shop")) trackEvent("shop_click", { link_url: url.href, link_text: linkText });
-    if (link.closest("#worlds") || link.closest(".remix-section")) trackEvent("playlist_click", { link_url: url.href, link_text: linkText });
+    if (link.closest("#worlds")) trackEvent("playlist_click", { link_url: url.href, link_text: linkText });
     if (link.matches(".campaign-switch, .release-switch") || link.closest("#listen")) trackEvent("listen_click", { link_url: url.href, link_text: linkText });
-    if (url.hostname === "ko-fi.com" && url.pathname.toLowerCase().includes("prayzvibes")) trackEvent("support_click", { link_url: url.href, link_text: linkText });
+    if (url.hostname === "ko-fi.com" && url.pathname.toLowerCase().includes("prayzvibes")) {
+      trackEvent("support_click", {
+        link_url: url.href,
+        link_text: linkText,
+        support_source: link.dataset.supportSource || "unclassified"
+      });
+    }
     if (url.pathname.includes("epk.html")) trackEvent("epk_click", { link_url: url.href, link_text: linkText });
   });
 })();

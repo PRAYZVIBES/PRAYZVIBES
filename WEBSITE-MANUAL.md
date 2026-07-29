@@ -16,7 +16,11 @@ Open `pages/live.html`, `de/pages/live.html` and `fr/pages/live.html`. Add the r
 
 Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html` and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
 
-The homepage campaign labels change automatically on 31 July and 7 August 2026. From 7 August, the script also moves the Transience section directly below the hero so the EP becomes the primary action while Mountain Day remains its doorway.
+The homepage campaign labels change automatically in the visitor's browser on 31 July and 7 August 2026. From 7 August, the script also moves the Transience section directly below the hero so the EP becomes the primary action while Mountain Day remains its doorway.
+
+The GitHub Action in `.github/workflows/release-state.yml` also updates the static titles, search descriptions, social preview copy and no-JavaScript fallback wording. It runs shortly after midnight in Bavaria on both release days and commits only if the public release state changed. If GitHub's scheduled run is delayed, open **Actions → Update release state → Run workflow**, leave the phase on `auto`, and run it once.
+
+The release-day copy is stored in `scripts/apply-release-phase.mjs`. Keep the English, German and French entries aligned. The fixed local Mountain Day player appears only after the single release time; its play button scrolls to and starts `images/mountain-day-reel.mp4`.
 
 ### Add press coverage
 
@@ -36,6 +40,8 @@ The homepage live section presents the photographer's Salzburg film as part of t
 
 The current Spotify destination is playlist ID `0CPFAsBogOHppa1epmYLNO`. Update the same clean Spotify URL in all three homepages if the playlist changes.
 
+PRAYZ Worlds, PRAYZ REMIX and the High Week film share the compact **Further roads** section. Keep all five destinations available when changing that layout.
+
 ### Update store links
 
 - Digital music: Bandcamp
@@ -50,7 +56,9 @@ The direct-support destination is `https://ko-fi.com/prayzvibes`.
 
 Keep the homepage support section, the localized `support.html` pages and footer links aligned in all three languages. The wording should stay voluntary and low-pressure. Do not promise rewards, memberships or a recurring publishing schedule unless those offers are active and can be fulfilled.
 
-Ko-fi clicks are tracked as `support_click` only after analytics consent. Payment itself happens on Ko-fi; the PRAYZVIBES website never collects payment data.
+Ko-fi clicks are tracked as `support_click` with a `support_source` only after analytics consent. Payment itself happens on Ko-fi; the PRAYZVIBES website never collects payment data. Website links use harmless UTM source tags; the ready-to-copy social versions are in `SOCIAL-TRACKING-LINKS.md`.
+
+Use `AUDIENCE-DASHBOARD.md` for the small monthly review. It explains the release, live, shop, support, playlist, EPK and newsletter signals without turning the project into a spreadsheet exercise.
 
 ### Keep the homepage focused
 
