@@ -28,6 +28,10 @@ if (!["before", "single", "ep"].includes(phase)) {
 const languages = {
   en: {
     file: "index.html",
+    socialAlt: {
+      mountain: "PRAYZVIBES presents Mountain Day in a Bavarian field",
+      transience: "PRAYZVIBES presents the Transience EP"
+    },
     phases: {
       before: {
         title: "PRAYZVIBES | Street-born Indie Folk from Bavaria",
@@ -84,6 +88,10 @@ const languages = {
   },
   de: {
     file: "de/index.html",
+    socialAlt: {
+      mountain: "PRAYZVIBES präsentiert Mountain Day in einem bayerischen Feld",
+      transience: "PRAYZVIBES präsentiert die Transience EP"
+    },
     phases: {
       before: {
         title: "PRAYZVIBES | Indie-Folk von der Straße aus Bayern",
@@ -140,6 +148,10 @@ const languages = {
   },
   fr: {
     file: "fr/index.html",
+    socialAlt: {
+      mountain: "PRAYZVIBES présente Mountain Day dans un champ bavarois",
+      transience: "PRAYZVIBES présente l’EP Transience"
+    },
     phases: {
       before: {
         title: "PRAYZVIBES | Indie folk né dans la rue en Bavière",
@@ -203,13 +215,22 @@ function replaceMeta(html, selector, value) {
   return html.replace(pattern, `$1${value}$2`);
 }
 
-function updatePage(html, copy) {
+function updatePage(html, copy, socialAlt) {
+  const socialFile = phase === "ep"
+    ? "social-preview-transience.jpg"
+    : "social-preview-mountain-day.jpg";
+  const socialDescription = phase === "ep" ? socialAlt.transience : socialAlt.mountain;
+  const socialUrl = `https://www.prayzvibes.com/images/${socialFile}`;
+
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${copy.title}</title>`);
   html = replaceMeta(html, "description", copy.description);
   html = replaceMeta(html, "og:title", copy.ogTitle);
   html = replaceMeta(html, "og:description", copy.ogDescription);
+  html = replaceMeta(html, "og:image", socialUrl);
+  html = replaceMeta(html, "og:image:alt", socialDescription);
   html = replaceMeta(html, "twitter:title", copy.twitterTitle);
   html = replaceMeta(html, "twitter:description", copy.twitterDescription);
+  html = replaceMeta(html, "twitter:image", socialUrl);
 
   if (/<meta name="pv:release-phase"/.test(html)) {
     html = replaceMeta(html, "pv:release-phase", phase);
@@ -270,7 +291,7 @@ let changedFiles = 0;
 for (const language of Object.values(languages)) {
   const filePath = path.join(siteRoot, ...language.file.split("/"));
   const original = fs.readFileSync(filePath, "utf8");
-  const updated = updatePage(original, language.phases[phase]);
+  const updated = updatePage(original, language.phases[phase], language.socialAlt);
   if (updated !== original) {
     fs.writeFileSync(filePath, updated, "utf8");
     changedFiles += 1;

@@ -18,7 +18,7 @@ Update the featured release and current-chapter sections in each language homepa
 
 The homepage campaign labels change automatically in the visitor's browser on 31 July and 7 August 2026. From 7 August, the script also moves the Transience section directly below the hero so the EP becomes the primary action while Mountain Day remains its doorway.
 
-The GitHub Action in `.github/workflows/release-state.yml` also updates the static titles, search descriptions, social preview copy and no-JavaScript fallback wording. It runs shortly after midnight in Bavaria on both release days and commits only if the public release state changed. If GitHub's scheduled run is delayed, open **Actions → Update release state → Run workflow**, leave the phase on `auto`, and run it once.
+The GitHub Action in `.github/workflows/release-state.yml` also updates the static titles, search descriptions, social preview copy and no-JavaScript fallback wording. It uses `images/social-preview-mountain-day.jpg` before and during the single campaign, then switches to `images/social-preview-transience.jpg` for the EP campaign. It runs shortly after midnight in Bavaria on both release days and commits only if the public release state changed. If GitHub's scheduled run is delayed, open **Actions → Update release state → Run workflow**, leave the phase on `auto`, and run it once.
 
 The release-day copy is stored in `scripts/apply-release-phase.mjs`. Keep the English, German and French entries aligned. The fixed local Mountain Day player appears only after the single release time; its play button scrolls to and starts `images/mountain-day-reel.mp4`.
 
@@ -32,7 +32,7 @@ Open `index.html` and `pages/epk.html`. Copy one complete `press-card` and repla
 - Transience EP short: `images/transience-ep-short.mp4`
 - Salzburg live teaser: `images/transience-tour-salzburg-teaser.mp4`
 
-Keep MP4 filenames unchanged unless the matching HTML source is updated too.
+Keep MP4 filenames unchanged unless the matching HTML source is updated too. The shipped website copies are web-optimized H.264/AAC files at 720 × 1280. Preserve the original 1080 × 1920 master exports outside the website repository and make replacements from those masters, not from the compressed web copies.
 
 The homepage live section presents the photographer's Salzburg film as part of the **PRAYZVIBES Street Clips** series and embeds it from YouTube using video ID `a4l_CL8RDBw`. Keep the series name, visible Mind Methaphor attribution, location and accessible video title aligned in `index.html`, `de/index.html` and `fr/index.html`.
 
