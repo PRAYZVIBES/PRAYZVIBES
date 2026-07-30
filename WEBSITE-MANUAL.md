@@ -64,7 +64,7 @@ Use `AUDIENCE-DASHBOARD.md` for the small monthly review. It explains the releas
 
 Mountain Day is the doorway and Transience is the current chapter. Developing work may appear as a quiet notebook note, but it must not compete with those two campaigns.
 
-The compact JUNIPER & PRAYZ bridge belongs directly after the homepage Live section. It links to the shared project's Instagram while the separate website remains in staging, without turning the duo into a PRAYZVIBES navigation category or release campaign. Replace that destination with `https://www.juniperprayz.com/` only after the domain serves the approved JUNIPER & PRAYZ website. Keep `images/juniper-prayz-duo.jpg` and `images/juniper-prayz-wild-halo.svg` aligned with the approved JUNIPER & PRAYZ identity, and update all three language versions together.
+The compact JUNIPER & PRAYZ crossover belongs directly after the homepage Live section. It links to `https://www.juniperprayz.com/` and borrows the shared project's Wild Halo, coral accent and “Wild roots / open roads” language without turning the duo into a PRAYZVIBES navigation category or release campaign. Keep `images/juniper-prayz-duo.jpg` and `images/juniper-prayz-wild-halo.svg` aligned with the approved JUNIPER & PRAYZ identity, and update all three language versions together.
 
 ### Protect the functional baseline
 
