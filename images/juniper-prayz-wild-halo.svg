@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">JUNIPER &amp; PRAYZ Wild Halo light mark</title>
+  <desc id="desc">Light-on-dark juniper sprig, interlocking ampersand and three open sound halos.</desc>
+  <g fill="none" stroke="#F3E9D2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M168 426C204 450 258 439 292 404C327 368 325 320 294 291C273 271 238 256 218 233C190 202 199 159 232 143C265 127 305 145 307 181C309 211 286 234 256 253C224 273 197 300 203 336C210 375 253 395 289 379C315 368 335 345 346 321" stroke-width="15"/>
+    <path d="M167 426C143 418 119 401 102 378" stroke-width="15"/>
+    <path d="M123 399C101 395 86 384 77 368C96 366 114 375 123 399Z" stroke-width="10"/>
+    <path d="M103 379C88 363 83 345 88 328C105 338 112 356 103 379Z" stroke-width="10"/>
+    <path d="M139 413C120 420 104 418 90 408C105 398 124 399 139 413Z" stroke-width="10"/>
+    <path d="M302 171C306 145 290 126 269 112C253 101 248 87 254 73" stroke-width="15"/>
+    <path d="M190 132A72 72 0 0 1 322 132" stroke-width="13"/>
+    <path d="M158 113A108 108 0 0 1 354 113" stroke-width="13"/>
+    <path d="M126 93A145 145 0 0 1 386 93" stroke-width="13"/>
+  </g>
+  <circle cx="257" cy="253" r="10" fill="#D2B465"/>
+</svg>
