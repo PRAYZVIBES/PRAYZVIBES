@@ -24,7 +24,8 @@
   };
   const preferredLanguage = getStoredLanguage() || getBrowserLanguage();
   const preferredLink = document.querySelector(`[data-language-choice="${preferredLanguage}"]`);
-  if (preferredLanguage !== currentLanguage && preferredLink instanceof HTMLAnchorElement) {
+  const isDefaultEntry = window.location.pathname === "/";
+  if (isDefaultEntry && preferredLanguage !== currentLanguage && preferredLink instanceof HTMLAnchorElement) {
     const destination = new URL(preferredLink.href, window.location.href);
     destination.search = window.location.search;
     destination.hash = window.location.hash;
@@ -331,10 +332,28 @@
   const storeExitContinue = storeExitDialog?.querySelector("[data-store-exit-continue]");
   let storeExitLastFocused = null;
   const storeDestinations = [
-    { matches: (host) => host.endsWith("bandcamp.com"), name: "Bandcamp", purpose: "music and digital artwork" },
-    { matches: (host) => host === "elasticstage.com" || host.endsWith(".elasticstage.com"), name: "ElasticStage", purpose: "CD and vinyl editions" },
-    { matches: (host) => host === "prayzvibes-shop.fourthwall.com", name: "Fourthwall", purpose: "PRAYZVIBES merchandise" }
+    { matches: (host) => host.endsWith("bandcamp.com"), name: "Bandcamp", purpose: "digital" },
+    { matches: (host) => host === "elasticstage.com" || host.endsWith(".elasticstage.com"), name: "ElasticStage", purpose: "physical" },
+    { matches: (host) => host === "prayzvibes-shop.fourthwall.com", name: "Fourthwall", purpose: "merch" }
   ];
+  const storeMessages = {
+    en: {
+      purposes: { digital: "music and digital artwork", physical: "CD and vinyl editions", merch: "PRAYZVIBES merchandise" },
+      message: (name, purpose) => `You're leaving prayzvibes.com for ${name}, the official partner for ${purpose}. It will open in a new tab.`,
+      continue: (name) => `Continue to ${name} ↗`
+    },
+    de: {
+      purposes: { digital: "Musik und digitale Artworks", physical: "CD- und Vinyl-Ausgaben", merch: "PRAYZVIBES-Merchandise" },
+      message: (name, purpose) => `Du verlässt prayzvibes.com und öffnest ${name}, den offiziellen Partner für ${purpose}. Der Shop öffnet sich in einem neuen Tab.`,
+      continue: (name) => `Weiter zu ${name} ↗`
+    },
+    fr: {
+      purposes: { digital: "la musique et les visuels numériques", physical: "les éditions CD et vinyle", merch: "le merchandising PRAYZVIBES" },
+      message: (name, purpose) => `Vous quittez prayzvibes.com pour ${name}, le partenaire officiel pour ${purpose}. La boutique s'ouvrira dans un nouvel onglet.`,
+      continue: (name) => `Continuer vers ${name} ↗`
+    }
+  };
+  const storeMessage = storeMessages[currentLanguage] || storeMessages.en;
 
   const closeStoreExit = () => {
     if (!storeExitDialog) return;
@@ -353,9 +372,9 @@
         event.preventDefault();
         event.stopPropagation();
         storeExitLastFocused = link;
-        storeExitCopy.textContent = `You’re leaving prayzvibes.com for ${destination.name}, the official partner for ${destination.purpose}. It will open in a new tab.`;
+        storeExitCopy.textContent = storeMessage.message(destination.name, storeMessage.purposes[destination.purpose]);
         storeExitContinue.href = destinationUrl.href;
-        storeExitContinue.textContent = `Continue to ${destination.name} ↗`;
+        storeExitContinue.textContent = storeMessage.continue(destination.name);
         if (typeof storeExitDialog.showModal === "function") storeExitDialog.showModal();
         else storeExitDialog.setAttribute("open", "");
       });
