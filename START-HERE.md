@@ -1,14 +1,13 @@
-# PRAYZVIBES — START HERE 🎸
+# PRAYZVIBES — FINAL LOCAL DRAFT
 
-The website package is complete. Do not rename or move files inside it.
+This is the reviewed website draft. It is intentionally separate from the live GitHub repository.
 
-## Upload in five steps
+## Review first
 
-1. Open the GitHub repository that currently publishes `www.prayzvibes.com`.
-2. Upload **everything inside this folder** to the repository root. Keep the `images`, `icons`, `pages`, `downloads`, `de` and `fr` folders intact.
-3. Commit all files together with the message: `Launch new PRAYZVIBES website`.
-4. Wait a few minutes, then open `https://www.prayzvibes.com/` in a private browser window.
-5. Follow the checklist in `LAUNCH-CHECKLIST.md`.
+1. Open the local preview supplied with this draft.
+2. Review the English, German and French editions on desktop and mobile.
+3. Follow the checks in `LAUNCH-CHECKLIST.md` before any publication decision.
+4. Only after approval should the complete folder replace the website files in the publishing repository.
 
 ## Important
 
@@ -19,5 +18,6 @@ The website package is complete. Do not rename or move files inside it.
 - Keep the `de` and `fr` folders. They contain the complete German and French versions; English remains at the root.
 - The visible EN/DE/FR selector remembers a manual choice. On a first visit, the browser language selects German, French or English without using an IP-location service.
 - Do not publish a Meta Pixel yet. Add it immediately after launch only after the Pixel ID exists and the privacy setup is updated.
+- `STUDIO-REVIEW.md` records the internal design, content and label-readiness gate applied to this draft.
 
-You should not need to edit code during the launch. The guitar may be acoustic; the website is not. 😉
+The live repository has not been changed.

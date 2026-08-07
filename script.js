@@ -220,8 +220,9 @@
   });
 
   releasePreviewButton?.addEventListener("click", () => {
-    const reelSection = document.querySelector("#mountain-day-reel");
-    const reelVideo = reelSection?.querySelector("video");
+    const reelSection = document.querySelector("#reels");
+    const reelVideo = [...(reelSection?.querySelectorAll("video") || [])]
+      .find((video) => video.querySelector('source[src*="mountain-day-reel"]'));
     if (!reelSection || !reelVideo) return;
     trackEvent("preview_play", { release_title: "Mountain Day", campaign_phase: campaignPhase });
     reelSection.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -229,6 +230,20 @@
     reelVideo.currentTime = 0;
     const playback = reelVideo.play();
     if (playback?.catch) playback.catch(() => {});
+  });
+
+  const localReels = [...document.querySelectorAll(".reel-card__video")];
+  localReels.forEach((video) => {
+    video.addEventListener("play", () => {
+      localReels.forEach((otherVideo) => {
+        if (otherVideo !== video && !otherVideo.paused) otherVideo.pause();
+      });
+      const card = video.closest(".reel-card");
+      trackEvent("reel_play", {
+        reel_title: card?.querySelector("h3")?.textContent?.trim() || "",
+        reel_position: localReels.indexOf(video) + 1
+      });
+    });
   });
 
   const videoBlocks = document.querySelectorAll("[data-video-id]");

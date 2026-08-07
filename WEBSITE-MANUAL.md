@@ -16,11 +16,7 @@ Open `pages/live.html`, `de/pages/live.html` and `fr/pages/live.html`. Add the r
 
 Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html` and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
 
-The homepage campaign labels change automatically in the visitor's browser on 31 July and 7 August 2026. From 7 August, the script also moves the Transience section directly below the hero so the EP becomes the primary action while Mountain Day remains its doorway.
-
-The GitHub Action in `.github/workflows/release-state.yml` also updates the static titles, search descriptions, social preview copy and no-JavaScript fallback wording. It uses `images/social-preview-mountain-day.jpg` before and during the single campaign, then switches to `images/social-preview-transience.jpg` for the EP campaign. It runs shortly after midnight in Bavaria on both release days and commits only if the public release state changed. If GitHub's scheduled run is delayed, open **Actions → Update release state → Run workflow**, leave the phase on `auto`, and run it once.
-
-The release-day copy is stored in `scripts/apply-release-phase.mjs`. Keep the English, German and French entries aligned. The fixed local Mountain Day player appears only after the single release time; its play button scrolls to and starts `images/mountain-day-reel.mp4`.
+The website now has a permanent post-release state. Transience is the current chapter; Mountain Day remains its doorway. When the next release arrives, replace the visible copy and metadata deliberately in all three languages rather than reactivating the retired 2026 pre-release scheduler.
 
 ### Add press coverage
 
@@ -64,7 +60,6 @@ Use `AUDIENCE-DASHBOARD.md` for the small monthly review. It explains the releas
 
 Mountain Day is the doorway and Transience is the current chapter. Developing work may appear as a quiet notebook note, but it must not compete with those two campaigns.
 
-The compact JUNIPER & PRAYZ crossover belongs directly after the homepage Live section. It links to `https://www.juniperprayz.com/` and borrows the shared project's Wild Halo, coral accent and “Wild roots / open roads” language without turning the duo into a PRAYZVIBES navigation category or release campaign. Keep `images/juniper-prayz-duo.jpg` and `images/juniper-prayz-wild-halo.svg` aligned with the approved JUNIPER & PRAYZ identity, and update all three language versions together.
 
 ### Protect the functional baseline
 

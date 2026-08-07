@@ -14,7 +14,7 @@ Check each box after the GitHub upload.
 - [ ] Mobile menu words are bright and readable on every page
 - [ ] No heading is clipped and there is no sideways scrolling
 - [ ] PRAYZVIBES wordmarks, social icons and the Transience artwork are visible
-- [ ] Mountain Day pre-save and Bandcamp buttons work
+- [ ] Transience listening and Bandcamp buttons work
 - [ ] Mountain Day short loads and plays
 - [ ] Transience Bandcamp, EP short and physical-edition links work
 - [ ] All four Transience track covers open Bandcamp and all-platform links
