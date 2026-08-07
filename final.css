@@ -105,6 +105,16 @@ body[data-page="home"] .pv-release h2 { margin: 24px 0 18px; color: var(--pv-ink
 body[data-page="home"] .pv-shift h2 { margin: 32px 0 28px; font-family: var(--pv-display); font-size: clamp(4rem, 7.5vw, 8.2rem); line-height: .84; letter-spacing: -.065em; }
 .pv-shift__copy > p:not(.pv-kicker) { max-width: 680px; margin-bottom: 28px; color: rgba(51,33,22,.76); font-size: clamp(1.4rem, 2vw, 2rem); font-weight: 650; }
 .pv-shift__copy > span { font-size: .8rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.pv-review-quote { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(190px, .28fr) minmax(0, 1fr) auto; gap: clamp(30px, 4vw, 72px); align-items: center; margin: 0; padding: clamp(48px, 5.5vw, 88px) clamp(24px, 4.5vw, 72px); background: var(--pv-brown); color: var(--pv-cream); }
+.pv-review-quote figcaption { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin: 0; }
+.pv-review-quote__label { color: var(--pv-gold); font-size: .82rem; font-weight: 900; letter-spacing: .15em; text-transform: uppercase; }
+.pv-review-quote figcaption a { display: inline-flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 44px; color: var(--pv-cream); }
+.pv-review-quote cite { font-size: .95rem; font-style: normal; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.pv-review-quote figcaption a span { color: rgba(255,255,255,.65); font-size: .82rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.pv-review-quote figcaption a:hover span { color: var(--pv-gold); }
+.pv-review-quote blockquote { max-width: 30ch; margin: 0; color: var(--pv-cream); font-family: var(--pv-display); font-size: clamp(2.35rem, 4.4vw, 4.9rem); font-weight: 900; line-height: .94; letter-spacing: -.055em; }
+.pv-review-quote > .pv-button { min-width: 230px; }
+.pv-review-quote a:focus-visible { outline: 3px solid var(--pv-gold); outline-offset: 5px; }
 .pv-shift__image { min-height: 640px; }
 .pv-shift__image img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -244,6 +254,11 @@ body[data-page="home"] .pv-stay h2 { max-width: 1080px; margin: 26px auto 0; fon
   .site-header .header-cta { display: none; }
 }
 
+@media (max-width: 1100px) {
+  .pv-review-quote { grid-template-columns: 1fr; gap: 32px; padding: 70px 24px; }
+  .pv-review-quote > .pv-button { width: max-content; }
+}
+
 @media (max-width: 900px) {
   html { font-size: 17px; }
   .container { width: min(calc(100% - 38px), var(--container)); }
@@ -314,6 +329,9 @@ body[data-page="home"] .pv-stay h2 { max-width: 1080px; margin: 26px auto 0; fon
   .pv-story__copy,
   .pv-professional__intro,
   .pv-press { padding: 68px 20px; }
+  .pv-review-quote { gap: 28px; padding: 56px 20px; }
+  .pv-review-quote blockquote { font-size: clamp(2rem, 10vw, 3.15rem); }
+  .pv-review-quote > .pv-button { width: 100%; min-width: 0; }
   .pv-tracklist a { min-height: 78px; grid-template-columns: 36px 1fr 24px; gap: 12px; }
   .pv-tracklist strong { font-size: 1.15rem; }
   .pv-films,
