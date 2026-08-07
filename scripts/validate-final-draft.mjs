@@ -51,7 +51,11 @@ for (const homepage of ["index.html", "de/index.html", "fr/index.html"]) {
     if (!new RegExp(`id=["']${id}["']`).test(html)) fail(`${homepage}: missing #${id}`);
   }
   if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${homepage}: expected exactly one h1`);
-  if ((html.match(/<video\b/g) || []).length !== 3) fail(`${homepage}: expected three editorial films`);
+  const editorialFilms = [...html.matchAll(/\bclass=["']([^"']*)["']/g)]
+    .filter((match) => match[1].split(/\s+/).includes("pv-film"));
+  if (editorialFilms.length !== 3) fail(`${homepage}: expected three editorial films`);
+  if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
+  if (!/https:\/\/www\.youtube\.com\/shorts\/8YVRH68o0Rk/.test(html)) fail(`${homepage}: missing Mountain Day YouTube link`);
 }
 
 for (const relative of publishableFiles) {

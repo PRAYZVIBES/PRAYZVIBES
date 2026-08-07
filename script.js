@@ -233,16 +233,18 @@
     if (playback?.catch) playback.catch(() => {});
   });
 
+  const filmCards = [...document.querySelectorAll(".pv-film")];
   const localReels = [...document.querySelectorAll(".reel-card__video")];
   localReels.forEach((video) => {
     video.addEventListener("play", () => {
       localReels.forEach((otherVideo) => {
         if (otherVideo !== video && !otherVideo.paused) otherVideo.pause();
       });
-      const card = video.closest(".reel-card");
+      const card = video.closest(".pv-film, .reel-card");
+      const filmPosition = filmCards.indexOf(card);
       trackEvent("reel_play", {
         reel_title: card?.querySelector("h3")?.textContent?.trim() || "",
-        reel_position: localReels.indexOf(video) + 1
+        reel_position: filmPosition >= 0 ? filmPosition + 1 : localReels.indexOf(video) + 1
       });
     });
   });
@@ -305,6 +307,9 @@
 
   videoBlocks.forEach((block) => {
     block.querySelector(".video-load")?.addEventListener("click", () => {
+      localReels.forEach((video) => {
+        if (!video.paused) video.pause();
+      });
       trackEvent("video_play", {
         video_id: block.dataset.videoId || "",
         video_title: block.dataset.videoTitle || ""
