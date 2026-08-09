@@ -235,8 +235,85 @@
 
   const filmCards = [...document.querySelectorAll(".pv-film")];
   const localReels = [...document.querySelectorAll(".reel-card__video")];
+  const nativePreview = document.querySelector("[data-native-preview]");
+  const nativePreviewToggle = nativePreview?.querySelector("[data-preview-toggle]");
+  const nativePreviewMedia = nativePreview?.querySelector("[data-preview-media]");
+  const nativePreviewSource = nativePreview?.querySelector("[data-preview-source]");
+  const nativePreviewIcon = nativePreview?.querySelector(".pv-quick-preview__icon");
+  const nativePreviewStatus = nativePreview?.querySelector("[data-preview-status]");
+  let nativePreviewLoading = false;
+
+  const setNativePreviewState = (state) => {
+    if (!nativePreview || !nativePreviewToggle) return;
+    const isPlaying = state === "playing";
+    nativePreview.classList.toggle("is-playing", isPlaying);
+    nativePreview.classList.toggle("is-loading", state === "loading");
+    nativePreviewToggle.setAttribute("aria-pressed", String(isPlaying));
+    nativePreviewToggle.setAttribute("aria-busy", String(state === "loading"));
+    nativePreviewToggle.setAttribute("aria-label", isPlaying
+      ? nativePreview.dataset.pauseLabel || "Pause preview"
+      : nativePreview.dataset.playLabel || "Play preview");
+    if (nativePreviewIcon) nativePreviewIcon.textContent = isPlaying ? "\u2016" : "\u25B6";
+    if (nativePreviewStatus) {
+      nativePreviewStatus.textContent = state === "loading"
+        ? nativePreview.dataset.loadingLabel || "Loading preview..."
+        : state === "error"
+          ? nativePreview.dataset.errorLabel || "The preview could not be loaded."
+          : "";
+    }
+  };
+
+  const pauseNativePreview = () => {
+    if (nativePreviewMedia && !nativePreviewMedia.paused) nativePreviewMedia.pause();
+  };
+
+  nativePreviewToggle?.addEventListener("click", async () => {
+    if (!nativePreviewMedia || !nativePreviewSource || nativePreviewLoading) return;
+    if (!nativePreviewMedia.paused) {
+      nativePreviewMedia.pause();
+      return;
+    }
+
+    localReels.forEach((video) => {
+      if (!video.paused) video.pause();
+    });
+
+    if (!nativePreviewSource.src) {
+      const sourcePath = nativePreviewSource.dataset.src;
+      if (!sourcePath) {
+        setNativePreviewState("error");
+        return;
+      }
+      nativePreviewSource.src = sourcePath;
+      nativePreviewMedia.load();
+    }
+
+    nativePreviewLoading = true;
+    setNativePreviewState("loading");
+    try {
+      await nativePreviewMedia.play();
+      trackEvent("preview_play", { release_title: "Mountain Day", preview_format: "native_24_second" });
+    } catch {
+      setNativePreviewState("error");
+    } finally {
+      nativePreviewLoading = false;
+    }
+  });
+
+  nativePreviewMedia?.addEventListener("playing", () => setNativePreviewState("playing"));
+  nativePreviewMedia?.addEventListener("pause", () => setNativePreviewState("paused"));
+  nativePreviewMedia?.addEventListener("ended", () => {
+    nativePreviewMedia.currentTime = 0;
+    setNativePreviewState("paused");
+  });
+  nativePreviewMedia?.addEventListener("error", () => {
+    nativePreviewLoading = false;
+    setNativePreviewState("error");
+  });
+
   localReels.forEach((video) => {
     video.addEventListener("play", () => {
+      pauseNativePreview();
       localReels.forEach((otherVideo) => {
         if (otherVideo !== video && !otherVideo.paused) otherVideo.pause();
       });
@@ -307,6 +384,7 @@
 
   videoBlocks.forEach((block) => {
     block.querySelector(".video-load")?.addEventListener("click", () => {
+      pauseNativePreview();
       localReels.forEach((video) => {
         if (!video.paused) video.pause();
       });
@@ -316,6 +394,10 @@
       });
       loadVideo(block, { autoplay: true });
     });
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) pauseNativePreview();
   });
 
   const brevoForm = document.querySelector("#sib-form");
