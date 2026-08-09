@@ -6,6 +6,8 @@
   const LANGUAGE_KEY = "prayzvibes-language";
   const supportedLanguages = ["en", "de", "fr"];
   const currentLanguage = (document.documentElement.lang || "en").slice(0, 2).toLowerCase();
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const motionBehavior = () => reducedMotionQuery.matches ? "auto" : "smooth";
   const getStoredLanguage = () => {
     try {
       const stored = localStorage.getItem(LANGUAGE_KEY);
@@ -78,6 +80,11 @@
 
   menuToggle?.addEventListener("click", () => setMenu(menuToggle.getAttribute("aria-expanded") !== "true"));
   mobileMenu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
+  const desktopNavigationQuery = window.matchMedia("(min-width: 1081px)");
+  const closeMenuAtDesktop = (event) => {
+    if (event.matches && menuToggle?.getAttribute("aria-expanded") === "true") setMenu(false);
+  };
+  desktopNavigationQuery.addEventListener?.("change", closeMenuAtDesktop);
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && menuToggle?.getAttribute("aria-expanded") === "true") setMenu(false);
     if (event.key !== "Tab" || menuToggle?.getAttribute("aria-expanded") !== "true" || !mobileMenu) return;
@@ -226,7 +233,7 @@
       .find((video) => video.querySelector('source[src*="mountain-day-reel"]'));
     if (!reelSection || !reelVideo) return;
     trackEvent("preview_play", { release_title: "Mountain Day", campaign_phase: campaignPhase });
-    reelSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    reelSection.scrollIntoView({ behavior: motionBehavior(), block: "center" });
     reelVideo.muted = false;
     reelVideo.currentTime = 0;
     const playback = reelVideo.play();
@@ -234,6 +241,7 @@
   });
 
   const filmCards = [...document.querySelectorAll(".pv-film")];
+  const filmRail = document.querySelector(".pv-film-grid");
   const localReels = [...document.querySelectorAll(".reel-card__video")];
   const nativePreview = document.querySelector("[data-native-preview]");
   const nativePreviewToggle = nativePreview?.querySelector("[data-preview-toggle]");
@@ -242,6 +250,32 @@
   const nativePreviewIcon = nativePreview?.querySelector(".pv-quick-preview__icon");
   const nativePreviewStatus = nativePreview?.querySelector("[data-preview-status]");
   let nativePreviewLoading = false;
+
+  if (filmRail && filmCards.length > 1) {
+    const railLabels = {
+      en: "PRAYZVIBES films. Use the left and right arrow keys to move between films.",
+      de: "PRAYZVIBES-Filme. Mit der linken und rechten Pfeiltaste zwischen den Filmen wechseln.",
+      fr: "Films PRAYZVIBES. Utilisez les flèches gauche et droite pour passer d’un film à l’autre."
+    };
+    const mobileFilmRailQuery = window.matchMedia("(max-width: 900px)");
+    const updateFilmRailAccess = () => {
+      filmRail.setAttribute("role", "region");
+      filmRail.setAttribute("aria-label", railLabels[currentLanguage] || railLabels.en);
+      if (mobileFilmRailQuery.matches) filmRail.tabIndex = 0;
+      else filmRail.removeAttribute("tabindex");
+    };
+    updateFilmRailAccess();
+    mobileFilmRailQuery.addEventListener?.("change", updateFilmRailAccess);
+    filmRail.addEventListener("keydown", (event) => {
+      if (event.target !== filmRail || !mobileFilmRailQuery.matches || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      const firstCard = filmCards[0];
+      const railStyles = window.getComputedStyle(filmRail);
+      const gap = Number.parseFloat(railStyles.columnGap || railStyles.gap) || 0;
+      const distance = (firstCard?.getBoundingClientRect().width || filmRail.clientWidth * .72) + gap;
+      event.preventDefault();
+      filmRail.scrollBy({ left: event.key === "ArrowRight" ? distance : -distance, behavior: motionBehavior() });
+    });
+  }
 
   const setNativePreviewState = (state) => {
     if (!nativePreview || !nativePreviewToggle) return;
