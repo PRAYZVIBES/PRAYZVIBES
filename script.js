@@ -490,6 +490,13 @@
       if (!destination) return;
       link.addEventListener("click", (event) => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (link.closest("#shop")) {
+          trackEvent("shop_click", {
+            link_url: destinationUrl.href,
+            link_text: link.textContent.trim().slice(0, 100),
+            shop_route: link.dataset.merchRoute || "all"
+          });
+        }
         event.preventDefault();
         event.stopPropagation();
         storeExitLastFocused = link;

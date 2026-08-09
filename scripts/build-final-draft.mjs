@@ -2,12 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+throw new Error(
+  "Retired legacy generator: maintain the audited multilingual pages directly and run scripts/validate-final-draft.mjs before publishing."
+);
+
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const languages = {
   en: {
     file: "index.html", media: "", lang: "en",
-    kicker: "Street-born indie folk · Franconian Switzerland",
+    kicker: "Street-shaped indie folk · Franconian Switzerland",
     hook: "Songs from Bavaria.<br>Made to travel.",
     releaseLine: "Transience · EP · out now",
     listen: "Listen to Transience", films: "Watch the films",
@@ -36,7 +40,7 @@ const languages = {
   },
   de: {
     file: "de/index.html", media: "../", lang: "de",
-    kicker: "Indie-Folk von der Straße · Fränkische Schweiz",
+    kicker: "Indie-Folk, geprägt von der Straße · Fränkische Schweiz",
     hook: "Songs aus Bayern.<br>Für unterwegs.",
     releaseLine: "Transience · EP · jetzt draußen",
     listen: "Transience anhören", films: "Filme ansehen",
@@ -65,7 +69,7 @@ const languages = {
   },
   fr: {
     file: "fr/index.html", media: "../", lang: "fr",
-    kicker: "Indie folk né dans la rue · Suisse franconienne",
+    kicker: "Indie folk façonné au contact de la rue · Suisse franconienne",
     hook: "Des chansons de Bavière.<br>Faites pour voyager.",
     releaseLine: "Transience · EP · disponible",
     listen: "Écouter Transience", films: "Voir les films",
@@ -147,7 +151,7 @@ function createMain(c, newsletter) {
 
     <section class="pv-films" id="films" aria-labelledby="pv-films-title"><header class="pv-heading reveal"><p class="pv-kicker">${c.filmsLabel}</p><h2 id="pv-films-title">${c.filmsTitle}</h2><p>${c.filmsCopy}</p></header><div class="pv-film-grid">${filmCards}</div></section>
 
-    <section class="pv-live" id="live-preview" aria-labelledby="pv-live-title"><div class="pv-live__media reveal"><div class="video-consent" data-video-id="a4l_CL8RDBw" data-video-title="PRAYZVIBES Street Clips in Salzburg"><img src="${image("artist-live-forest.jpg")}" alt="PRAYZVIBES performing outdoors"><div class="video-shade" aria-hidden="true"></div><button class="video-load" type="button"><span aria-hidden="true">▶</span> ${c.watchSalzburg}</button></div></div><div class="pv-live__copy reveal"><p class="pv-kicker">${c.liveLabel}</p><h2 id="pv-live-title">${c.liveTitle}</h2><p>${c.liveCopy}</p><a class="pv-button pv-button--light" href="${page("live")}">${c.liveCta}</a></div></section>
+    <section class="pv-live" id="live-preview" aria-labelledby="pv-live-title"><div class="pv-live__media reveal"><div class="video-consent" data-video-id="wAsCW6AL5iY" data-video-title="TRANSIENCE TOUR — Chapter 1: Salzburg"><img src="${image("artist-live-forest.jpg")}" alt="PRAYZVIBES seated outdoors with an acoustic guitar"><div class="video-shade" aria-hidden="true"></div><button class="video-load" type="button"><span aria-hidden="true">▶</span> ${c.watchSalzburg}</button></div></div><div class="pv-live__copy reveal"><p class="pv-kicker">${c.liveLabel}</p><h2 id="pv-live-title">${c.liveTitle}</h2><p>${c.liveCopy}</p><a class="pv-button pv-button--light" href="${page("live")}">${c.liveCta}</a></div></section>
 
     <section class="pv-story" id="about" aria-labelledby="pv-story-title"><div class="pv-story__copy reveal"><p class="pv-kicker">${c.storyLabel}</p><h2 id="pv-story-title">${c.storyTitle}</h2><p>${c.storyCopy}</p><a class="pv-text-link pv-text-link--dark" href="${page("about")}">${c.storyCta} <span>→</span></a></div><div class="pv-story__portrait reveal"><img src="${image("artist-cornfield-about.jpg")}" alt="Portrait of PRAYZVIBES with acoustic guitar"></div><dl class="pv-facts">${c.facts.map(([term, value]) => `<div><dt>${term}</dt><dd>${value}</dd></div>`).join("")}</dl></section>
 

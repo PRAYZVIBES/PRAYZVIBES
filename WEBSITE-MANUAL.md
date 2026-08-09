@@ -6,6 +6,8 @@
 
 English pages live at the root and in `pages`. German duplicates live in `de` and French duplicates in `fr`. When wording, dates or releases change, update the equivalent page in all three locations. Keep each EN/DE/FR language-switch link pointed at the same page in the other languages.
 
+The legacy `scripts/build-final-draft.mjs` generator is retired because it no longer represents the audited site. Maintain the multilingual pages directly and run `scripts/validate-final-draft.mjs` before every publication.
+
 The first visit uses the browser language: German opens `de`, French opens `fr`, and everything else stays in English. A manual choice is saved in the browser under `prayzvibes-language` and takes priority from then on.
 
 ### Add a confirmed live date
@@ -30,7 +32,7 @@ Open `index.html` and `pages/epk.html`. Copy one complete `press-card` and repla
 
 Keep MP4 filenames unchanged unless the matching HTML source is updated too. The shipped website copies are web-optimized H.264/AAC files at 720 × 1280. Preserve the original 1080 × 1920 master exports outside the website repository and make replacements from those masters, not from the compressed web copies.
 
-The homepage live section presents the photographer's Salzburg film as part of the **PRAYZVIBES Street Clips** series and embeds it from YouTube using video ID `a4l_CL8RDBw`. Keep the series name, visible Mind Methaphor attribution, location and accessible video title aligned in `index.html`, `de/index.html` and `fr/index.html`.
+The homepage live section embeds the official **TRANSIENCE TOUR — Chapter 1: Salzburg** short from the PRAYZVIBES YouTube channel using video ID `wAsCW6AL5iY`. Keep the Salzburg location and accessible video title aligned in `index.html`, `de/index.html` and `fr/index.html`.
 
 ### Update PRAYZ REMIX
 
