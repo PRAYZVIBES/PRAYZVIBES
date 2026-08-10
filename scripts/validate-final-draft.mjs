@@ -37,6 +37,35 @@ for (const htmlFile of htmlFiles) {
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
   if (duplicates.length) fail(`${htmlFile}: duplicate IDs: ${[...new Set(duplicates)].join(", ")}`);
 
+  for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
+    if (!/\salt=["'][^"']*["']/i.test(image[0])) fail(`${htmlFile}: image without alt text`);
+  }
+
+  for (const anchor of html.matchAll(/<a\b[^>]*\starget=["']_blank["'][^>]*>/gi)) {
+    const rel = anchor[0].match(/\srel=["']([^"']+)["']/i)?.[1] ?? "";
+    if (!rel.split(/\s+/).includes("noopener")) fail(`${htmlFile}: target=_blank link without noopener`);
+  }
+
+  for (const aria of html.matchAll(/\s(?:aria-labelledby|aria-describedby|aria-controls)=["']([^"']+)["']/gi)) {
+    for (const id of aria[1].trim().split(/\s+/)) {
+      if (id && !ids.includes(id)) fail(`${htmlFile}: unresolved ARIA reference #${id}`);
+    }
+  }
+
+  for (const link of html.matchAll(/\shref=["']([^"']*#([^"']+))["']/gi)) {
+    const reference = link[1];
+    if (/^(?:https?:|mailto:|tel:|javascript:)/i.test(reference)) continue;
+    const [filePart, rawFragment] = reference.split("#", 2);
+    const target = filePart ? resolveReference(htmlFile, filePart) : absolute;
+    if (!target || !fs.existsSync(target) || path.extname(target).toLowerCase() !== ".html") continue;
+    let fragment = rawFragment;
+    try { fragment = decodeURIComponent(rawFragment); } catch {}
+    const targetHtml = fs.readFileSync(target, "utf8");
+    if (!new RegExp(`\\sid=["']${fragment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`).test(targetHtml)) {
+      fail(`${htmlFile}: unresolved fragment ${reference}`);
+    }
+  }
+
   for (const match of html.matchAll(/\s(?:src|href|poster)=["']([^"']+)["']/gi)) {
     const target = resolveReference(htmlFile, match[1]);
     if (!target) continue;
@@ -45,17 +74,34 @@ for (const htmlFile of htmlFiles) {
   }
 }
 
-for (const homepage of ["index.html", "de/index.html", "fr/index.html"]) {
+const homepageLocales = new Map([
+  ["index.html", "en"],
+  ["de/index.html", "de"],
+  ["fr/index.html", "fr"],
+]);
+
+for (const [homepage, locale] of homepageLocales) {
   const html = fs.readFileSync(path.join(root, homepage), "utf8");
-  for (const id of ["music", "films", "live-preview", "about", "press", "listen", "worlds", "shop", "support"]) {
+  for (const id of ["watch", "music", "live-preview", "about", "epk"]) {
     if (!new RegExp(`id=["']${id}["']`).test(html)) fail(`${homepage}: missing #${id}`);
   }
   if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${homepage}: expected exactly one h1`);
   const editorialFilms = [...html.matchAll(/\bclass=["']([^"']*)["']/g)]
     .filter((match) => match[1].split(/\s+/).includes("pv-film"));
-  if (editorialFilms.length !== 3) fail(`${homepage}: expected three editorial films`);
+  if (editorialFilms.length !== 0) fail(`${homepage}: legacy three-film rail is still present`);
+  if (!/class=["'][^"']*pv-mountain\b/.test(html)) fail(`${homepage}: missing fan-first Mountain Day chapter`);
+  if (!/class=["'][^"']*pv-story--fan-first\b/.test(html)) fail(`${homepage}: missing fan-first story chapter`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
-  if (!/https:\/\/www\.youtube\.com\/shorts\/8YVRH68o0Rk/.test(html)) fail(`${homepage}: missing Mountain Day YouTube link`);
+  if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster`);
+  if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
+  if (!/artist-live-salzburg-13s55-e11f9305ea66\.jpg/.test(html)) fail(`${homepage}: missing authentic Salzburg poster`);
+  if (!/id=["']sib-form["']/.test(html)) fail(`${homepage}: missing Brevo form`);
+  if (!/name=["']EMAIL["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter email field`);
+  if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
+  if (!/name=["']email_address_check["']/.test(html)) fail(`${homepage}: missing Brevo honeypot`);
+  if (!new RegExp(`name=["']locale["']\\s+value=["']${locale}["']`).test(html)) fail(`${homepage}: wrong Brevo locale`);
+  if (/TJPL|pv-explore|pv-merch|first-response-coin/i.test(html)) fail(`${homepage}: legacy campaign, utility or symbolic-coin content remains`);
+  if (/\b(?:Andreas|engineer|engineering|Ingenieur|Energietechnik|ingénieur|ingénierie)\b/i.test(html)) fail(`${homepage}: private name or engineering biography remains`);
 }
 
 for (const relative of publishableFiles) {
@@ -80,6 +126,19 @@ const closeBraces = (css.match(/}/g) || []).length;
 if (openBraces !== closeBraces) fail(`final.css: brace mismatch ${openBraces}/${closeBraces}`);
 if (!/html\s*{\s*font-size:\s*18px/.test(css)) fail("final.css: desktop base type is below the agreed size");
 if (!/@media \(max-width: 640px\)[\s\S]*?html\s*{\s*font-size:\s*16\.5px/.test(css)) fail("final.css: mobile base type safeguard is missing");
+
+const renderedPages = htmlFiles
+  .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
+  .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
+const assetVersions = new Set();
+for (const [file, html] of renderedPages) {
+  for (const match of html.matchAll(/(?:final\.css|script\.js)\?v=([^"']+)/g)) assetVersions.add(match[1]);
+  if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
+  if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
+}
+if (assetVersions.size !== 1 || !assetVersions.has("20260810-fan-first")) {
+  fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
+}
 
 if (errors.length) {
   console.error(`Validation failed with ${errors.length} issue(s):`);
