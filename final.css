@@ -416,8 +416,9 @@ body[data-page="home"] .pv-heading h2 { margin: 0; font-family: var(--pv-display
 .pv-film__media .video-consent > img,
 .pv-film__media .video-consent iframe { display: block; width: 100%; height: 100%; }
 .pv-film__media .video-consent > img { object-fit: cover; object-position: center; }
-.pv-film__media .video-consent > img.pv-film__cover-art { object-fit: contain; background: #2f351f; }
 .pv-film__media .video-load { max-width: calc(100% - 36px); justify-content: center; text-align: center; white-space: normal; }
+.pv-film[data-film="mountain-day"] .video-load { inset: auto auto 28px 50%; transform: translateX(-50%); }
+.pv-film[data-film="mountain-day"] .video-load:hover { transform: translate(-50%, -3px); }
 .pv-film__media > span { position: absolute; z-index: 2; top: 14px; right: 14px; display: grid; width: 42px; height: 42px; place-items: center; background: var(--pv-gold); color: var(--pv-brown); font-size: max(.72rem, 12px); font-weight: 800; }
 .pv-film > p { margin: 20px 0 5px; color: var(--pv-gold); font-size: max(.74rem, 12px); font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .pv-film h3 { margin: 0; font-family: var(--pv-display); font-size: clamp(2.25rem, 3.5vw, 3.8rem); line-height: .94; letter-spacing: -.035em; }
