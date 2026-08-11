@@ -147,7 +147,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260811-living-charge")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260811-merch-visuals")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
