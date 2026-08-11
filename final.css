@@ -1520,6 +1520,76 @@ body[data-page="home"] .pv-mountain h2 {
 }
 .pv-coin-memory > p:last-child { max-width: 58ch; margin: 0; color: rgba(51,33,22,.82); font-size: clamp(1.05rem, 1.3vw, 1.27rem); line-height: 1.55; }
 
+.pv-shop-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(420px, .92fr);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(211,179,95,.13), transparent 34%),
+    var(--pv-merch-olive);
+  color: var(--pv-cream);
+}
+.pv-shop-feature__intro {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(58px, 6vw, 96px);
+}
+.pv-shop-feature__intro .pv-kicker { color: var(--pv-merch-gold); }
+body[data-page="home"] .pv-shop-feature h2 {
+  max-width: 12ch;
+  margin: 24px 0 26px;
+  font-family: var(--pv-body);
+  font-size: clamp(2.8rem, 4.5vw, 5.15rem);
+  font-weight: 780;
+  line-height: .94;
+  letter-spacing: -.045em;
+  text-transform: none;
+  text-wrap: balance;
+}
+.pv-shop-feature__intro > p:not(.pv-kicker) {
+  max-width: 55ch;
+  margin: 0;
+  color: rgba(255,255,255,.72);
+  font-size: clamp(1.05rem, 1.25vw, 1.23rem);
+}
+.pv-shop-feature__intro .pv-button { margin-top: 30px; max-width: 100%; }
+.pv-shop-feature__signals {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  margin: 0;
+  padding: clamp(44px, 5vw, 78px);
+  border-left: 1px solid rgba(255,255,255,.18);
+  list-style: none;
+}
+.pv-shop-feature__signals li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+  min-width: 0;
+  min-height: 92px;
+  align-items: center;
+  border-top: 1px solid rgba(255,255,255,.2);
+}
+.pv-shop-feature__signals li:last-child { border-bottom: 1px solid rgba(255,255,255,.2); }
+.pv-shop-feature__signals span {
+  color: var(--pv-merch-gold);
+  font-size: max(.72rem, 12px);
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+.pv-shop-feature__signals strong {
+  min-width: 0;
+  font-family: var(--pv-display);
+  font-size: clamp(1.25rem, 2vw, 2.15rem);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
 .pv-home--fan-first .pv-professional--compact { grid-template-columns: minmax(0, 1.05fr) minmax(390px, .95fr); }
 .pv-home--fan-first .pv-professional--compact .pv-professional__intro { padding-block: clamp(48px, 5vw, 72px); }
 .pv-home--fan-first .pv-professional--compact h2 { max-width: 12ch; font-size: clamp(2.7rem, 4vw, 4.8rem); }
@@ -1607,6 +1677,8 @@ body[data-page="home"] .pv-next-release h2 {
   .pv-home--fan-first .pv-story--fan-first { display: block; }
   .pv-home--fan-first .pv-story--fan-first .pv-story__portrait { min-height: 54svh; }
   .pv-coin-memory { grid-template-columns: 1fr; gap: 20px; }
+  .pv-shop-feature { grid-template-columns: 1fr; min-height: 0; }
+  .pv-shop-feature__signals { border-top: 1px solid rgba(255,255,255,.18); border-left: 0; }
   .pv-next-release { grid-template-columns: 1fr; }
 }
 
@@ -1615,6 +1687,9 @@ body[data-page="home"] .pv-next-release h2 {
 }
 
 @media (max-width: 640px) {
+  .mobile-menu { align-items: start; overflow-y: auto; padding: 92px 18px 24px; }
+  .mobile-menu nav { margin: auto; }
+  .mobile-menu a { padding-block: 5px; font-size: clamp(2rem, 9vw, 2.8rem); }
   .pv-home--fan-first .pv-hero--fan-first,
   .pv-home--fan-first .pv-hero__content { min-height: 900px; }
   .pv-home--fan-first .pv-hero__image { height: 50%; object-position: 50% 29%; }
@@ -1637,6 +1712,13 @@ body[data-page="home"] .pv-next-release h2 {
   .pv-home--fan-first .pv-story--fan-first .pv-story__portrait { min-height: 48svh; }
   .pv-coin-memory { padding: 48px 20px; }
   .pv-coin-memory h3 { font-size: clamp(2rem, 10.5vw, 2.9rem); }
+  .pv-shop-feature__intro { padding: 54px 20px; }
+  body[data-page="home"] .pv-shop-feature h2 { font-size: clamp(2.5rem, 11.4vw, 3.55rem); }
+  .pv-shop-feature__intro > p:not(.pv-kicker) { font-size: 1.08rem; }
+  .pv-shop-feature__intro .pv-button { width: 100%; }
+  .pv-shop-feature__signals { padding: 34px 20px 50px; }
+  .pv-shop-feature__signals li { grid-template-columns: 38px minmax(0, 1fr); min-height: 76px; }
+  .pv-shop-feature__signals strong { font-size: clamp(1.18rem, 6.5vw, 1.65rem); }
   .pv-proof-records { padding: 42px 20px; }
   .pv-proof-records a { grid-template-columns: 1fr 22px; gap: 6px 14px; padding-block: 16px; }
   .pv-proof-records span { grid-column: 1; }

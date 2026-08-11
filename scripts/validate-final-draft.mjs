@@ -29,9 +29,14 @@ for (const htmlFile of htmlFiles) {
   const absolute = path.join(root, htmlFile);
   const html = fs.readFileSync(absolute, "utf8");
   const redirect = /http-equiv=["']refresh["']/i.test(html);
+  const normalizedHtmlFile = htmlFile.replaceAll("\\", "/");
 
   if (!redirect && !/final\.css/.test(html)) fail(`${htmlFile}: final.css is missing`);
   if (/studio\.css/.test(html)) fail(`${htmlFile}: stale studio.css reference`);
+  if (!redirect && /^(?:de\/|fr\/)?pages\/.+\.html$/.test(normalizedHtmlFile)) {
+    const shopNavLinks = (html.match(/href=["']\.\.\/index\.html#shop["']/g) || []).length;
+    if (shopNavLinks !== 2) fail(`${htmlFile}: expected Shop in desktop and mobile navigation`);
+  }
 
   const ids = [...html.matchAll(/\sid=["']([^"']+)["']/gi)].map((match) => match[1]);
   const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
@@ -82,7 +87,7 @@ const homepageLocales = new Map([
 
 for (const [homepage, locale] of homepageLocales) {
   const html = fs.readFileSync(path.join(root, homepage), "utf8");
-  for (const id of ["watch", "music", "live-preview", "about", "epk"]) {
+  for (const id of ["watch", "music", "live-preview", "about", "shop", "epk"]) {
     if (!new RegExp(`id=["']${id}["']`).test(html)) fail(`${homepage}: missing #${id}`);
   }
   if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${homepage}: expected exactly one h1`);
@@ -91,6 +96,12 @@ for (const [homepage, locale] of homepageLocales) {
   if (editorialFilms.length !== 0) fail(`${homepage}: legacy three-film rail is still present`);
   if (!/class=["'][^"']*pv-mountain\b/.test(html)) fail(`${homepage}: missing fan-first Mountain Day chapter`);
   if (!/class=["'][^"']*pv-story--fan-first\b/.test(html)) fail(`${homepage}: missing fan-first story chapter`);
+  if ((html.match(/class=["'][^"']*pv-shop-feature\b/g) || []).length !== 1) fail(`${homepage}: expected one Living Charge shop feature`);
+  if ((html.match(/href=["']#shop["']/g) || []).length !== 2) fail(`${homepage}: expected Shop in desktop and mobile navigation`);
+  if (!/href=["']https:\/\/prayzvibes-shop\.fourthwall\.com\/collections\/all["']/.test(html)) fail(`${homepage}: missing verified Living Charge collection link`);
+  for (const signal of ["SEE CLEARLY", "LISTEN DEEPLY", "CREATE RESONANCE", "LIVE CONSCIOUSLY"]) {
+    if (!html.includes(signal)) fail(`${homepage}: missing Living Charge signal ${signal}`);
+  }
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
   if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
@@ -136,7 +147,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260810-fan-first")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260811-living-charge")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
