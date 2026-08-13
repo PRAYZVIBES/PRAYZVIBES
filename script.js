@@ -243,13 +243,72 @@
   const filmCards = [...document.querySelectorAll(".pv-film")];
   const filmRail = document.querySelector(".pv-film-grid");
   const localReels = [...document.querySelectorAll(".reel-card__video")];
+  const videoBlocks = [...document.querySelectorAll("[data-video-id]")];
   const nativePreview = document.querySelector("[data-native-preview]");
   const nativePreviewToggle = nativePreview?.querySelector("[data-preview-toggle]");
   const nativePreviewMedia = nativePreview?.querySelector("[data-preview-media]");
   const nativePreviewSource = nativePreview?.querySelector("[data-preview-source]");
   const nativePreviewIcon = nativePreview?.querySelector(".pv-quick-preview__icon");
   const nativePreviewStatus = nativePreview?.querySelector("[data-preview-status]");
+  const nativePreviewProgress = nativePreview?.querySelector("[data-preview-progress]");
+  const nativePreviewProgressBar = nativePreview?.querySelector("[data-preview-progress-bar]");
+  const nativePreviewTime = nativePreview?.querySelector("[data-preview-time]");
+  const explicitNativePreviewContinue = nativePreview?.querySelector("[data-preview-continue]");
+  const nativePreviewContinue = explicitNativePreviewContinue || nativePreview?.querySelector(".pv-quick-preview__link");
+  const nativePreviewClose = nativePreview?.querySelector("[data-preview-close]");
+  const previewDock = document.querySelector("[data-preview-dock]");
+  const previewDockToggle = previewDock?.querySelector("[data-preview-dock-toggle]");
+  const previewDockClose = previewDock?.querySelector("[data-preview-dock-close]");
+  const previewDockProgress = previewDock?.querySelector("[data-preview-dock-progress]");
+  const previewDockTime = previewDock?.querySelector("[data-preview-dock-time]");
+  const previewDockContinue = previewDock?.querySelector("[data-preview-dock-continue]");
+  const allNativeMedia = [...document.querySelectorAll("video, audio")];
+  const nativeVideos = allNativeMedia.filter((media) => media instanceof HTMLVideoElement && media !== nativePreviewMedia);
+  const previewLabels = {
+    en: { continue: "Continue with the full song", play: "Play preview", pause: "Pause preview" },
+    de: { continue: "Den ganzen Song weiterhören", play: "Hörprobe abspielen", pause: "Hörprobe pausieren" },
+    fr: { continue: "Continuer avec le titre complet", play: "Lire l’extrait", pause: "Mettre l’extrait en pause" }
+  };
+  const activePreviewLabels = previewLabels[currentLanguage] || previewLabels.en;
   let nativePreviewLoading = false;
+  let nativePreviewStarted = false;
+  let nativePreviewCompleted = false;
+  let nativePreviewToggleVisible = true;
+  let previewDockDismissed = false;
+  let previewStartTracked = false;
+  let previewTenSecondsTracked = false;
+  let previewCompleteTracked = false;
+
+  const formatMediaTime = (seconds) => {
+    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+    const rounded = Math.floor(seconds);
+    return `${Math.floor(rounded / 60)}:${String(rounded % 60).padStart(2, "0")}`;
+  };
+
+  const getMediaDetails = (media) => {
+    const container = media.closest("[data-native-video], [data-native-film], section, article, figure") || media.parentElement;
+    const heading = container?.querySelector("h2, h3");
+    const source = media.currentSrc || media.querySelector("source")?.src || "";
+    return {
+      video_title: media.dataset.videoTitle || container?.dataset.videoTitle || container?.dataset.filmTitle || media.getAttribute("aria-label") || heading?.textContent?.trim() || "PRAYZVIBES video",
+      video_id: media.dataset.videoId || container?.dataset.videoId || source.split("/").pop()?.split("?")[0] || "native-video",
+      video_placement: media.dataset.videoPlacement || container?.dataset.videoPlacement || container?.id || "page",
+      video_provider: "native"
+    };
+  };
+
+  const pauseYouTubeFrames = (exceptFrame = null) => {
+    document.querySelectorAll('iframe[src*="youtube-nocookie.com/embed/"]').forEach((frame) => {
+      if (frame === exceptFrame) return;
+      frame.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: "" }), "https://www.youtube-nocookie.com");
+    });
+  };
+
+  const pauseOtherNativeMedia = (activeMedia = null) => {
+    allNativeMedia.forEach((media) => {
+      if (media !== activeMedia && !media.paused) media.pause();
+    });
+  };
 
   if (filmRail && filmCards.length > 1) {
     const railLabels = {
@@ -280,8 +339,10 @@
   const setNativePreviewState = (state) => {
     if (!nativePreview || !nativePreviewToggle) return;
     const isPlaying = state === "playing";
+    nativePreview.dataset.previewState = state;
     nativePreview.classList.toggle("is-playing", isPlaying);
     nativePreview.classList.toggle("is-loading", state === "loading");
+    nativePreview.classList.toggle("is-complete", state === "complete");
     nativePreviewToggle.setAttribute("aria-pressed", String(isPlaying));
     nativePreviewToggle.setAttribute("aria-busy", String(state === "loading"));
     nativePreviewToggle.setAttribute("aria-label", isPlaying
@@ -295,11 +356,90 @@
           ? nativePreview.dataset.errorLabel || "The preview could not be loaded."
           : "";
     }
+    if (previewDockToggle) {
+      previewDockToggle.setAttribute("aria-pressed", String(isPlaying));
+      previewDockToggle.setAttribute("aria-label", isPlaying ? activePreviewLabels.pause : activePreviewLabels.play);
+    }
+  };
+
+  const updatePreviewProgress = () => {
+    if (!nativePreviewMedia || !nativePreview) return;
+    const duration = Number.isFinite(nativePreviewMedia.duration) ? nativePreviewMedia.duration : 0;
+    const currentTime = Number.isFinite(nativePreviewMedia.currentTime) ? nativePreviewMedia.currentTime : 0;
+    const fraction = duration > 0 ? Math.min(1, Math.max(0, currentTime / duration)) : 0;
+    const percentage = Math.round(fraction * 100);
+    nativePreview.dataset.previewProgress = String(percentage);
+    nativePreview.dataset.previewElapsed = String(Math.round(currentTime * 10) / 10);
+    nativePreview.dataset.previewDuration = String(Math.round(duration * 10) / 10);
+    nativePreview.style.setProperty("--preview-progress", `${percentage}%`);
+    nativePreview.style.setProperty("--pv-preview-progress", `${percentage}%`);
+    if (nativePreviewProgressBar) {
+      nativePreviewProgressBar.style.width = `${percentage}%`;
+      nativePreviewProgressBar.style.setProperty("--preview-progress", `${percentage}%`);
+      nativePreviewProgressBar.style.setProperty("--pv-preview-progress", `${percentage}%`);
+    }
+    [nativePreviewProgress, previewDockProgress].forEach((progress) => {
+      if (!progress) return;
+      if (progress instanceof HTMLProgressElement) {
+        progress.max = duration || 100;
+        progress.value = duration ? currentTime : percentage;
+      } else {
+        progress.setAttribute("role", "progressbar");
+        progress.setAttribute("aria-valuemin", "0");
+        progress.setAttribute("aria-valuemax", String(duration || 100));
+        progress.setAttribute("aria-valuenow", String(Math.round((duration ? currentTime : percentage) * 10) / 10));
+        progress.style.setProperty("--preview-progress", `${percentage}%`);
+        progress.style.setProperty("--pv-preview-progress", `${percentage}%`);
+      }
+    });
+    const timeLabel = `${formatMediaTime(currentTime)} / ${formatMediaTime(duration)}`;
+    if (nativePreviewTime) nativePreviewTime.textContent = timeLabel;
+    if (previewDockTime) previewDockTime.textContent = timeLabel;
+  };
+
+  const revealPreviewContinue = () => {
+    [nativePreviewContinue, previewDockContinue].forEach((link) => {
+      if (!link) return;
+      link.hidden = false;
+      link.dataset.previewContinueVisible = "true";
+    });
+    if (nativePreviewClose) nativePreviewClose.hidden = false;
+  };
+
+  const updatePreviewDockVisibility = () => {
+    if (!previewDock) return;
+    const shouldShow = nativePreviewStarted && !nativePreviewCompleted && !previewDockDismissed && !nativePreviewToggleVisible;
+    previewDock.hidden = !shouldShow;
+    previewDock.dataset.previewDockState = shouldShow ? "visible" : "hidden";
   };
 
   const pauseNativePreview = () => {
     if (nativePreviewMedia && !nativePreviewMedia.paused) nativePreviewMedia.pause();
+    if (previewDock) previewDock.hidden = true;
   };
+
+  if (nativePreviewContinue) {
+    nativePreviewContinue.dataset.previewContinue = "";
+    nativePreviewContinue.hidden = true;
+    if (!explicitNativePreviewContinue && !nativePreviewContinue.dataset.previewContinuePreserveLabel) {
+      nativePreviewContinue.textContent = nativePreview.dataset.continueLabel || nativePreview.dataset.completeLabel || activePreviewLabels.continue;
+    }
+  }
+  if (previewDockContinue) previewDockContinue.hidden = true;
+  if (previewDock) previewDock.hidden = true;
+  if (nativePreview) {
+    nativePreview.dataset.previewCompleted = "false";
+    setNativePreviewState("idle");
+    updatePreviewProgress();
+  }
+
+  if (nativePreviewToggle && "IntersectionObserver" in window) {
+    const previewVisibilityObserver = new IntersectionObserver((entries) => {
+      nativePreviewToggleVisible = entries[0]?.isIntersecting ?? true;
+      updatePreviewDockVisibility();
+    }, { threshold: 0.15 });
+    previewVisibilityObserver.observe(nativePreviewToggle);
+  }
 
   nativePreviewToggle?.addEventListener("click", async () => {
     if (!nativePreviewMedia || !nativePreviewSource || nativePreviewLoading) return;
@@ -308,9 +448,17 @@
       return;
     }
 
-    localReels.forEach((video) => {
-      if (!video.paused) video.pause();
-    });
+    pauseOtherNativeMedia(nativePreviewMedia);
+    pauseYouTubeFrames();
+
+    if (nativePreviewMedia.ended || (Number.isFinite(nativePreviewMedia.duration) && nativePreviewMedia.currentTime >= nativePreviewMedia.duration)) {
+      nativePreviewMedia.currentTime = 0;
+      nativePreviewCompleted = false;
+      previewStartTracked = false;
+      previewTenSecondsTracked = false;
+      previewCompleteTracked = false;
+      nativePreview.dataset.previewCompleted = "false";
+    }
 
     if (!nativePreviewSource.src) {
       const sourcePath = nativePreviewSource.dataset.src;
@@ -326,7 +474,6 @@
     setNativePreviewState("loading");
     try {
       await nativePreviewMedia.play();
-      trackEvent("preview_play", { release_title: "Mountain Day", preview_format: "native_24_second" });
     } catch {
       setNativePreviewState("error");
     } finally {
@@ -334,37 +481,163 @@
     }
   });
 
-  nativePreviewMedia?.addEventListener("playing", () => setNativePreviewState("playing"));
-  nativePreviewMedia?.addEventListener("pause", () => setNativePreviewState("paused"));
+  previewDockToggle?.addEventListener("click", async () => {
+    if (!nativePreviewMedia || nativePreviewLoading) return;
+    if (!nativePreviewMedia.paused) {
+      nativePreviewMedia.pause();
+      return;
+    }
+    pauseOtherNativeMedia(nativePreviewMedia);
+    pauseYouTubeFrames();
+    try {
+      await nativePreviewMedia.play();
+    } catch {
+      setNativePreviewState("error");
+    }
+  });
+
+  previewDockClose?.addEventListener("click", () => {
+    previewDockDismissed = true;
+    pauseNativePreview();
+    updatePreviewDockVisibility();
+  });
+
+  nativePreviewClose?.addEventListener("click", () => {
+    pauseNativePreview();
+    nativePreviewStarted = false;
+    nativePreviewCompleted = false;
+    if (nativePreviewMedia) nativePreviewMedia.currentTime = 0;
+    nativePreview.dataset.previewCompleted = "false";
+    nativePreviewContinue?.setAttribute("hidden", "");
+    nativePreviewClose.hidden = true;
+    updatePreviewProgress();
+    setNativePreviewState("idle");
+    updatePreviewDockVisibility();
+  });
+
+  nativePreviewMedia?.addEventListener("playing", () => {
+    pauseOtherNativeMedia(nativePreviewMedia);
+    pauseYouTubeFrames();
+    nativePreviewStarted = true;
+    nativePreviewCompleted = false;
+    nativePreview.dataset.previewCompleted = "false";
+    setNativePreviewState("playing");
+    revealPreviewContinue();
+    updatePreviewDockVisibility();
+    if (!previewStartTracked) {
+      previewStartTracked = true;
+      trackEvent("preview_start", { release_title: "Mountain Day", preview_format: "native_24_second", placement: "hero" });
+    }
+  });
+  nativePreviewMedia?.addEventListener("pause", () => {
+    if (!nativePreviewCompleted) setNativePreviewState("paused");
+  });
+  nativePreviewMedia?.addEventListener("loadedmetadata", updatePreviewProgress);
+  nativePreviewMedia?.addEventListener("timeupdate", () => {
+    updatePreviewProgress();
+    if (!previewTenSecondsTracked && nativePreviewMedia.currentTime >= 10) {
+      previewTenSecondsTracked = true;
+      trackEvent("preview_10s", { release_title: "Mountain Day", preview_format: "native_24_second", placement: "hero" });
+    }
+  });
   nativePreviewMedia?.addEventListener("ended", () => {
-    nativePreviewMedia.currentTime = 0;
-    setNativePreviewState("paused");
+    nativePreviewCompleted = true;
+    nativePreview.dataset.previewCompleted = "true";
+    setNativePreviewState("complete");
+    revealPreviewContinue();
+    updatePreviewProgress();
+    updatePreviewDockVisibility();
+    if (!previewCompleteTracked) {
+      previewCompleteTracked = true;
+      trackEvent("preview_complete", { release_title: "Mountain Day", preview_format: "native_24_second", placement: "hero" });
+    }
   });
   nativePreviewMedia?.addEventListener("error", () => {
     nativePreviewLoading = false;
     setNativePreviewState("error");
   });
 
-  localReels.forEach((video) => {
+  const nativeVideoMilestones = new WeakMap();
+  nativeVideos.forEach((video) => {
+    const state = { started: false, midpoint: false, complete: false };
+    nativeVideoMilestones.set(video, state);
+    const container = video.closest("[data-native-video], [data-native-film]");
+    const playButton = container?.querySelector("[data-native-video-play], [data-native-film-play]");
+    const endCard = container?.querySelector("[data-native-video-end-card], [data-native-film-end-card]");
+    const replayButton = container?.querySelector("[data-native-video-replay], [data-native-film-replay]");
+    if (endCard) endCard.hidden = true;
+
+    playButton?.addEventListener("click", async () => {
+      const details = getMediaDetails(video);
+      trackEvent("video_intent", details);
+      pauseOtherNativeMedia(video);
+      pauseYouTubeFrames();
+      try {
+        await video.play();
+      } catch {
+        container?.setAttribute("data-native-video-state", "error");
+        container?.setAttribute("data-native-film-state", "error");
+      }
+    });
+
+    replayButton?.addEventListener("click", async () => {
+      trackEvent("video_intent", { ...getMediaDetails(video), video_action: "replay" });
+      pauseOtherNativeMedia(video);
+      pauseYouTubeFrames();
+      video.currentTime = 0;
+      if (endCard) endCard.hidden = true;
+      try {
+        await video.play();
+      } catch {
+        container?.setAttribute("data-native-video-state", "error");
+        container?.setAttribute("data-native-film-state", "error");
+      }
+    });
+
     video.addEventListener("play", () => {
-      pauseNativePreview();
-      localReels.forEach((otherVideo) => {
-        if (otherVideo !== video && !otherVideo.paused) otherVideo.pause();
-      });
+      pauseOtherNativeMedia(video);
+      pauseYouTubeFrames();
+      const details = getMediaDetails(video);
+      container?.setAttribute("data-native-video-state", "playing");
+      container?.setAttribute("data-native-film-state", "playing");
+      if (playButton) playButton.hidden = true;
+      if (endCard) endCard.hidden = true;
+      if (!state.started) {
+        state.started = true;
+        trackEvent("video_start", details);
+      }
       const card = video.closest(".pv-film, .reel-card");
-      const filmPosition = filmCards.indexOf(card);
-      trackEvent("reel_play", {
-        reel_title: card?.querySelector("h3")?.textContent?.trim() || "",
-        reel_position: filmPosition >= 0 ? filmPosition + 1 : localReels.indexOf(video) + 1
-      });
+      if (card) {
+        const filmPosition = filmCards.indexOf(card);
+        trackEvent("reel_play", {
+          reel_title: card.querySelector("h3")?.textContent?.trim() || details.video_title,
+          reel_position: filmPosition >= 0 ? filmPosition + 1 : localReels.indexOf(video) + 1
+        });
+      }
+    });
+
+    video.addEventListener("timeupdate", () => {
+      if (!state.midpoint && Number.isFinite(video.duration) && video.duration > 0 && video.currentTime >= video.duration * .5) {
+        state.midpoint = true;
+        trackEvent("video_50", getMediaDetails(video));
+      }
+    });
+
+    video.addEventListener("ended", () => {
+      container?.setAttribute("data-native-video-state", "complete");
+      container?.setAttribute("data-native-film-state", "complete");
+      if (endCard) endCard.hidden = false;
+      if (!state.complete) {
+        state.complete = true;
+        trackEvent("video_complete", getMediaDetails(video));
+      }
     });
   });
 
-  const videoBlocks = document.querySelectorAll("[data-video-id]");
   const loadVideo = (block, { autoplay = false } = {}) => {
     if (!block || block.querySelector("iframe")) return;
     const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(block.dataset.videoId)}?autoplay=${autoplay ? "1" : "0"}&rel=0`;
+    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(block.dataset.videoId)}?autoplay=${autoplay ? "1" : "0"}&rel=0&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
     iframe.title = block.dataset.videoTitle || "PRAYZVIBES video";
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
@@ -418,20 +691,22 @@
 
   videoBlocks.forEach((block) => {
     block.querySelector(".video-load")?.addEventListener("click", () => {
-      pauseNativePreview();
-      localReels.forEach((video) => {
-        if (!video.paused) video.pause();
-      });
-      trackEvent("video_play", {
+      pauseOtherNativeMedia();
+      pauseYouTubeFrames();
+      trackEvent("video_intent", {
         video_id: block.dataset.videoId || "",
-        video_title: block.dataset.videoTitle || ""
+        video_title: block.dataset.videoTitle || "",
+        video_placement: block.dataset.videoPlacement || block.closest("section")?.id || "page",
+        video_provider: "youtube"
       });
       loadVideo(block, { autoplay: true });
     });
   });
 
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) pauseNativePreview();
+    if (!document.hidden) return;
+    pauseOtherNativeMedia();
+    pauseYouTubeFrames();
   });
 
   const brevoForm = document.querySelector("#sib-form");
@@ -447,6 +722,27 @@
   brevoForm?.addEventListener("focusin", loadBrevo, { once: true });
   brevoForm?.addEventListener("pointerenter", loadBrevo, { once: true });
   brevoForm?.addEventListener("submit", () => trackEvent("newsletter_submit"));
+  const brevoSuccess = document.querySelector("#success-message, [data-newsletter-success]");
+  let newsletterSuccessTracked = false;
+  const checkNewsletterSuccess = () => {
+    if (!brevoSuccess || newsletterSuccessTracked) return;
+    const styles = window.getComputedStyle(brevoSuccess);
+    const isVisible = !brevoSuccess.hidden
+      && brevoSuccess.getAttribute("aria-hidden") !== "true"
+      && styles.display !== "none"
+      && styles.visibility !== "hidden"
+      && styles.opacity !== "0"
+      && brevoSuccess.getClientRects().length > 0;
+    if (!isVisible) return;
+    newsletterSuccessTracked = true;
+    trackEvent("newsletter_success", { form_id: brevoForm?.id || "newsletter" });
+  };
+  if (brevoSuccess && "MutationObserver" in window) {
+    const successObserver = new MutationObserver(checkNewsletterSuccess);
+    successObserver.observe(brevoSuccess, { attributes: true, childList: true, subtree: true, attributeFilter: ["class", "style", "hidden", "aria-hidden"] });
+  }
+  document.addEventListener("sib-form:success", checkNewsletterSuccess);
+  document.addEventListener("newsletter:success", checkNewsletterSuccess);
 
   const storeExitDialog = document.querySelector("[data-store-exit-dialog]");
   const storeExitCopy = storeExitDialog?.querySelector("[data-store-exit-copy]");
@@ -496,6 +792,13 @@
             link_text: link.textContent.trim().slice(0, 100),
             shop_route: link.dataset.merchRoute || "all"
           });
+          trackEvent("product_click", {
+            link_url: destinationUrl.href,
+            product_name: link.dataset.productName || link.closest("[data-product-name]")?.dataset.productName || link.textContent.trim().slice(0, 100),
+            product_route: link.dataset.merchRoute || "all",
+            placement: link.dataset.productPlacement || "shop"
+          });
+          return;
         }
         event.preventDefault();
         event.stopPropagation();
@@ -515,18 +818,62 @@
     });
   }
 
+  const getLinkPlacement = (link) => {
+    if (link.dataset.listenPlacement) return link.dataset.listenPlacement;
+    if (link.closest("[data-native-preview]")) return link.matches("[data-preview-continue], .pv-quick-preview__link") ? "hero_preview_continue" : "hero_preview";
+    if (link.classList.contains("header-cta")) return "header";
+    if (link.classList.contains("mobile-menu__cta")) return "mobile_menu";
+    if (link.closest("footer")) return "footer";
+    return link.closest("section")?.id || document.body.dataset.page || "page";
+  };
+
+  const getLinkedRelease = (link, url) => {
+    if (link.dataset.release) return link.dataset.release;
+    const signature = `${url.pathname} ${link.textContent}`.toLowerCase();
+    if (signature.includes("5jnbx3") || signature.includes("mountain day")) return "Mountain Day";
+    if (signature.includes("ragdlw") || signature.includes("transience")) return "Transience";
+    if (link.closest("#watch")) return "Mountain Day";
+    if (link.closest("#music")) return "Transience";
+    return "PRAYZVIBES";
+  };
+
+  const listeningHosts = ["listen.music-hub.com", "open.spotify.com", "music.apple.com", "music.youtube.com", "deezer.com", "tidal.com", "soundcloud.com"];
+
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a[href]");
     if (!link || typeof window.gtag !== "function") return;
     const url = new URL(link.href, window.location.href);
     const linkText = link.textContent.trim().slice(0, 100);
+    const placement = getLinkPlacement(link);
     if (url.origin !== window.location.origin) {
       trackEvent("outbound_click", { link_url: url.href, link_text: linkText });
     }
     if (link.closest("#live-preview")) trackEvent("live_click", { link_url: url.href, link_text: linkText });
-    if (link.closest("#shop")) trackEvent("shop_click", { link_url: url.href, link_text: linkText });
+    if (link.closest("#shop")) {
+      trackEvent("shop_click", { link_url: url.href, link_text: linkText });
+      trackEvent("product_click", {
+        link_url: url.href,
+        product_name: link.dataset.productName || link.closest("[data-product-name]")?.dataset.productName || linkText,
+        product_route: link.dataset.merchRoute || "all",
+        placement: link.dataset.productPlacement || "shop"
+      });
+    }
     if (link.closest("#worlds")) trackEvent("playlist_click", { link_url: url.href, link_text: linkText });
-    if (link.matches(".campaign-switch, .release-switch") || link.closest("#listen")) trackEvent("listen_click", { link_url: url.href, link_text: linkText });
+    const hostIsListeningService = listeningHosts.some((host) => url.hostname === host || url.hostname.endsWith(`.${host}`));
+    const isListenLink = hostIsListeningService
+      || url.pathname.toLowerCase().endsWith("/listen.html")
+      || link.matches(".campaign-switch, .release-switch, [data-listen-placement]")
+      || Boolean(link.closest("#listen, #music"));
+    if (isListenLink) {
+      const linkedRelease = getLinkedRelease(link, url);
+      trackEvent("listen_click", {
+        link_url: url.href,
+        link_text: linkText,
+        placement,
+        release: linkedRelease,
+        release_title: linkedRelease
+      });
+    }
     if (url.hostname === "ko-fi.com" && url.pathname.toLowerCase().includes("prayzvibes")) {
       trackEvent("support_click", {
         link_url: url.href,

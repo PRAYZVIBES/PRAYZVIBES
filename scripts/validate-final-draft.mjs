@@ -102,6 +102,11 @@ for (const [homepage, locale] of homepageLocales) {
   for (const signal of ["SEE CLEARLY", "LISTEN DEEPLY", "CREATE RESONANCE", "LIVE CONSCIOUSLY"]) {
     if (!html.includes(signal)) fail(`${homepage}: missing Living Charge signal ${signal}`);
   }
+  if ((html.match(/class=["'][^"']*pv-shop-feature__product-link\b/g) || []).length !== 4) fail(`${homepage}: expected four direct Living Charge product links`);
+  if (!/id=["']next-release["']/.test(html)) fail(`${homepage}: missing fan-facing Eagle Spirit destination`);
+  if (!/data-native-preview/.test(html) || !/data-preview-progress/.test(html) || !/data-preview-continue/.test(html)) fail(`${homepage}: incomplete Mountain Day listening ladder`);
+  if (!/data-preview-dock/.test(html)) fail(`${homepage}: missing opt-in Mountain Day mini player`);
+  if (!/data-native-film/.test(html) || !/data-native-film-play/.test(html) || !/data-native-film-end-card/.test(html)) fail(`${homepage}: incomplete Salzburg viewing ladder`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
   if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
@@ -147,7 +152,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260811-merch-visuals")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260813-closer")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
