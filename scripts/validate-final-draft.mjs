@@ -126,6 +126,24 @@ for (const [homepage, locale] of homepageLocales) {
   if (/\b(?:Andreas|engineer|engineering|Ingenieur|Energietechnik|ingénieur|ingénierie)\b/i.test(html)) fail(`${homepage}: private name or engineering biography remains`);
 }
 
+const headerPages = htmlFiles
+  .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
+  .filter(([, html]) => /<nav class=["']main-nav["']/.test(html));
+if (headerPages.length !== 27) fail(`HTML: expected 27 header-bearing pages, found ${headerPages.length}`);
+for (const [file, html] of headerPages) {
+  const normalized = file.replaceAll("\\", "/");
+  const supportLinks = [...html.matchAll(/<a\b[^>]*\bdata-nav-support\b[^>]*>/g)].map((match) => match[0]);
+  if (supportLinks.length !== 2) fail(`${file}: expected Support in desktop and mobile navigation`);
+  const expectedHref = /^(?:de\/|fr\/)?index\.html$/.test(normalized) ? "#support" : "support.html";
+  if (supportLinks.filter((anchor) => new RegExp(`\\bhref=["']${expectedHref.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`).test(anchor)).length !== 2) {
+    fail(`${file}: Support navigation points to the wrong destination`);
+  }
+  const currentCount = supportLinks.filter((anchor) => /\baria-current=["']page["']/.test(anchor)).length;
+  if (/(?:^|\/)support\.html$/.test(normalized) ? currentCount !== 2 : currentCount !== 0) {
+    fail(`${file}: wrong Support aria-current state`);
+  }
+}
+
 for (const relative of publishableFiles) {
   const content = fs.readFileSync(path.join(root, relative), "utf8");
   if (/juniper\s*wild|juniperwild/i.test(content)) fail(`${relative}: forbidden Juniper reference`);
@@ -158,7 +176,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260813-home-support")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260813-header-support")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
