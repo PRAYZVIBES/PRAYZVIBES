@@ -1899,6 +1899,66 @@ body[data-page="home"] .pv-next-release h2 {
 }
 .pv-social-video-links a:hover,
 .pv-social-video-links a:focus-visible { color: var(--pv-brown); }
+
+.pv-home > section.pv-support-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: center;
+  min-height: 0;
+  padding: clamp(64px, 7vw, 104px) clamp(24px, 6.5vw, 104px) !important;
+  border-top: 1px solid rgba(51,33,22,.2);
+  background: var(--pv-gold);
+  color: var(--pv-brown);
+}
+.pv-support-note__copy .pv-kicker { color: rgba(51,33,22,.72); }
+body[data-page="home"] .pv-support-note h2 {
+  max-width: 12ch;
+  margin: 12px 0 20px;
+  color: var(--pv-brown);
+  font-size: clamp(2.75rem, 5.5vw, 6rem);
+  line-height: .92;
+}
+.pv-support-note__copy > p:last-child {
+  max-width: 63ch;
+  margin: 0;
+  color: rgba(51,33,22,.84);
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.55;
+}
+.pv-support-note__actions {
+  padding: clamp(26px, 3.5vw, 44px);
+  border: 1px solid rgba(51,33,22,.26);
+  background: rgba(255,255,255,.14);
+}
+.pv-support-note__ways {
+  margin: 0 0 24px;
+  font-family: var(--pv-editorial);
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-style: italic;
+  line-height: 1.4;
+}
+.pv-support-note__actions .pv-actions { align-items: center; margin-top: 0; }
+.pv-support-note__detail {
+  margin: 20px 0 0;
+  color: rgba(51,33,22,.68);
+  font-size: max(.72rem, 12px);
+  font-weight: 750;
+  letter-spacing: .07em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .pv-home > section.pv-support-note { grid-template-columns: 1fr; }
+  body[data-page="home"] .pv-support-note h2 { max-width: 14ch; }
+}
+@media (max-width: 640px) {
+  .pv-home > section.pv-support-note { gap: 32px; padding: 54px 20px !important; }
+  body[data-page="home"] .pv-support-note h2 { font-size: clamp(2.5rem, 11.2vw, 3.5rem); }
+  .pv-support-note__actions { padding: 24px 18px; }
+  .pv-support-note__actions .pv-actions { align-items: stretch; }
+  .pv-support-note__actions .pv-text-link { justify-content: center; text-align: center; }
+}
 .pv-video-frame { position: relative; min-height: inherit; }
 .pv-video-frame > video { position: relative; z-index: 1; }
 .pv-video-overlay,

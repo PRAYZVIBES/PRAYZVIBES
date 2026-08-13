@@ -87,7 +87,7 @@ const homepageLocales = new Map([
 
 for (const [homepage, locale] of homepageLocales) {
   const html = fs.readFileSync(path.join(root, homepage), "utf8");
-  for (const id of ["watch", "music", "live-preview", "about", "shop", "epk"]) {
+  for (const id of ["watch", "music", "live-preview", "about", "shop", "support", "epk"]) {
     if (!new RegExp(`id=["']${id}["']`).test(html)) fail(`${homepage}: missing #${id}`);
   }
   if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${homepage}: expected exactly one h1`);
@@ -103,6 +103,8 @@ for (const [homepage, locale] of homepageLocales) {
     if (!html.includes(signal)) fail(`${homepage}: missing Living Charge signal ${signal}`);
   }
   if ((html.match(/class=["'][^"']*pv-shop-feature__product-link\b/g) || []).length !== 4) fail(`${homepage}: expected four direct Living Charge product links`);
+  if ((html.match(/class=["'][^"']*pv-support-note\b/g) || []).length !== 1) fail(`${homepage}: expected one homepage support invitation`);
+  if (!/class=["'][^"']*pv-support-note\b[\s\S]*?href=["']pages\/support\.html["']/.test(html)) fail(`${homepage}: homepage support invitation does not reach the localized support page`);
   if (!/id=["']next-release["']/.test(html)) fail(`${homepage}: missing fan-facing Eagle Spirit destination`);
   if (!/data-native-preview/.test(html) || !/data-preview-progress/.test(html) || !/data-preview-continue/.test(html)) fail(`${homepage}: incomplete Mountain Day listening ladder`);
   if (!/data-preview-dock/.test(html)) fail(`${homepage}: missing opt-in Mountain Day mini player`);
@@ -156,7 +158,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260813-social-reels")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260813-home-support")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
