@@ -849,6 +849,14 @@
       trackEvent("outbound_click", { link_url: url.href, link_text: linkText });
     }
     if (link.closest("#live-preview")) trackEvent("live_click", { link_url: url.href, link_text: linkText });
+    if (link.matches("[data-social-video]")) {
+      trackEvent("social_video_click", {
+        link_url: url.href,
+        platform: link.dataset.videoPlatform || url.hostname,
+        video_title: link.dataset.videoTitle || "PRAYZVIBES video",
+        placement: link.dataset.videoPlacement || placement
+      });
+    }
     if (link.closest("#shop")) {
       trackEvent("shop_click", { link_url: url.href, link_text: linkText });
       trackEvent("product_click", {

@@ -107,6 +107,10 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/data-native-preview/.test(html) || !/data-preview-progress/.test(html) || !/data-preview-continue/.test(html)) fail(`${homepage}: incomplete Mountain Day listening ladder`);
   if (!/data-preview-dock/.test(html)) fail(`${homepage}: missing opt-in Mountain Day mini player`);
   if (!/data-native-film/.test(html) || !/data-native-film-play/.test(html) || !/data-native-film-end-card/.test(html)) fail(`${homepage}: incomplete Salzburg viewing ladder`);
+  if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing Mountain Day YouTube Short link`);
+  if (!/href=["']https:\/\/www\.instagram\.com\/reel\/Dbt-fOaIXEH\/["']/.test(html)) fail(`${homepage}: missing Mountain Day Instagram Reel link`);
+  if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/wAsCW6AL5iY["']/.test(html)) fail(`${homepage}: missing Salzburg YouTube Short link`);
+  if ((html.match(/\sdata-social-video(?:\s|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
   if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
@@ -152,7 +156,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260813-closer")) {
+if (assetVersions.size !== 1 || !assetVersions.has("20260813-social-reels")) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
