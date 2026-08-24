@@ -2167,3 +2167,180 @@ body[data-page="home"] .pv-support-note h2 {
 @media (prefers-reduced-motion: reduce) {
   .pv-preview-progress span { transition: none; }
 }
+
+/* TJPL Issue 45: published cover partnership, presented with source context. */
+.pv-home > section.pv-press-spotlight {
+  display: grid;
+  grid-template-columns: minmax(360px, .78fr) minmax(0, 1.22fr);
+  align-items: stretch;
+  padding: 0 !important;
+  background: var(--pv-paper);
+  color: var(--pv-brown);
+  scroll-margin-top: var(--header-height);
+  border-top: 1px solid var(--pv-line-dark);
+  border-bottom: 1px solid var(--pv-line-dark);
+}
+
+.pv-press-spotlight__cover {
+  position: relative;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--pv-ink);
+  border-right: 1px solid var(--pv-line-dark);
+}
+
+.pv-press-spotlight__cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .55s ease, filter .55s ease;
+}
+
+.pv-press-spotlight__cover::after {
+  position: absolute;
+  inset: 18px;
+  content: "";
+  pointer-events: none;
+  border: 1px solid rgba(239, 217, 149, .58);
+}
+
+.pv-press-spotlight__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+  padding: clamp(58px, 7vw, 118px);
+}
+
+.pv-press-spotlight__copy .pv-kicker {
+  color: var(--pv-rust);
+}
+
+body[data-page="home"] .pv-press-spotlight h2 {
+  max-width: 11ch;
+  margin: 24px 0 34px;
+  color: var(--pv-brown);
+  font-family: var(--pv-display);
+  font-size: clamp(4rem, 7.5vw, 9rem);
+  line-height: .82;
+  letter-spacing: -.055em;
+}
+
+.pv-press-spotlight blockquote {
+  max-width: 23ch;
+  margin: 0;
+  padding: 0 0 0 22px;
+  color: var(--pv-brown);
+  font-family: var(--pv-editorial);
+  font-size: clamp(1.65rem, 2.55vw, 3rem);
+  font-style: italic;
+  font-weight: 650;
+  line-height: 1.08;
+  border-left: 4px solid var(--pv-gold);
+}
+
+.pv-press-spotlight__credit {
+  margin: 18px 0 28px;
+  color: var(--pv-rust);
+  font-size: max(.76rem, 12px);
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.pv-press-spotlight__copy > p:not(.pv-kicker, .pv-press-spotlight__credit, .pv-press-spotlight__disclosure) {
+  max-width: 58ch;
+  color: rgba(49, 31, 20, .78);
+}
+
+.pv-press-spotlight__disclosure {
+  max-width: 58ch;
+  margin: 10px 0 0;
+  color: rgba(49, 31, 20, .62);
+  font-size: max(.78rem, 13px);
+  line-height: 1.45;
+}
+
+.pv-press-spotlight .pv-actions {
+  margin-top: 30px;
+}
+
+.press-campaign--published {
+  box-shadow: inset 0 0 0 1px rgba(211, 179, 95, .34);
+}
+
+.press-campaign--published > span a {
+  color: var(--pv-gold-light);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pv-press-spotlight__cover:hover img {
+    filter: saturate(1.06) contrast(1.02);
+    transform: scale(1.018);
+  }
+}
+
+@media (max-width: 1050px) {
+  .pv-home > section.pv-press-spotlight {
+    grid-template-columns: minmax(300px, .86fr) minmax(0, 1.14fr);
+  }
+
+  .pv-press-spotlight__copy {
+    padding: 64px 42px;
+  }
+}
+
+@media (max-width: 760px) {
+  .pv-home > section.pv-press-spotlight {
+    display: block;
+  }
+
+  .pv-press-spotlight__cover {
+    border-right: 0;
+    border-bottom: 1px solid var(--pv-line-dark);
+  }
+
+  .pv-press-spotlight__cover img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .pv-press-spotlight__copy {
+    padding: 52px 20px 58px;
+  }
+
+  body[data-page="home"] .pv-press-spotlight h2 {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(3.1rem, 13.5vw, 5.2rem);
+  }
+
+  html[lang="fr"] body[data-page="home"] .pv-press-spotlight h2 {
+    font-size: clamp(2.25rem, 11.2vw, 5rem);
+  }
+
+  .pv-press-spotlight blockquote {
+    padding-left: 16px;
+    font-size: clamp(1.6rem, 7.8vw, 2.35rem);
+  }
+
+  .pv-press-spotlight .pv-actions,
+  .pv-press-spotlight .pv-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-page="home"] .pv-press-spotlight h2,
+  html[lang="fr"] body[data-page="home"] .pv-press-spotlight h2 {
+    font-size: clamp(2.1rem, 10.4vw, 4.5rem);
+  }
+}

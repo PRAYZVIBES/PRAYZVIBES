@@ -85,6 +85,12 @@ const homepageLocales = new Map([
   ["fr/index.html", "fr"],
 ]);
 
+const tjplDisclosureByLocale = new Map([
+  ["en", /Paid content in partnership with the artist/],
+  ["de", /Bezahlter Inhalt in Partnerschaft mit dem Künstlerteam/],
+  ["fr", /Contenu sponsorisé en partenariat avec l(?:&rsquo;|’)équipe de l(?:&rsquo;|’)artiste/],
+]);
+
 for (const [homepage, locale] of homepageLocales) {
   const html = fs.readFileSync(path.join(root, homepage), "utf8");
   for (const id of ["watch", "music", "live-preview", "about", "shop", "support", "epk"]) {
@@ -122,7 +128,10 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
   if (!/name=["']email_address_check["']/.test(html)) fail(`${homepage}: missing Brevo honeypot`);
   if (!new RegExp(`name=["']locale["']\\s+value=["']${locale}["']`).test(html)) fail(`${homepage}: wrong Brevo locale`);
-  if (/TJPL|pv-explore|pv-merch|first-response-coin/i.test(html)) fail(`${homepage}: legacy campaign, utility or symbolic-coin content remains`);
+  if (!/class=["'][^"']*pv-press-spotlight\b/.test(html)) fail(`${homepage}: missing TJPL press spotlight`);
+  if (!/tjpl-news-issue-45-prayzvibes-cover-feature\.pdf/.test(html)) fail(`${homepage}: missing TJPL Issue 45 download`);
+  if (!tjplDisclosureByLocale.get(locale)?.test(html)) fail(`${homepage}: missing localized TJPL paid-partnership disclosure`);
+  if (/pv-explore|pv-merch|first-response-coin/i.test(html)) fail(`${homepage}: legacy utility or symbolic-coin content remains`);
   if (/\b(?:Andreas|engineer|engineering|Ingenieur|Energietechnik|ingénieur|ingénierie)\b/i.test(html)) fail(`${homepage}: private name or engineering biography remains`);
 }
 
