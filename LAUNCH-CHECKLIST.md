@@ -9,23 +9,26 @@ Check each box after the GitHub upload.
 - [ ] EN opens `/`, DE opens `/de/` and FR opens `/fr/`
 - [ ] A manual language choice remains selected on the next visit
 - [ ] In a fresh browser profile, German browser language opens German, French opens French and other languages open English
-- [ ] Language switching stays on the equivalent subpage, including About, Listen, Live, Connect and EPK
+- [ ] Language switching stays on the equivalent subpage, including About, Listen, Live, Connect, EPK, Booking, Mountain Day, Transience and TJPL
 - [ ] Mobile menu opens, closes and responds to Escape
 - [ ] Mobile menu words are bright and readable on every page
 - [ ] No heading is clipped and there is no sideways scrolling
 - [ ] PRAYZVIBES wordmarks, social icons and the Transience artwork are visible
 - [ ] Transience listening and Bandcamp buttons work
 - [ ] Mountain Day short loads and plays
+- [ ] Journey route 01 starts the 24-second Mountain Day preview; routes 02–05 reach Live, Story, Shop and Eagle Spirit
+- [ ] All five Living Charge journey marks appear without obscuring the labels
 - [ ] Transience Bandcamp, EP short and physical-edition links work
 - [ ] All four Transience track covers open Bandcamp and all-platform links
 - [ ] Homepage Shop appears on desktop and mobile
-- [ ] Shop cards open Bandcamp, ElasticStage and Fourthwall through the partner-store notice
+- [ ] Shop cards open the intended Bandcamp, ElasticStage and Fourthwall destinations directly in new tabs
 - [ ] Spotify, YouTube, Bandcamp and Deezer links work
 - [ ] High Week loads only after the visitor chooses to play YouTube
 - [ ] PRAYZ REMIX development note is visible
 - [ ] Salzburg teaser loads on the Live page
 - [ ] PRAYZ LIFE, PRAYZ STREETS and PRAYZ & CO open Spotify
-- [ ] Live, About, Listen, Connect and EPK pages open
+- [ ] Live, About, Listen, Connect, EPK and the localized Booking pages open
+- [ ] Mountain Day, Transience and the disclosed TJPL partner pages open in EN, DE and FR
 - [ ] Press articles open in new tabs
 - [ ] Newsletter sends the confirmation email
 

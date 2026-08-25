@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <title>LISTEN DEEPLY — organic</title>
+  <g id="LISTEN_DEEPLY_MARK">
+    <path d="M500 675 C462 610 395 568 335 510 C252 430 268 286 380 248 C435 230 479 254 500 306 C521 254 565 230 620 248 C732 286 748 430 665 510 C605 568 538 610 500 675 Z" fill="none" stroke="#D1B464" stroke-width="34" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M500 350 C440 425 452 520 500 585 C548 520 560 425 500 350 Z" fill="none" stroke="#D1B464" stroke-width="34" stroke-linejoin="round"/>
+    <path d="M500 675 C500 750 484 806 438 821 C397 834 376 799 404 773" fill="none" stroke="#D1B464" stroke-width="34" stroke-linecap="round"/>
+    <path d="M375 275 C415 305 450 340 472 382 M625 275 C585 305 550 340 528 382" fill="none" stroke="#D1B464" stroke-width="13" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <title>CREATE RESONANCE — organic</title>
+  <g id="CREATE_RESONANCE_MARK">
+    <line x1="500" y1="160" x2="500" y2="830" stroke="#D1B464" stroke-width="30" stroke-linecap="round"/>
+    <circle cx="500" cy="145" r="28" fill="#D1B464"/>
+    <circle cx="500" cy="845" r="28" fill="#D1B464"/>
+    <path d="M410 320 C455 292 545 292 590 320 C555 350 445 350 410 320" fill="none" stroke="#D1B464" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M350 405 C395 377 605 377 650 405 C610 450 390 450 350 405" fill="none" stroke="#D1B464" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M270 505 C315 477 685 477 730 505 C675 565 325 565 270 505" fill="none" stroke="#D1B464" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M180 625 C225 597 775 597 820 625 C745 705 255 705 180 625" fill="none" stroke="#D1B464" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

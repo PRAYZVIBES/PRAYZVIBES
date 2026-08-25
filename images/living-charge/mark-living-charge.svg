@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <title>LIVING CHARGE — organic</title>
+  <g id="LIVING_CHARGE_MASTER_MARK">
+    <path d="M565 170 C725 155 850 285 850 455 C850 635 720 775 545 792 C395 806 255 730 198 602 C140 472 175 328 278 248 C372 175 505 180 582 250 C663 325 675 445 612 520 C553 591 448 607 383 551 C324 501 327 411 376 359 C421 312 494 306 540 344 C582 379 587 435 557 471 C532 501 487 505 461 480 C441 461 440 433 458 413" fill="none" stroke="#D1B464" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M352 705 L265 793 L344 779 L288 872" fill="none" stroke="#D1B464" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M432 722 L382 803 L455 790 L414 869" fill="none" stroke="#D1B464" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M572 180 C720 168 836 292 836 454 C837 621 710 760 540 777" fill="none" stroke="#D1B464" stroke-width="12" stroke-linecap="round"/>
+    <line x1="286" y1="205" x2="245" y2="157" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="390" y1="157" x2="370" y2="102" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="508" y1="140" x2="516" y2="80" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="630" y1="170" x2="663" y2="112" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="736" y1="236" x2="786" y2="194" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="160" y1="420" x2="96" y2="410" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="805" y1="420" x2="878" y2="410" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="195" y1="300" x2="145" y2="270" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="775" y1="315" x2="830" y2="286" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+    <line x1="220" y1="660" x2="166" y2="690" stroke="#D1B464" stroke-width="24" stroke-linecap="round"/>
+  </g>
+</svg>

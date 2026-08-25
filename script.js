@@ -4,6 +4,7 @@
   const GA_ID = "G-YL0ZXL9Q4D";
   const CONSENT_KEY = "prayzvibes-consent-v1";
   const LANGUAGE_KEY = "prayzvibes-language";
+  const JOURNEY_FIRST_CHOICE_KEY = "pv-journey-first-choice";
   const supportedLanguages = ["en", "de", "fr"];
   const currentLanguage = (document.documentElement.lang || "en").slice(0, 2).toLowerCase();
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -26,7 +27,8 @@
   };
   const preferredLanguage = getStoredLanguage() || getBrowserLanguage();
   const preferredLink = document.querySelector(`[data-language-choice="${preferredLanguage}"]`);
-  const isDefaultEntry = window.location.pathname === "/";
+  const normalizedPathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const isDefaultEntry = normalizedPathname === "/" || normalizedPathname === "/index.html";
   if (isDefaultEntry && preferredLanguage !== currentLanguage && preferredLink instanceof HTMLAnchorElement) {
     const destination = new URL(preferredLink.href, window.location.href);
     destination.search = window.location.search;
@@ -36,6 +38,11 @@
   }
   document.querySelectorAll("[data-language-choice]").forEach((link) => {
     link.addEventListener("click", () => {
+      if (window.location.hash && link instanceof HTMLAnchorElement) {
+        const destination = new URL(link.href, window.location.href);
+        destination.hash = window.location.hash;
+        link.href = destination.href;
+      }
       try {
         localStorage.setItem(LANGUAGE_KEY, link.dataset.languageChoice || "en");
       } catch {
@@ -203,6 +210,67 @@
     if (typeof window.gtag !== "function") return;
     window.gtag("event", name, { page_language: currentLanguage, ...parameters });
   };
+
+  let journeyFirstChoiceTracked = false;
+  try {
+    journeyFirstChoiceTracked = Boolean(sessionStorage.getItem(JOURNEY_FIRST_CHOICE_KEY));
+  } catch {
+    // The event remains once-per-view when session storage is unavailable.
+  }
+
+  document.querySelectorAll("[data-journey-path]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const pathName = link.dataset.journeyPath?.trim();
+      if (!pathName || !readConsent()?.analytics) return;
+      trackEvent("journey_path_click", { path_name: pathName });
+      if (journeyFirstChoiceTracked) return;
+      journeyFirstChoiceTracked = true;
+      try {
+        sessionStorage.setItem(JOURNEY_FIRST_CHOICE_KEY, pathName);
+      } catch {
+        // The in-memory guard still prevents duplicates during this view.
+      }
+      trackEvent("journey_first_choice", { path_name: pathName });
+    });
+  });
+
+  const copyText = async (value) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.append(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  };
+
+  document.querySelectorAll("[data-share-song]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const shareUrl = button.dataset.shareUrl || window.location.href;
+      const shareTitle = button.dataset.shareTitle || document.title;
+      const shareText = button.dataset.shareText || "";
+      const status = button.closest(".pv-mountain__copy")?.querySelector("[data-share-status]");
+      try {
+        if (typeof navigator.share === "function") {
+          await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+          trackEvent("song_share", { share_method: "native", song_name: "Mountain Day" });
+          return;
+        }
+        await copyText(shareUrl);
+        if (status) status.textContent = button.dataset.shareCopied || "Link copied.";
+        trackEvent("song_share", { share_method: "copy", song_name: "Mountain Day" });
+      } catch (error) {
+        if (error?.name === "AbortError") return;
+        if (status) status.textContent = shareUrl;
+      }
+    });
+  });
 
   const releasePlayer = document.querySelector("[data-release-player]");
   const releasePreviewButton = releasePlayer?.querySelector("[data-release-preview]");
@@ -481,6 +549,13 @@
     }
   });
 
+  document.querySelector('[data-journey-path="listen"]')?.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!nativePreviewMedia?.paused || !nativePreviewToggle) return;
+    nativePreviewToggle.click();
+    // Do not prevent the anchor default: #watch remains the accessible fallback and destination.
+  });
+
   previewDockToggle?.addEventListener("click", async () => {
     if (!nativePreviewMedia || nativePreviewLoading) return;
     if (!nativePreviewMedia.paused) {
@@ -743,80 +818,6 @@
   }
   document.addEventListener("sib-form:success", checkNewsletterSuccess);
   document.addEventListener("newsletter:success", checkNewsletterSuccess);
-
-  const storeExitDialog = document.querySelector("[data-store-exit-dialog]");
-  const storeExitCopy = storeExitDialog?.querySelector("[data-store-exit-copy]");
-  const storeExitContinue = storeExitDialog?.querySelector("[data-store-exit-continue]");
-  let storeExitLastFocused = null;
-  const storeDestinations = [
-    { matches: (host) => host.endsWith("bandcamp.com"), name: "Bandcamp", purpose: "digital" },
-    { matches: (host) => host === "elasticstage.com" || host.endsWith(".elasticstage.com"), name: "ElasticStage", purpose: "physical" },
-    { matches: (host) => host === "prayzvibes-shop.fourthwall.com", name: "Fourthwall", purpose: "merch" }
-  ];
-  const storeMessages = {
-    en: {
-      purposes: { digital: "music and digital artwork", physical: "CD and vinyl editions", merch: "PRAYZVIBES merchandise" },
-      message: (name, purpose) => `You're leaving prayzvibes.com for ${name}, the official partner for ${purpose}. It will open in a new tab.`,
-      continue: (name) => `Continue to ${name} ↗`
-    },
-    de: {
-      purposes: { digital: "Musik und digitale Artworks", physical: "CD- und Vinyl-Ausgaben", merch: "PRAYZVIBES-Merchandise" },
-      message: (name, purpose) => `Du verlässt prayzvibes.com und öffnest ${name}, den offiziellen Partner für ${purpose}. Der Shop öffnet sich in einem neuen Tab.`,
-      continue: (name) => `Weiter zu ${name} ↗`
-    },
-    fr: {
-      purposes: { digital: "la musique et les visuels numériques", physical: "les éditions CD et vinyle", merch: "le merchandising PRAYZVIBES" },
-      message: (name, purpose) => `Vous quittez prayzvibes.com pour ${name}, le partenaire officiel pour ${purpose}. La boutique s'ouvrira dans un nouvel onglet.`,
-      continue: (name) => `Continuer vers ${name} ↗`
-    }
-  };
-  const storeMessage = storeMessages[currentLanguage] || storeMessages.en;
-
-  const closeStoreExit = () => {
-    if (!storeExitDialog) return;
-    if (storeExitDialog.open && typeof storeExitDialog.close === "function") storeExitDialog.close();
-    else storeExitDialog.removeAttribute("open");
-    if (storeExitLastFocused instanceof HTMLElement) storeExitLastFocused.focus();
-  };
-
-  if (storeExitDialog && storeExitCopy && storeExitContinue) {
-    document.querySelectorAll("a[href]").forEach((link) => {
-      const destinationUrl = new URL(link.href, window.location.href);
-      const destination = storeDestinations.find((item) => item.matches(destinationUrl.hostname));
-      if (!destination) return;
-      link.addEventListener("click", (event) => {
-        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        if (link.closest("#shop")) {
-          trackEvent("shop_click", {
-            link_url: destinationUrl.href,
-            link_text: link.textContent.trim().slice(0, 100),
-            shop_route: link.dataset.merchRoute || "all"
-          });
-          trackEvent("product_click", {
-            link_url: destinationUrl.href,
-            product_name: link.dataset.productName || link.closest("[data-product-name]")?.dataset.productName || link.textContent.trim().slice(0, 100),
-            product_route: link.dataset.merchRoute || "all",
-            placement: link.dataset.productPlacement || "shop"
-          });
-          return;
-        }
-        event.preventDefault();
-        event.stopPropagation();
-        storeExitLastFocused = link;
-        storeExitCopy.textContent = storeMessage.message(destination.name, storeMessage.purposes[destination.purpose]);
-        storeExitContinue.href = destinationUrl.href;
-        storeExitContinue.textContent = storeMessage.continue(destination.name);
-        if (typeof storeExitDialog.showModal === "function") storeExitDialog.showModal();
-        else storeExitDialog.setAttribute("open", "");
-      });
-    });
-    storeExitDialog.querySelectorAll("[data-store-exit-close]").forEach((button) => button.addEventListener("click", closeStoreExit));
-    storeExitContinue.addEventListener("click", closeStoreExit);
-    storeExitDialog.addEventListener("cancel", (event) => {
-      event.preventDefault();
-      closeStoreExit();
-    });
-  }
 
   const getLinkPlacement = (link) => {
     if (link.dataset.listenPlacement) return link.dataset.listenPlacement;

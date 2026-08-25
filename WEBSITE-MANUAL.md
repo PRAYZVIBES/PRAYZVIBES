@@ -16,13 +16,29 @@ Open `pages/live.html`, `de/pages/live.html` and `fr/pages/live.html`. Add the r
 
 ### Add a release
 
-Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html` and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
+Update the featured release and current-chapter sections in each language homepage, then update each language version of `listen.html`, the dedicated release page and `epk.html` plus the English `feed.xml`. Upload the square cover to `images` and keep the existing filename until every reference has been changed and tested.
 
 The website now has a permanent post-release state. Transience is the current chapter; Mountain Day remains its doorway. When the next release arrives, replace the visible copy and metadata deliberately in all three languages rather than reactivating the retired 2026 pre-release scheduler.
 
 ### Add press coverage
 
-Open `index.html` and `pages/epk.html`. Copy one complete `press-card` and replace publication, headline and URL. Keep the homepage set short enough to scan; replace an existing card before removing the press path itself.
+Update the three homepages and the three `epk.html` pages together. Copy one complete press row/card and replace publication, headline and URL. Keep the homepage set short enough to scan; replace an existing card before removing the press path itself. Paid or partner placements must stay visibly separated from independent coverage.
+
+### Keep the five journey routes working
+
+The homepage journey bar is intentional: **01 Listen**, **02 Invite**, **03 Meet PRAYZ**, **04 Shop**, **05 Stay close**. The Living Charge marks behind these routes are decorative identifiers, not a separate homepage campaign.
+
+- 01 starts the native 24-second Mountain Day preview and lands at the Mountain Day section.
+- 02 opens the live proof and routes enquiries through the localized `book.html` page.
+- 03 leads to the personal story.
+- 04 leads to the Living Charge shop presentation.
+- 05 keeps the Eagle Spirit email field visible.
+
+Keep EPK access as an unnumbered professional utility. Do not add a sixth journey tile.
+
+### Maintain booking paths
+
+The public booking route is `pages/book.html`, with equivalent pages below `de/pages` and `fr/pages`. Keep direct email, SofaConcerts and BackstagePro available there. Homepage booking buttons should point to this page rather than forcing an email application to open immediately.
 
 ### Replace a short video
 
@@ -73,7 +89,7 @@ Before simplifying a section, confirm that its destination remains available som
 - Live, booking, About, Listen, EPK and contact pages
 - PRAYZ Worlds playlists
 - consent-based High Week video
-- newsletter, privacy choices and partner-store notices
+- newsletter and privacy choices
 
 ## Files that should remain
 
@@ -87,7 +103,7 @@ Before simplifying a section, confirm that its destination remains available som
 
 ## Safe workflow
 
-1. Download a backup of the current repository.
+1. Confirm the repository is clean and create a Git commit before changing the published branch.
 2. Make one small change.
 3. Test it locally or in a preview.
 4. Upload and check desktop plus mobile.
