@@ -3405,3 +3405,400 @@ body[data-page="home"] .pv-paths h2 {
   .pv-path[data-journey-path]:hover::after,
   .pv-path[data-journey-path]:focus-visible::after { transform: none; }
 }
+
+/* Threshold Doors · 2026-08-26
+   The journey ribbon behaves like five quiet entrances, not five promotional tiles. */
+.pv-paths__grid {
+  gap: clamp(7px, .72vw, 11px);
+  border: 0;
+}
+.pv-path,
+.pv-path--listen,
+.pv-path:nth-child(2),
+.pv-path:nth-child(3),
+.pv-path:nth-child(4),
+.pv-path--close {
+  --pv-door-wall: #ece6da;
+  --pv-door-leaf: #dcd4c5;
+  --pv-door-edge: rgba(49, 54, 34, .34);
+  --pv-door-panel-line: rgba(49, 54, 34, .17);
+  --pv-door-glow: rgba(208, 177, 91, .54);
+  --pv-door-threshold: rgba(147, 69, 50, .38);
+  --pv-door-text: var(--pv-ink);
+  min-height: 218px;
+  padding: clamp(23px, 1.85vw, 30px);
+  border: 1px solid var(--pv-door-edge);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.24), transparent 48%),
+    var(--pv-door-wall);
+  color: var(--pv-door-text);
+  box-shadow:
+    inset 0 -3px 0 var(--pv-door-threshold),
+    0 10px 24px rgba(49, 54, 34, .055);
+  perspective: 900px;
+  transition: color .24s ease, box-shadow .24s ease, border-color .24s ease;
+}
+.pv-path[data-journey-path="listen"] {
+  --pv-door-wall: #182219;
+  --pv-door-leaf: #2a3528;
+  --pv-door-edge: rgba(245, 241, 231, .31);
+  --pv-door-panel-line: rgba(245, 241, 231, .15);
+  --pv-door-glow: rgba(218, 184, 91, .72);
+  --pv-door-threshold: rgba(201, 170, 93, .72);
+  --pv-door-text: var(--pv-cream);
+}
+.pv-path[data-journey-path="invite"] {
+  --pv-door-wall: #eee5d8;
+  --pv-door-leaf: #ddcdbb;
+  --pv-door-glow: rgba(187, 96, 72, .43);
+  --pv-door-threshold: rgba(187, 96, 72, .42);
+}
+.pv-path[data-journey-path="meet"] {
+  --pv-door-wall: #e6e8de;
+  --pv-door-leaf: #cfd8ca;
+  --pv-door-glow: rgba(141, 176, 183, .5);
+  --pv-door-threshold: rgba(120, 132, 98, .5);
+}
+.pv-path[data-journey-path="carry"] {
+  --pv-door-wall: #e8dfcb;
+  --pv-door-leaf: #d7c79f;
+  --pv-door-glow: rgba(134, 105, 151, .42);
+  --pv-door-threshold: rgba(201, 170, 93, .64);
+}
+.pv-path[data-journey-path="stay-close"] {
+  --pv-door-wall: #dfe5e1;
+  --pv-door-leaf: #becbc1;
+  --pv-door-glow: rgba(92, 126, 178, .44);
+  --pv-door-threshold: rgba(92, 126, 178, .46);
+}
+.pv-path:hover,
+.pv-path:focus-visible,
+.pv-path--listen:hover,
+.pv-path--listen:focus-visible {
+  border-color: color-mix(in srgb, var(--pv-door-edge), currentColor 24%);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.29), transparent 52%),
+    var(--pv-door-wall);
+  color: var(--pv-door-text);
+  box-shadow:
+    inset 0 -4px 0 var(--pv-door-threshold),
+    0 14px 30px rgba(49, 54, 34, .1);
+}
+.pv-path:focus-visible {
+  outline: 3px solid var(--pv-brass-quiet);
+  outline-offset: 3px;
+}
+.pv-door,
+.pv-door__light,
+.pv-door__leaf,
+.pv-door__handle {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+.pv-door {
+  z-index: 0;
+  inset: 10px;
+  overflow: hidden;
+  border: 1px solid var(--pv-door-edge);
+  background: color-mix(in srgb, var(--pv-door-wall), #0f1710 6%);
+  box-shadow:
+    inset 0 0 0 5px color-mix(in srgb, var(--pv-door-wall), white 13%),
+    inset 0 -9px 18px rgba(30, 35, 25, .08);
+}
+.pv-door__light {
+  inset: 5px;
+  background:
+    radial-gradient(circle at 84% 48%, var(--pv-door-glow) 0 6%, transparent 40%),
+    linear-gradient(90deg, transparent 54%, var(--pv-door-glow));
+  opacity: .82;
+}
+.pv-door__leaf {
+  inset: 5px;
+  overflow: hidden;
+  border: 1px solid var(--pv-door-edge);
+  background:
+    linear-gradient(100deg, rgba(255,255,255,.1), transparent 43%),
+    var(--pv-door-leaf);
+  box-shadow: 5px 0 12px rgba(28, 33, 24, .14);
+  transform: perspective(780px) rotateY(0deg) scaleX(1);
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition: transform .48s cubic-bezier(.22,.68,.28,1), box-shadow .42s ease;
+}
+.pv-door__leaf::before,
+.pv-door__leaf::after {
+  content: "";
+  position: absolute;
+  left: 11%;
+  right: 11%;
+  border: 1px solid var(--pv-door-panel-line);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,.025);
+}
+.pv-door__leaf::before { top: 12%; bottom: 54%; }
+.pv-door__leaf::after { top: 54%; bottom: 12%; }
+.pv-door__handle {
+  z-index: 1;
+  top: 50%;
+  right: 8.5%;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(49,54,34,.38);
+  border-radius: 50%;
+  background: var(--pv-brass-quiet);
+  box-shadow: 0 0 0 3px rgba(201,170,93,.11);
+  transform: translateY(-50%);
+}
+.pv-path:hover .pv-door__leaf,
+.pv-path:focus-visible .pv-door__leaf {
+  box-shadow: 10px 0 22px rgba(28, 33, 24, .21);
+  transform: perspective(780px) rotateY(-14deg) scaleX(.965);
+}
+.pv-path::before { z-index: 2; }
+.pv-path[data-journey-path]::after { z-index: 1; }
+.pv-path > span,
+.pv-path > strong,
+.pv-path > small,
+.pv-path > b { z-index: 3; }
+.pv-path > strong,
+.pv-path--listen > strong { text-shadow: 0 1px 0 color-mix(in srgb, var(--pv-door-wall), transparent 44%); }
+.pv-path > small { opacity: .76; }
+
+@media (max-width: 1050px) {
+  .pv-paths__grid { grid-template-rows: minmax(208px, auto); }
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close { min-height: 208px; }
+}
+
+@media (max-width: 760px) {
+  .pv-paths__grid {
+    grid-auto-columns: minmax(232px, 79vw);
+    grid-template-rows: minmax(198px, auto);
+    padding: 3px 2px 10px;
+  }
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close {
+    min-height: 198px;
+    padding: 21px 40px 20px 20px;
+  }
+  .pv-door { inset: 8px; }
+  .pv-path[data-journey-path]::after { z-index: 1; }
+}
+
+@media (hover: none) {
+  .pv-path:hover .pv-door__leaf { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-door__leaf { transition: none; }
+  .pv-path:hover .pv-door__leaf,
+  .pv-path:focus-visible .pv-door__leaf { transform: none; }
+}
+
+/* Cinematic Thresholds · 2026-08-26
+   Real doorway and curtain photography replaces the drawn-door treatment. */
+.pv-home > section.pv-paths { overflow: clip; }
+.pv-paths__grid {
+  grid-template-columns: 1.24fr repeat(4, minmax(0, 1fr));
+  grid-template-rows: minmax(218px, auto);
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  gap: clamp(8px, .85vw, 13px);
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  scroll-snap-type: none;
+  scrollbar-width: none;
+}
+.pv-paths__grid::-webkit-scrollbar { display: none; }
+.pv-path,
+.pv-path--listen,
+.pv-path:nth-child(2),
+.pv-path:nth-child(3),
+.pv-path:nth-child(4),
+.pv-path--close {
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  min-height: 218px;
+  padding: clamp(21px, 1.75vw, 29px);
+  overflow: hidden;
+  border: 0;
+  border-radius: 10px;
+  background: #172018;
+  color: var(--pv-cream);
+  box-shadow: 0 16px 34px rgba(31, 37, 27, .13);
+  perspective: none;
+  transform: translateY(0);
+  transition: box-shadow .28s ease, transform .28s ease;
+}
+.pv-path:hover,
+.pv-path:focus-visible,
+.pv-path--listen:hover,
+.pv-path--listen:focus-visible {
+  border-color: transparent;
+  background: #172018;
+  color: var(--pv-cream);
+  box-shadow: 0 20px 42px rgba(31, 37, 27, .2);
+  transform: translateY(-3px);
+}
+.pv-path:focus-visible {
+  outline: 3px solid var(--pv-brass-quiet);
+  outline-offset: 3px;
+}
+.pv-threshold-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(.72) contrast(1.04) brightness(.88);
+  pointer-events: none;
+  transform: scale(1.005);
+  transition: filter .42s ease, transform .58s cubic-bezier(.22,.68,.28,1);
+}
+.pv-threshold-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,16,11,.17), rgba(10,16,11,.38) 52%, rgba(10,16,11,.86) 100%),
+    linear-gradient(100deg, rgba(10,16,11,.46), transparent 68%);
+}
+.pv-path[data-journey-path="listen"] .pv-threshold-media {
+  background-image: url("images/thresholds/listen-curtain-pixabay.jpg");
+  background-position: 52% center;
+}
+.pv-path[data-journey-path="invite"] .pv-threshold-media {
+  background-image: url("images/thresholds/invite-curtain-pixabay.jpg");
+  background-position: center 45%;
+  filter: saturate(.66) contrast(1.04) brightness(.8);
+}
+.pv-path[data-journey-path="meet"] .pv-threshold-media {
+  background-image: url("images/thresholds/meet-door-pixabay.jpg");
+  background-position: 68% center;
+  filter: saturate(.62) contrast(1.08) brightness(.94);
+}
+.pv-path[data-journey-path="carry"] .pv-threshold-media {
+  background-image: url("images/thresholds/shop-door-pixabay.jpg");
+  background-position: 28% center;
+  filter: saturate(.68) contrast(1.04) brightness(.82);
+}
+.pv-path[data-journey-path="stay-close"] .pv-threshold-media {
+  background-image: url("images/thresholds/meet-door-pixabay.jpg");
+  background-position: 83% center;
+  filter: saturate(.42) hue-rotate(168deg) contrast(1.08) brightness(.86);
+}
+.pv-path:hover .pv-threshold-media,
+.pv-path:focus-visible .pv-threshold-media {
+  filter: saturate(.88) contrast(1.03) brightness(.96);
+  transform: scale(1.045);
+}
+.pv-path::before { z-index: 2; mix-blend-mode: screen; opacity: .11; }
+.pv-path[data-journey-path]::after { z-index: 1; mix-blend-mode: screen; opacity: .055; }
+.pv-path[data-journey-path]:hover::after,
+.pv-path[data-journey-path]:focus-visible::after { opacity: .08; }
+.pv-path > span,
+.pv-path > strong,
+.pv-path > small,
+.pv-path > b { z-index: 3; }
+.pv-path > span,
+.pv-path--listen > span { color: #e7c76d; }
+.pv-path > strong,
+.pv-path--listen > strong {
+  max-width: 11ch;
+  color: #fffdf7;
+  font-size: clamp(1.48rem, 1.72vw, 2.12rem);
+  text-shadow: 0 2px 18px rgba(0,0,0,.38);
+}
+.pv-path > small {
+  max-width: 23ch;
+  color: rgba(255,253,247,.86);
+  font-family: var(--pv-body);
+  font-size: max(.73rem, 12px);
+  font-weight: 650;
+  line-height: 1.32;
+  opacity: 1;
+  text-shadow: 0 1px 12px rgba(0,0,0,.55);
+}
+.pv-path > b { color: #f3ddb0; opacity: .88; }
+
+@media (max-width: 1050px) {
+  .pv-paths__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 12px;
+    overflow: visible;
+  }
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 190px;
+  }
+  .pv-path--listen { grid-column: 1 / -1; min-height: 220px; }
+}
+
+@media (max-width: 760px) {
+  .pv-paths__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+  }
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    min-height: 150px;
+    padding: 19px 44px 18px 20px;
+    border-radius: 8px;
+  }
+  .pv-path--listen { min-height: 165px; }
+  .pv-path > strong,
+  .pv-path--listen > strong { font-size: clamp(1.62rem, 7.6vw, 2rem); }
+  .pv-path > small { max-width: 30ch; margin-top: 12px; }
+}
+
+@media (hover: none) {
+  .pv-path:hover { transform: none; }
+  .pv-path:hover .pv-threshold-media { transform: scale(1.005); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-path,
+  .pv-threshold-media { transition: none; }
+  .pv-path:hover,
+  .pv-path:focus-visible { transform: none; }
+  .pv-path:hover .pv-threshold-media,
+  .pv-path:focus-visible .pv-threshold-media { transform: none; }
+}
