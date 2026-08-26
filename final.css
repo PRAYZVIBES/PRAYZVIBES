@@ -3679,28 +3679,29 @@ body[data-page="home"] .pv-paths h2 {
     linear-gradient(100deg, rgba(10,16,11,.46), transparent 68%);
 }
 .pv-path[data-journey-path="listen"] .pv-threshold-media {
-  background-image: url("images/thresholds/listen-curtain-pixabay.jpg");
-  background-position: 52% center;
+  background-image: url("images/thresholds/journey-01-listen-authentic-v1.jpg");
+  background-position: 50% 48%;
+  filter: saturate(.82) contrast(1.05) brightness(.84);
 }
 .pv-path[data-journey-path="invite"] .pv-threshold-media {
-  background-image: url("images/thresholds/invite-curtain-pixabay.jpg");
-  background-position: center 45%;
-  filter: saturate(.66) contrast(1.04) brightness(.8);
+  background-image: url("images/thresholds/journey-02-invite-authentic-v1.jpg");
+  background-position: 50% 42%;
+  filter: saturate(.74) contrast(1.04) brightness(.83);
 }
 .pv-path[data-journey-path="meet"] .pv-threshold-media {
-  background-image: url("images/thresholds/meet-door-pixabay.jpg");
-  background-position: 68% center;
-  filter: saturate(.62) contrast(1.08) brightness(.94);
+  background-image: url("images/thresholds/journey-03-meet-authentic-v1.jpg");
+  background-position: 52% center;
+  filter: saturate(.68) contrast(1.06) brightness(.88);
 }
 .pv-path[data-journey-path="carry"] .pv-threshold-media {
-  background-image: url("images/thresholds/shop-door-pixabay.jpg");
-  background-position: 28% center;
-  filter: saturate(.68) contrast(1.04) brightness(.82);
+  background-image: url("images/thresholds/journey-04-shop-authentic-v1.jpg");
+  background-position: 50% center;
+  filter: saturate(.72) contrast(1.05) brightness(.84);
 }
 .pv-path[data-journey-path="stay-close"] .pv-threshold-media {
-  background-image: url("images/thresholds/meet-door-pixabay.jpg");
-  background-position: 83% center;
-  filter: saturate(.42) hue-rotate(168deg) contrast(1.08) brightness(.86);
+  background-image: url("images/thresholds/journey-05-stay-close-authentic-v1.jpg");
+  background-position: 35% center;
+  filter: saturate(.62) contrast(1.08) brightness(.86);
 }
 .pv-path:hover .pv-threshold-media,
 .pv-path:focus-visible .pv-threshold-media {
@@ -3801,4 +3802,15 @@ body[data-page="home"] .pv-paths h2 {
   .pv-path:focus-visible { transform: none; }
   .pv-path:hover .pv-threshold-media,
   .pv-path:focus-visible .pv-threshold-media { transform: none; }
+}
+
+/* Message architecture · earned closing signal */
+.pv-footer-signature {
+  margin-top: .9rem;
+  color: var(--pv-brass-quiet);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
