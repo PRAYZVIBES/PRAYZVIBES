@@ -14,6 +14,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Passion One";
+  src: url("fonts/passion-one-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --pv-ink: #11150e;
   --pv-deep: #1e271b;
@@ -27,11 +35,18 @@
   --pv-brown: #332116;
   --pv-merch-olive: #313622;
   --pv-merch-gold: #d1b464;
+  --pv-pure-bone: #e9e4d7;
+  --pv-pure-blue: #2846a3;
+  --pv-pure-teal: #2d7671;
+  --pv-pure-coral: #d66b4d;
+  --pv-pure-air: #84b0bc;
+  --pv-pure-violet: #6c5a86;
   --pv-line-dark: rgba(17, 21, 14, .19);
   --pv-line-light: rgba(255, 255, 255, .22);
   --pv-display: "Archivo Black", "Arial Black", "Arial Narrow", Impact, sans-serif;
   --pv-body: "DM Sans", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
   --pv-editorial: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --pv-street: "Passion One", "Archivo Black", Impact, sans-serif;
   --display: var(--pv-display);
   --body: var(--pv-body);
   --header-height: 84px;
@@ -3028,4 +3043,365 @@ body[data-page="home"] .pv-paths h2 {
   .pv-path::before { transition: none; }
   .pv-path:hover::before,
   .pv-path:focus-visible::before { transform: none; }
+}
+
+/* Pure Existence: a quiet street-documentary layer, not a second campaign takeover. */
+.pv-path::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--pv-pure-teal);
+  opacity: .78;
+  pointer-events: none;
+}
+.pv-path:nth-child(2)::after { background: var(--pv-pure-coral); }
+.pv-path:nth-child(3)::after { background: var(--pv-pure-air); }
+.pv-path:nth-child(4)::after { background: var(--pv-pure-violet); }
+.pv-path:nth-child(5)::after { background: var(--pv-pure-blue); }
+
+.pv-home > section.pv-pure-trace {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.8fr);
+  gap: clamp(28px, 5vw, 86px);
+  align-items: center;
+  min-height: 260px;
+  padding: clamp(38px, 5vw, 68px) var(--pv-gutter) !important;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(28,28,28,.2);
+  background-color: var(--pv-pure-bone);
+  background-image:
+    radial-gradient(circle at 20% 28%, rgba(49,31,20,.055) 0 1px, transparent 1.35px),
+    linear-gradient(104deg, rgba(255,255,255,.24), transparent 52%);
+  background-size: 8px 8px, 100% 100%;
+  color: var(--pv-ink);
+  isolation: isolate;
+}
+.pv-pure-trace::before,
+.pv-pure-trace::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -1%;
+  width: 102%;
+  height: 12px;
+  background: var(--pv-pure-bone);
+  clip-path: polygon(0 62%, 3% 32%, 7% 70%, 11% 38%, 16% 60%, 21% 29%, 27% 66%, 32% 35%, 38% 72%, 44% 31%, 51% 65%, 57% 36%, 64% 71%, 71% 30%, 78% 63%, 85% 33%, 92% 68%, 100% 37%, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+.pv-pure-trace::before { top: -5px; }
+.pv-pure-trace::after { bottom: -5px; transform: rotate(180deg); }
+.pv-pure-trace__note,
+.pv-pure-trace__marks { position: relative; z-index: 1; }
+.pv-pure-trace__note {
+  max-width: 430px;
+  padding: 20px 22px 19px;
+  border: 1px solid rgba(40,70,163,.28);
+  background: rgba(251,249,243,.6);
+  box-shadow: 8px 9px 0 rgba(49,31,20,.08);
+  transform: rotate(-.75deg);
+}
+.pv-pure-trace__stamp {
+  display: block;
+  color: var(--pv-pure-blue);
+  font-family: var(--pv-street);
+  font-size: clamp(.86rem, 1.12vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: .055em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.pv-pure-trace__note > p {
+  max-width: 11ch;
+  margin: 13px 0 14px;
+  color: var(--pv-ink);
+  font-family: var(--pv-street);
+  font-size: clamp(2.25rem, 3.55vw, 4.05rem);
+  font-weight: 400;
+  letter-spacing: .01em;
+  line-height: .84;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.pv-pure-trace__note > small {
+  display: block;
+  max-width: 44ch;
+  color: rgba(17,21,14,.72);
+  font-family: var(--pv-body);
+  font-size: max(.72rem, 12px);
+  font-weight: 650;
+  letter-spacing: .055em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.pv-pure-trace__note > small b { padding-inline: .35em; color: var(--pv-pure-coral); }
+.pv-pure-trace__marks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.45vw, 22px);
+  align-items: center;
+}
+.pv-pure-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  margin: 0;
+  padding: clamp(9px, 1.15vw, 18px);
+  overflow: hidden;
+  border: 1px solid rgba(28,28,28,.13);
+  background: rgba(251,249,243,.72);
+  box-shadow: 5px 6px 0 rgba(49,31,20,.055);
+}
+.pv-pure-mark:nth-child(1) { transform: rotate(.8deg); }
+.pv-pure-mark:nth-child(2) { transform: translateY(4px) rotate(-.65deg); }
+.pv-pure-mark:nth-child(3) { transform: translateY(-3px) rotate(.45deg); }
+.pv-pure-mark:nth-child(4) { transform: translateY(2px) rotate(-.5deg); }
+.pv-pure-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(112deg, transparent 34%, rgba(255,255,255,.34) 49%, transparent 65%);
+  opacity: .45;
+  pointer-events: none;
+}
+.pv-pure-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pv-pure-mark--fragile {
+  background-color: rgba(251,249,243,.72);
+}
+.pv-pure-mark--fragile img { opacity: 0; }
+.pv-pure-mark--fragile::before {
+  content: "";
+  position: absolute;
+  inset: clamp(9px, 1.15vw, 18px);
+  background: var(--pv-pure-coral);
+  -webkit-mask: url("images/pure-existence/we-are-fragile-creatures.svg") center / contain no-repeat;
+  mask: url("images/pure-existence/we-are-fragile-creatures.svg") center / contain no-repeat;
+}
+
+.pv-shop-feature { position: relative; overflow: hidden; isolation: isolate; }
+.pv-shop-feature::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: clamp(-42px, -2vw, -18px);
+  bottom: clamp(-26px, -1.5vw, -10px);
+  width: clamp(230px, 26vw, 430px);
+  aspect-ratio: 2.3 / 1;
+  background: url("images/pure-existence/prayzvibes-signature.svg") center / contain no-repeat;
+  filter: grayscale(1) brightness(4);
+  opacity: .045;
+  pointer-events: none;
+  transform: rotate(-4deg);
+}
+.pv-shop-feature > * { position: relative; z-index: 1; }
+
+@media (max-width: 1050px) {
+  .pv-home > section.pv-pure-trace { grid-template-columns: minmax(230px, .76fr) minmax(0, 1.4fr); gap: 28px; }
+  .pv-pure-trace__marks { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 560px; justify-self: end; }
+}
+
+@media (max-width: 760px) {
+  .pv-home > section.pv-pure-trace {
+    display: block;
+    min-height: 0;
+    padding: 38px 20px 42px !important;
+  }
+  .pv-pure-trace__note { max-width: none; padding: 17px 17px 16px; transform: rotate(-.45deg); }
+  .pv-pure-trace__note > p { max-width: 12ch; font-size: clamp(2.15rem, 12vw, 3.15rem); }
+  .pv-pure-trace__marks {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(142px, 43vw, 240px);
+    gap: 12px;
+    width: 100%;
+    max-width: none;
+    margin-top: 28px;
+    padding: 3px 6px 12px 2px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(40,70,163,.35) transparent;
+    justify-self: stretch;
+  }
+  .pv-pure-mark { scroll-snap-align: start; }
+  .pv-shop-feature::after { width: 260px; opacity: .035; }
+}
+
+/* Pure Existence pre-release whispers: discoverable details, never a visible collection. */
+.pv-path::after { content: none; }
+.pv-home > section.pv-pure-trace { display: none; }
+.pv-mountain,
+.pv-live,
+.pv-story { position: relative; overflow: hidden; isolation: isolate; }
+.pv-mountain > *,
+.pv-live > *,
+.pv-story > * { position: relative; z-index: 1; }
+.pv-mountain::before,
+.pv-live::before,
+.pv-story::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  aspect-ratio: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  user-select: none;
+}
+.pv-mountain::before {
+  right: clamp(-170px, -8vw, -80px);
+  bottom: clamp(-185px, -9vw, -95px);
+  width: clamp(320px, 34vw, 560px);
+  background-image: url("images/pure-existence/light-reappears.svg");
+  mix-blend-mode: multiply;
+  opacity: .042;
+  transform: rotate(7deg);
+}
+.pv-live::before {
+  right: clamp(-145px, -7vw, -70px);
+  top: clamp(-120px, -5vw, -55px);
+  width: clamp(300px, 31vw, 510px);
+  background-image: url("images/pure-existence/it-is-real.svg");
+  filter: saturate(.7) brightness(1.85);
+  mix-blend-mode: screen;
+  opacity: .052;
+  transform: rotate(-8deg);
+}
+.pv-story::before {
+  left: clamp(-175px, -8vw, -82px);
+  bottom: clamp(-180px, -8vw, -88px);
+  width: clamp(310px, 33vw, 540px);
+  background-image: url("images/pure-existence/stand-firm.svg");
+  mix-blend-mode: multiply;
+  opacity: .034;
+  transform: rotate(-6deg);
+}
+.pv-shop-feature::after { opacity: .025; }
+
+@media (max-width: 760px) {
+  .pv-mountain::before { right: -96px; bottom: -92px; width: 280px; opacity: .032; }
+  .pv-live::before { right: -88px; top: -65px; width: 250px; opacity: .04; }
+  .pv-story::before { left: -102px; bottom: -96px; width: 275px; opacity: .028; }
+}
+
+/* Full pre-release whisper set: every active mark appears once, always as atmosphere. */
+.pv-release { position: relative; overflow: hidden; isolation: isolate; }
+.pv-release > * { position: relative; z-index: 1; }
+.pv-release::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: clamp(-180px, -8vw, -86px);
+  top: clamp(-160px, -7vw, -72px);
+  width: clamp(340px, 37vw, 610px);
+  aspect-ratio: 1;
+  background: var(--pv-pure-coral);
+  -webkit-mask: url("images/pure-existence/we-are-fragile-creatures.svg") center / contain no-repeat;
+  mask: url("images/pure-existence/we-are-fragile-creatures.svg") center / contain no-repeat;
+  mix-blend-mode: multiply;
+  opacity: .047;
+  pointer-events: none;
+  transform: rotate(8deg);
+}
+.pv-mountain::before { width: clamp(350px, 38vw, 620px); opacity: .052; }
+.pv-live::before { width: clamp(330px, 35vw, 570px); opacity: .064; }
+.pv-story::before { width: clamp(340px, 37vw, 600px); opacity: .046; }
+.pv-story__copy { position: relative; overflow: hidden; isolation: isolate; }
+.pv-story__copy::before {
+  content: "NOT EVERY LIGHT LEADS HOME";
+  position: absolute;
+  z-index: 0;
+  top: clamp(24px, 3vw, 48px);
+  right: clamp(18px, 2.8vw, 44px);
+  width: 7.6ch;
+  color: rgba(108,90,134,.055);
+  font-family: var(--pv-street);
+  font-size: clamp(2.4rem, 4.8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: .015em;
+  line-height: .76;
+  text-align: right;
+  text-transform: uppercase;
+  pointer-events: none;
+  transform: rotate(3deg);
+}
+.pv-story__copy > * { position: relative; z-index: 1; }
+.pv-shop-feature::after { width: clamp(280px, 32vw, 520px); opacity: .038; }
+.pv-shop-feature__intro { position: relative; overflow: hidden; isolation: isolate; }
+.pv-shop-feature__intro::before {
+  content: "PRAISE WHAT GUIDES YOU HOME";
+  position: absolute;
+  z-index: 0;
+  right: -.18em;
+  bottom: -.13em;
+  width: 6.6ch;
+  color: rgba(233,228,215,.044);
+  font-family: var(--pv-street);
+  font-size: clamp(5.4rem, 10.5vw, 11.8rem);
+  font-weight: 400;
+  letter-spacing: .015em;
+  line-height: .72;
+  text-align: right;
+  text-transform: uppercase;
+  pointer-events: none;
+  transform: rotate(-2deg);
+}
+.pv-shop-feature__intro > * { position: relative; z-index: 1; }
+
+@media (max-width: 760px) {
+  .pv-release::before { right: -108px; top: -78px; width: 295px; opacity: .038; }
+  .pv-mountain::before { width: 300px; opacity: .04; }
+  .pv-live::before { width: 275px; opacity: .05; }
+  .pv-story::before { width: 300px; opacity: .036; }
+  .pv-story__copy::before { top: 18px; right: 14px; font-size: clamp(2.3rem, 12vw, 3.3rem); }
+  .pv-shop-feature::after { width: 290px; opacity: .03; }
+  .pv-shop-feature__intro::before { right: -.23em; bottom: -.08em; font-size: clamp(5rem, 25vw, 7.4rem); opacity: .9; }
+}
+
+/* Confirmed turtle originals: quiet route markers, not a public collection reveal. */
+.pv-path[data-journey-path]::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: -34px;
+  bottom: -42px;
+  width: clamp(132px, 10vw, 172px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: saturate(.5) contrast(1.04);
+  mix-blend-mode: multiply;
+  opacity: .072;
+  pointer-events: none;
+  transform: rotate(-5deg);
+  -webkit-mask-image: radial-gradient(circle, #000 54%, rgba(0,0,0,.82) 63%, transparent 76%);
+  mask-image: radial-gradient(circle, #000 54%, rgba(0,0,0,.82) 63%, transparent 76%);
+  transition: opacity .24s ease, transform .28s ease;
+}
+.pv-path[data-journey-path="listen"]::after { content: none; }
+.pv-path[data-journey-path="invite"]::after { background-image: url("images/pure-existence/turtle-01-angular-z.webp"); }
+.pv-path[data-journey-path="meet"]::after { background-image: url("images/pure-existence/turtle-03-open-heart.webp"); transform: rotate(4deg); }
+.pv-path[data-journey-path="carry"]::after { background-image: url("images/pure-existence/turtle-02-spiral.webp"); transform: rotate(-2deg); }
+.pv-path[data-journey-path="stay-close"]::after { background-image: url("images/pure-existence/turtle-04-calligraphic-loop.webp"); transform: rotate(5deg); }
+.pv-path[data-journey-path]:hover::after,
+.pv-path[data-journey-path]:focus-visible::after { opacity: .105; transform: rotate(0deg) scale(1.025); }
+
+@media (max-width: 760px) {
+  .pv-path[data-journey-path]::after { right: -28px; bottom: -35px; width: 132px; opacity: .056; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-path[data-journey-path]::after { transition: none; }
+  .pv-path[data-journey-path]:hover::after,
+  .pv-path[data-journey-path]:focus-visible::after { transform: none; }
 }
