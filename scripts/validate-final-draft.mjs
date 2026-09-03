@@ -86,9 +86,9 @@ const homepageLocales = new Map([
 ]);
 
 const tjplDisclosureByLocale = new Map([
-  ["en", /paid content in partnership with the artist/i],
-  ["de", /bezahlter Inhalt in Partnerschaft mit dem Künstlerteam/i],
-  ["fr", /contenu rémunéré réalisé en partenariat avec l(?:&rsquo;|’)équipe de l(?:&rsquo;|’)artiste/i],
+  ["en", /participation is paid partner content/i],
+  ["de", /Teilnahme von PRAYZVIBES ist bezahlter Partnerinhalt/i],
+  ["fr", /participation de PRAYZVIBES est un contenu partenaire rémunéré/i],
 ]);
 
 for (const [homepage, locale] of homepageLocales) {
@@ -128,8 +128,10 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
   if (!/name=["']email_address_check["']/.test(html)) fail(`${homepage}: missing Brevo honeypot`);
   if (!new RegExp(`name=["']locale["']\\s+value=["']${locale}["']`).test(html)) fail(`${homepage}: wrong Brevo locale`);
-  if (!/class=["'][^"']*pv-hero-press\b/.test(html)) fail(`${homepage}: missing compact TJPL Issue 45 press record`);
+  if (/class=["'][^"']*pv-hero-press\b/.test(html)) fail(`${homepage}: obsolete TJPL homepage hero badge remains`);
   if (!/href=["']pages\/press-tjpl\.html["']/.test(html)) fail(`${homepage}: TJPL Issue 45 press record does not reach the localized context page`);
+  if (!/id=["']berlin-2026-11-04["']/.test(html)) fail(`${homepage}: missing confirmed Berlin guest date`);
+  if (!/"@type":\s*"MusicEvent"/.test(html)) fail(`${homepage}: missing Berlin MusicEvent structured data`);
   if (/pv-explore|pv-merch|first-response-coin/i.test(html)) fail(`${homepage}: legacy utility or symbolic-coin content remains`);
   if (/\b(?:Andreas|engineer|engineering|Ingenieur|Energietechnik|ingénieur|ingénierie)\b/i.test(html)) fail(`${homepage}: private name or engineering biography remains`);
 }
@@ -138,15 +140,26 @@ const removedTjplPdf = path.join(root, "downloads", "tjpl-news-issue-45-prayzvib
 if (fs.existsSync(removedTjplPdf)) fail("downloads: removed TJPL Issue 45 PDF is still publicly packaged");
 for (const [page, locale] of [["pages/press-tjpl.html", "en"], ["de/pages/press-tjpl.html", "de"], ["fr/pages/press-tjpl.html", "fr"]]) {
   const html = fs.readFileSync(path.join(root, page), "utf8");
-  if (!/href=["']https:\/\/www\.tjplnews\.com\/magazine["']/.test(html)) fail(`${page}: missing official TJPL magazine link`);
-  if (!/The recording(?:&rsquo;|’)s restraint is its strength\./.test(html)) fail(`${page}: missing short attributed TJPL excerpt`);
+  if (!/href=["']https:\/\/www\.tjplnews\.com\/post\/tjpl-news-magazine-issue-45-september-2026["']/.test(html)) fail(`${page}: missing direct official TJPL Issue 45 link`);
+  if (/https:\/\/www\.tjplnews\.com\/magazine["']/.test(html)) fail(`${page}: generic TJPL magazine link remains`);
+  if (!/PRAYZVIBES climbs above the surrounding noise in search of a different perspective on (?:&lsquo;|‘)Mountain Day(?:&rsquo;|’)/.test(html)) fail(`${page}: missing short attributed TJPL excerpt`);
+  if (/cover (?:story|feature|collaboration|partnership)|full-page|appears on the cover|ganzseit|auf dem Cover|dossier de couverture|en couverture|pleine page/i.test(html)) fail(`${page}: false TJPL cover or full-page claim remains`);
+  if (!/artist poster|Künstlerposter|Affiche artiste/i.test(html)) fail(`${page}: TJPL image is not identified as the supplied artist poster`);
   if (!tjplDisclosureByLocale.get(locale)?.test(html)) fail(`${page}: missing localized TJPL paid-partnership disclosure`);
+}
+
+for (const page of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
+  const html = fs.readFileSync(path.join(root, page), "utf8");
+  for (const signal of ["berlin-2026-11-04", "2026-11-04T20:00:00+01:00", "Schönfließer Straße 7", "10439 Berlin", "LimitedAvailability"]) {
+    if (!html.includes(signal)) fail(`${page}: missing Berlin event signal ${signal}`);
+  }
+  if (!/"@type":"MusicEvent"/.test(html)) fail(`${page}: missing Berlin MusicEvent structured data`);
 }
 
 const headerPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => /<nav class=["']main-nav["']/.test(html));
-if (headerPages.length !== 27) fail(`HTML: expected 27 header-bearing pages, found ${headerPages.length}`);
+if (headerPages.length !== 39) fail(`HTML: expected 39 header-bearing pages, found ${headerPages.length}`);
 for (const [file, html] of headerPages) {
   const normalized = file.replaceAll("\\", "/");
   if (/^(?:de\/|fr\/)?index\.html$/.test(normalized)) continue;
@@ -194,7 +207,8 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-if (assetVersions.size !== 1 || !assetVersions.has("20260825-refinement")) {
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-berlin"]);
+if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
 
