@@ -22,6 +22,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "PV Permanent Marker";
+  src: url("fonts/PermanentMarker-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --pv-ink: #11150e;
   --pv-deep: #1e271b;
@@ -47,6 +55,7 @@
   --pv-body: "DM Sans", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
   --pv-editorial: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   --pv-street: "Passion One", "Archivo Black", Impact, sans-serif;
+  --pv-graffiti: "PV Permanent Marker", "Segoe Print", "Bradley Hand ITC", cursive;
   --display: var(--pv-display);
   --body: var(--pv-body);
   --header-height: 84px;
@@ -4160,6 +4169,19 @@ body[data-page="home"] .pv-street-chapter__intro h2 {
   text-transform: none;
 }
 
+body[data-page="home"] .pv-street-chapter__intro h2 em {
+  display: inline-block;
+  color: #e7c76d;
+  font-family: var(--pv-graffiti);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: .86;
+  text-shadow: 0 2px 0 rgba(0,0,0,.2);
+  transform: rotate(-1.4deg);
+  transform-origin: left center;
+}
+
 .pv-street-chapter__intro > p:last-child {
   max-width: 38ch;
   color: rgba(244,240,229,.78);
@@ -4198,6 +4220,14 @@ body[data-page="home"] .pv-street-chapter__intro h2 {
 
 .pv-street-gallery > li { min-width: 0; overflow: hidden; }
 .pv-street-gallery__core { grid-row: 1 / span 3; }
+
+.pv-street-gallery__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  cursor: pointer;
+}
 
 .pv-street-gallery figure {
   position: relative;
@@ -4251,7 +4281,7 @@ body[data-page="home"] .pv-street-chapter__intro h2 {
 }
 
 .pv-street-gallery figcaption span {
-  grid-row: 1 / span 2;
+  grid-row: 1 / span 3;
   color: #1762a0;
   font-size: .67rem;
   font-weight: 900;
@@ -4276,9 +4306,66 @@ body[data-page="home"] .pv-street-chapter__intro h2 {
   text-transform: uppercase;
 }
 
-.pv-street-gallery figure:hover img {
+.pv-street-gallery__cta {
+  grid-column: 2;
+  width: fit-content;
+  margin-top: 5px;
+  padding-bottom: 1px;
+  border-bottom: 2px solid #1762a0;
+  color: #1762a0;
+  font-family: var(--pv-graffiti);
+  font-size: clamp(.74rem, .85vw, .92rem);
+  font-weight: 400;
+  letter-spacing: .01em;
+  line-height: 1.15;
+}
+
+.pv-street-gallery__cta::after {
+  content: " ↗";
+  font-family: var(--pv-body);
+  font-size: .82em;
+  font-weight: 800;
+}
+
+.pv-street-gallery__link:hover img,
+.pv-street-gallery__link:focus-visible img {
   filter: saturate(.95) contrast(1.02) brightness(.94);
   transform: scale(1.018);
+}
+
+.pv-street-gallery__link:focus-visible {
+  outline: none;
+}
+
+.pv-street-gallery__link:focus-visible figure {
+  outline: 3px solid #e7c76d;
+  outline-offset: -4px;
+}
+
+/* Wall and wheatpaste surfaces · the image remains texture, while the copy stays primary. */
+body[data-page="home"] .pv-mountain__copy {
+  background:
+    linear-gradient(100deg, rgba(243,239,227,.95) 0%, rgba(243,239,227,.89) 66%, rgba(243,239,227,.84) 100%),
+    url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 52% 42% / cover no-repeat;
+}
+
+body[data-page="home"] .pv-release__content {
+  background:
+    linear-gradient(102deg, rgba(243,239,227,.95) 0%, rgba(243,239,227,.89) 68%, rgba(243,239,227,.85) 100%),
+    url("images/living-charge/street-signals/street-create-resonance-full-v4.webp") 56% 46% / cover no-repeat;
+}
+
+body[data-page="home"] .pv-story__copy {
+  background:
+    linear-gradient(100deg, rgba(251,249,243,.95) 0%, rgba(251,249,243,.9) 68%, rgba(251,249,243,.84) 100%),
+    url("images/living-charge/street-signals/street-live-consciously-full-v4.webp") 46% 44% / cover no-repeat;
+}
+
+body[data-page="home"] .pv-support-note__actions {
+  background:
+    linear-gradient(rgba(251,249,243,.9), rgba(251,249,243,.9)),
+    url("images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp") 52% 58% / cover no-repeat;
+  clip-path: polygon(0 3px, 99.5% 0, 100% calc(100% - 4px), .5% 100%);
 }
 
 .pv-event-feature {
@@ -4380,9 +4467,11 @@ body[data-page="home"] .pv-street-chapter__intro h2 {
   .pv-street-gallery > li:nth-child(4) { grid-column: 3; grid-row: 2; }
   .pv-street-gallery figcaption { right: 10px; bottom: 10px; left: 10px; }
   .pv-street-gallery figcaption strong { font-size: 1.05rem; }
+  .pv-street-gallery__cta { min-height: 24px; font-size: .82rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pv-street-gallery img { transition: none; }
-  .pv-street-gallery figure:hover img { transform: none; }
+  .pv-street-gallery__link:hover img,
+  .pv-street-gallery__link:focus-visible img { transform: none; }
 }

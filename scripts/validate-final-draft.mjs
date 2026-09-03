@@ -198,6 +198,20 @@ if (openBraces !== closeBraces) fail(`final.css: brace mismatch ${openBraces}/${
 if (!/html\s*{\s*font-size:\s*18px/.test(css)) fail("final.css: desktop base type is below the agreed size");
 if (!/@media \(max-width: 640px\)[\s\S]*?html\s*{\s*font-size:\s*16\.5px/.test(css)) fail("final.css: mobile base type safeguard is missing");
 
+for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker-Apache-2.0.txt"]) {
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: local graffiti font asset is missing`);
+}
+if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
+
+for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  const streetLinks = html.match(/class=["']pv-street-gallery__link["']/g) || [];
+  const streetActions = html.match(/class=["']pv-street-gallery__cta["']/g) || [];
+  if (streetLinks.length !== 4 || streetActions.length !== 4) {
+    fail(`${file}: expected four functional street-gallery routes`);
+  }
+}
+
 const streetSignalAssets = [
   "images/living-charge/street-signals/street-listen-deeply-v4.webp",
   "images/living-charge/street-signals/street-create-resonance-v4.webp",
@@ -241,7 +255,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-street-chapter"]);
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-wall-routes"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
