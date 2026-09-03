@@ -4349,6 +4349,26 @@ body[data-page="home"] .pv-mountain__copy {
     url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 52% 42% / cover no-repeat;
 }
 
+body[data-page="home"] .pv-mountain__media {
+  background:
+    linear-gradient(rgba(23,29,20,.9), rgba(23,29,20,.9)),
+    url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 48% 44% / cover no-repeat;
+  color: var(--pv-cream);
+}
+
+body[data-page="home"] .pv-mountain__media .pv-media-privacy {
+  color: rgba(244,240,229,.67);
+}
+
+body[data-page="home"] .pv-mountain__media .pv-social-video-links a {
+  color: rgba(244,240,229,.86);
+}
+
+body[data-page="home"] .pv-mountain__media .pv-social-video-links a:hover,
+body[data-page="home"] .pv-mountain__media .pv-social-video-links a:focus-visible {
+  color: #e7c76d;
+}
+
 body[data-page="home"] .pv-release__content {
   background:
     linear-gradient(102deg, rgba(243,239,227,.95) 0%, rgba(243,239,227,.89) 68%, rgba(243,239,227,.85) 100%),

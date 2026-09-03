@@ -255,7 +255,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-wall-routes"]);
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-mountain-wall"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
