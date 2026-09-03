@@ -4064,3 +4064,325 @@ body[data-page="home"] .pv-paths h2 {
   .pv-event-detail::after { top: 12px; }
   .pv-event-detail__facts > div { grid-template-columns: 1fr; gap: .25rem; }
 }
+
+/* Street chapter · 2026-09-03
+   The PRAYZVIBES warmth stays in control; street material enters as an
+   authentic visual layer through full approved Living Charge studies. */
+.pv-home > section.pv-paths {
+  background:
+    radial-gradient(circle at 17% 32%, rgba(49,31,20,.055) 0 1px, transparent 1.4px),
+    linear-gradient(93deg, rgba(209,180,100,.09), transparent 31%),
+    var(--pv-washi);
+  background-size: 9px 9px, 100% 100%, 100% 100%;
+}
+
+.pv-threshold-media::before {
+  position: absolute;
+  z-index: 1;
+  top: 45%;
+  right: -12%;
+  left: -12%;
+  height: 3px;
+  background: #1762a0;
+  box-shadow: 0 0 0 1px rgba(23,98,160,.08);
+  content: "";
+  opacity: .78;
+  transform: rotate(-2.2deg);
+}
+
+.pv-path[data-journey-path="meet"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp");
+  background-position: 64% 42%;
+}
+
+.pv-path[data-journey-path="carry"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-see-clearly-v4.webp");
+  background-position: 48% 46%;
+  background-size: cover;
+  filter: saturate(.76) contrast(1.05) brightness(.78);
+}
+
+.pv-path[data-journey-path="carry"]::before { content: none; }
+
+.pv-path[data-journey-path="carry"]:hover .pv-threshold-media,
+.pv-path[data-journey-path="carry"]:focus-visible .pv-threshold-media {
+  filter: saturate(.88) contrast(1.04) brightness(.86);
+}
+
+.pv-home > section.pv-street-chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(260px, .58fr) minmax(0, 1.42fr);
+  gap: clamp(34px, 5vw, 84px);
+  align-items: center;
+  padding: clamp(58px, 7vw, 104px) var(--pv-gutter) !important;
+  overflow: hidden;
+  border-block: 1px solid rgba(244,240,229,.12);
+  background:
+    radial-gradient(circle at 18% 27%, rgba(231,199,109,.085) 0 1px, transparent 1.5px),
+    linear-gradient(112deg, rgba(23,98,160,.07), transparent 34%),
+    #12160f;
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  color: var(--pv-cream);
+  isolation: isolate;
+}
+
+.pv-street-chapter::before {
+  position: absolute;
+  z-index: 2;
+  top: 17px;
+  right: var(--pv-gutter);
+  left: var(--pv-gutter);
+  height: 14px;
+  background: url("images/living-charge/street-signals/roller-line-v4.svg") center / 100% 100% no-repeat;
+  content: "";
+  opacity: .78;
+  pointer-events: none;
+}
+
+.pv-street-chapter__intro {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+}
+
+.pv-street-chapter__intro .pv-kicker { color: #e7c76d; }
+
+body[data-page="home"] .pv-street-chapter__intro h2 {
+  max-width: 10ch;
+  margin: .65rem 0 1.35rem;
+  color: var(--pv-cream);
+  font-family: var(--pv-body);
+  font-size: clamp(2.8rem, 4.8vw, 5.7rem);
+  font-weight: 700;
+  letter-spacing: -.055em;
+  line-height: .92;
+  text-transform: none;
+}
+
+.pv-street-chapter__intro > p:last-child {
+  max-width: 38ch;
+  color: rgba(244,240,229,.78);
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.pv-street-chapter__intro::after {
+  display: block;
+  width: fit-content;
+  margin-top: clamp(28px, 4vw, 52px);
+  padding: 8px 12px 7px;
+  border: 1px solid rgba(231,199,109,.5);
+  color: #e7c76d;
+  content: "LIVING CHARGE · MADE TO TRAVEL";
+  font-family: var(--pv-street);
+  font-size: max(.72rem, 12px);
+  letter-spacing: .08em;
+  line-height: 1;
+  transform: rotate(-1.4deg);
+}
+
+.pv-street-gallery {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(210px, .65fr);
+  grid-template-rows: repeat(3, minmax(170px, 1fr));
+  gap: clamp(10px, 1vw, 15px);
+  min-width: 0;
+  min-height: clamp(610px, 58vw, 780px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pv-street-gallery > li { min-width: 0; overflow: hidden; }
+.pv-street-gallery__core { grid-row: 1 / span 3; }
+
+.pv-street-gallery figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(244,240,229,.16);
+  background: #25291f;
+  box-shadow: 0 18px 42px rgba(0,0,0,.24);
+}
+
+.pv-street-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.83) contrast(1.035) brightness(.88);
+  transform: scale(1.002);
+  transition: filter .42s ease, transform .65s cubic-bezier(.22,.68,.28,1);
+}
+
+.pv-street-gallery__core img { object-position: 58% center; }
+.pv-street-gallery > li:nth-child(2) img { object-position: 53% 39%; }
+.pv-street-gallery > li:nth-child(3) img { object-position: 60% 39%; }
+.pv-street-gallery > li:nth-child(4) img { object-position: 44% 43%; }
+
+.pv-street-gallery figure::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(7,9,6,.78));
+  content: "";
+  pointer-events: none;
+}
+
+.pv-street-gallery figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 13px;
+  bottom: 13px;
+  left: 13px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 10px;
+  align-items: baseline;
+  padding: 11px 13px 10px;
+  background: rgba(239,234,222,.94);
+  color: #252016;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  clip-path: polygon(0 3px, 99% 0, 100% calc(100% - 3px), 1% 100%);
+}
+
+.pv-street-gallery figcaption span {
+  grid-row: 1 / span 2;
+  color: #1762a0;
+  font-size: .67rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.pv-street-gallery figcaption strong {
+  overflow: hidden;
+  font-family: var(--pv-street);
+  font-size: clamp(1rem, 1.2vw, 1.45rem);
+  letter-spacing: .025em;
+  line-height: .95;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pv-street-gallery figcaption small {
+  color: #5a574f;
+  font-size: .67rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pv-street-gallery figure:hover img {
+  filter: saturate(.95) contrast(1.02) brightness(.94);
+  transform: scale(1.018);
+}
+
+.pv-event-feature {
+  grid-template-columns: minmax(0, 1.28fr) minmax(340px, .72fr);
+}
+
+.pv-event-feature__copy::before {
+  background-image: url("images/living-charge/street-signals/street-create-resonance-full-v4.webp");
+  opacity: .11;
+}
+
+.pv-event-feature__pasteup {
+  position: absolute;
+  z-index: 2;
+  top: clamp(28px, 4vw, 58px);
+  left: clamp(24px, 3.8vw, 58px);
+  padding: 13px 17px 11px;
+  border: 1px solid rgba(49,31,20,.2);
+  background: rgba(242,237,224,.94);
+  color: #291d15;
+  font-family: var(--pv-street);
+  font-size: clamp(1.05rem, 1.7vw, 1.65rem);
+  letter-spacing: .055em;
+  line-height: .86;
+  text-align: left;
+  box-shadow: 0 14px 34px rgba(0,0,0,.22);
+  clip-path: polygon(1% 2px, 99% 0, 100% calc(100% - 4px), 0 100%);
+  transform: rotate(-2.2deg);
+}
+
+.pv-event-feature__pasteup::before {
+  position: absolute;
+  top: -5px;
+  right: 16%;
+  left: 16%;
+  height: 7px;
+  background: rgba(23,98,160,.9);
+  content: "";
+  transform: rotate(1deg);
+}
+
+@media (max-width: 1120px) {
+  .pv-home > section.pv-street-chapter {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .pv-street-chapter__intro {
+    display: grid;
+    grid-template-columns: minmax(280px, .9fr) minmax(260px, 1.1fr);
+    column-gap: 42px;
+    align-items: end;
+  }
+  .pv-street-chapter__intro .pv-kicker { grid-column: 1 / -1; }
+  .pv-street-chapter__intro > p:last-child { margin-bottom: .45rem; }
+  .pv-street-chapter__intro::after { grid-column: 2; margin-top: 20px; }
+  .pv-street-gallery { min-height: 680px; }
+}
+
+@media (max-width: 920px) {
+  .pv-event-feature { grid-template-columns: 1fr; }
+  .pv-event-feature__media { aspect-ratio: 900 / 976; }
+  .pv-event-feature__pasteup { display: none; }
+}
+
+@media (max-width: 680px) {
+  .pv-home > section.pv-street-chapter {
+    gap: 30px;
+    padding: 54px 20px 58px !important;
+  }
+  .pv-street-chapter::before { top: 12px; right: 20px; left: 20px; }
+  .pv-street-chapter__intro { display: block; }
+  body[data-page="home"] .pv-street-chapter__intro h2 {
+    max-width: 11ch;
+    font-size: clamp(2.55rem, 12vw, 3.8rem);
+  }
+  .pv-street-chapter__intro::after { margin-top: 28px; }
+  .pv-street-gallery {
+    grid-template-columns: repeat(3, calc(100vw - 40px));
+    grid-template-rows: auto auto;
+    min-height: 0;
+    padding-bottom: 10px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-color: rgba(231,199,109,.48) transparent;
+    scrollbar-width: thin;
+  }
+  .pv-street-gallery__core {
+    grid-column: 1;
+    grid-row: 1;
+    height: min(calc(100vw - 40px), 520px);
+  }
+  .pv-street-gallery > li:not(.pv-street-gallery__core) {
+    height: min(calc(100vw - 40px), 420px);
+    scroll-snap-align: start;
+  }
+  .pv-street-gallery > li:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .pv-street-gallery > li:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .pv-street-gallery > li:nth-child(4) { grid-column: 3; grid-row: 2; }
+  .pv-street-gallery figcaption { right: 10px; bottom: 10px; left: 10px; }
+  .pv-street-gallery figcaption strong { font-size: 1.05rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-street-gallery img { transition: none; }
+  .pv-street-gallery figure:hover img { transform: none; }
+}

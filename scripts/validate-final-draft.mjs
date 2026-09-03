@@ -203,11 +203,19 @@ const streetSignalAssets = [
   "images/living-charge/street-signals/street-create-resonance-v4.webp",
   "images/living-charge/street-signals/street-see-clearly-v4.webp",
   "images/living-charge/street-signals/street-live-consciously-v4.webp",
+  "images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp",
+  "images/living-charge/street-signals/street-listen-deeply-full-v4.webp",
+  "images/living-charge/street-signals/street-create-resonance-full-v4.webp",
+  "images/living-charge/street-signals/street-live-consciously-full-v4.webp",
   "images/living-charge/street-signals/roller-line-v4.svg",
 ];
+const streetSignalSources = [
+  css,
+  ...htmlFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8")),
+].join("\n");
 for (const asset of streetSignalAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: street-signal asset is missing`);
-  if (!css.includes(asset)) fail(`final.css: street-signal asset is not referenced: ${asset}`);
+  if (!streetSignalSources.includes(asset)) fail(`site: street-signal asset is not referenced: ${asset}`);
 }
 if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cinematic journey imagery is still active");
 if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
@@ -233,7 +241,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-street-signal"]);
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-street-chapter"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
