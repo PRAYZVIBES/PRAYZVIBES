@@ -198,6 +198,32 @@ if (openBraces !== closeBraces) fail(`final.css: brace mismatch ${openBraces}/${
 if (!/html\s*{\s*font-size:\s*18px/.test(css)) fail("final.css: desktop base type is below the agreed size");
 if (!/@media \(max-width: 640px\)[\s\S]*?html\s*{\s*font-size:\s*16\.5px/.test(css)) fail("final.css: mobile base type safeguard is missing");
 
+const streetSignalAssets = [
+  "images/living-charge/street-signals/street-listen-deeply-v4.webp",
+  "images/living-charge/street-signals/street-create-resonance-v4.webp",
+  "images/living-charge/street-signals/street-see-clearly-v4.webp",
+  "images/living-charge/street-signals/street-live-consciously-v4.webp",
+  "images/living-charge/street-signals/roller-line-v4.svg",
+];
+for (const asset of streetSignalAssets) {
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: street-signal asset is missing`);
+  if (!css.includes(asset)) fail(`final.css: street-signal asset is not referenced: ${asset}`);
+}
+if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cinematic journey imagery is still active");
+if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
+
+const berlinPanelAssets = [
+  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-900x976.webp",
+  "images/events/prayzvibes-berlin-open-mic-2026-11-04-live-panel-1600x1102.webp",
+];
+for (const asset of berlinPanelAssets) {
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: Berlin panel asset is missing`);
+  const basename = path.basename(asset);
+  if (!htmlFiles.some((file) => fs.readFileSync(path.join(root, file), "utf8").includes(basename))) {
+    fail(`${asset}: Berlin panel asset is not referenced by HTML`);
+  }
+}
+
 const renderedPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
@@ -207,7 +233,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-berlin"]);
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-street-signal"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }

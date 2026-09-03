@@ -3603,9 +3603,25 @@ body[data-page="home"] .pv-paths h2 {
   .pv-path:focus-visible .pv-door__leaf { transform: none; }
 }
 
-/* Cinematic Thresholds · 2026-08-26
-   Real doorway and curtain photography replaces the drawn-door treatment. */
-.pv-home > section.pv-paths { overflow: clip; }
+/* Living Charge street signals · 2026-09-03
+   Four material, symbol-led thresholds; the shop remains the quiet fifth route. */
+.pv-home > section.pv-paths {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+}
+.pv-home > section.pv-paths::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  right: var(--pv-gutter);
+  bottom: 10px;
+  left: var(--pv-gutter);
+  height: 14px;
+  background: url("images/living-charge/street-signals/roller-line-v4.svg") center / 100% 100% no-repeat;
+  opacity: .78;
+  pointer-events: none;
+}
 .pv-paths__grid {
   grid-template-columns: 1.24fr repeat(4, minmax(0, 1fr));
   grid-template-rows: minmax(218px, auto);
@@ -3633,11 +3649,11 @@ body[data-page="home"] .pv-paths h2 {
   min-height: 218px;
   padding: clamp(21px, 1.75vw, 29px);
   overflow: hidden;
-  border: 0;
-  border-radius: 10px;
+  border: 1px solid rgba(233, 228, 215, .24);
+  border-radius: 3px;
   background: #172018;
   color: var(--pv-cream);
-  box-shadow: 0 16px 34px rgba(31, 37, 27, .13);
+  box-shadow: 0 14px 30px rgba(31, 37, 27, .14);
   perspective: none;
   transform: translateY(0);
   transition: box-shadow .28s ease, transform .28s ease;
@@ -3646,11 +3662,11 @@ body[data-page="home"] .pv-paths h2 {
 .pv-path:focus-visible,
 .pv-path--listen:hover,
 .pv-path--listen:focus-visible {
-  border-color: transparent;
+  border-color: rgba(209, 180, 100, .66);
   background: #172018;
   color: var(--pv-cream);
-  box-shadow: 0 20px 42px rgba(31, 37, 27, .2);
-  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(31, 37, 27, .2);
+  transform: translateY(-2px);
 }
 .pv-path:focus-visible {
   outline: 3px solid var(--pv-brass-quiet);
@@ -3665,9 +3681,9 @@ body[data-page="home"] .pv-paths h2 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: saturate(.72) contrast(1.04) brightness(.88);
+  filter: saturate(.76) contrast(1.05) brightness(.78);
   pointer-events: none;
-  transform: scale(1.005);
+  transform: scale(1.002);
   transition: filter .42s ease, transform .58s cubic-bezier(.22,.68,.28,1);
 }
 .pv-threshold-media::after {
@@ -3675,43 +3691,48 @@ body[data-page="home"] .pv-paths h2 {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(10,16,11,.17), rgba(10,16,11,.38) 52%, rgba(10,16,11,.86) 100%),
-    linear-gradient(100deg, rgba(10,16,11,.46), transparent 68%);
+    linear-gradient(180deg, rgba(10,16,11,.14), rgba(10,16,11,.4) 50%, rgba(10,16,11,.9) 100%),
+    linear-gradient(100deg, rgba(10,16,11,.56), rgba(10,16,11,.08) 72%);
 }
 .pv-path[data-journey-path="listen"] .pv-threshold-media {
-  background-image: url("images/thresholds/journey-01-listen-authentic-v1.jpg");
-  background-position: 50% 48%;
-  filter: saturate(.82) contrast(1.05) brightness(.84);
+  background-image: url("images/living-charge/street-signals/street-listen-deeply-v4.webp");
+  background-position: 50% 44%;
 }
 .pv-path[data-journey-path="invite"] .pv-threshold-media {
-  background-image: url("images/thresholds/journey-02-invite-authentic-v1.jpg");
-  background-position: 50% 42%;
-  filter: saturate(.74) contrast(1.04) brightness(.83);
+  background-image: url("images/living-charge/street-signals/street-create-resonance-v4.webp");
+  background-position: 57% 43%;
 }
 .pv-path[data-journey-path="meet"] .pv-threshold-media {
-  background-image: url("images/thresholds/journey-03-meet-authentic-v1.jpg");
-  background-position: 52% center;
-  filter: saturate(.68) contrast(1.06) brightness(.88);
+  background-image: url("images/living-charge/street-signals/street-see-clearly-v4.webp");
+  background-position: 49% 46%;
 }
 .pv-path[data-journey-path="carry"] .pv-threshold-media {
-  background-image: url("images/thresholds/journey-04-shop-authentic-v1.jpg");
-  background-position: 50% center;
-  filter: saturate(.72) contrast(1.05) brightness(.84);
+  background:
+    radial-gradient(circle at 18% 28%, rgba(209,180,100,.11) 0 1px, transparent 1.5px),
+    linear-gradient(132deg, rgba(209,180,100,.1), transparent 48%),
+    #252c1d;
+  background-size: 10px 10px, 100% 100%, 100% 100%;
+  filter: none;
 }
 .pv-path[data-journey-path="stay-close"] .pv-threshold-media {
-  background-image: url("images/thresholds/journey-05-stay-close-authentic-v1.jpg");
-  background-position: 35% center;
-  filter: saturate(.62) contrast(1.08) brightness(.86);
+  background-image: url("images/living-charge/street-signals/street-live-consciously-v4.webp");
+  background-position: 38% 43%;
 }
 .pv-path:hover .pv-threshold-media,
 .pv-path:focus-visible .pv-threshold-media {
-  filter: saturate(.88) contrast(1.03) brightness(.96);
-  transform: scale(1.045);
+  filter: saturate(.88) contrast(1.04) brightness(.86);
+  transform: scale(1.015);
 }
-.pv-path::before { z-index: 2; mix-blend-mode: screen; opacity: .11; }
-.pv-path[data-journey-path]::after { z-index: 1; mix-blend-mode: screen; opacity: .055; }
-.pv-path[data-journey-path]:hover::after,
-.pv-path[data-journey-path]:focus-visible::after { opacity: .08; }
+.pv-path[data-journey-path="listen"]::before,
+.pv-path[data-journey-path="invite"]::before,
+.pv-path[data-journey-path="meet"]::before,
+.pv-path[data-journey-path="stay-close"]::before { content: none; }
+.pv-path[data-journey-path="carry"]::before {
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: .2;
+}
+.pv-path[data-journey-path]::after { content: none; }
 .pv-path > span,
 .pv-path > strong,
 .pv-path > small,
@@ -3782,7 +3803,7 @@ body[data-page="home"] .pv-paths h2 {
     width: 100%;
     min-height: 150px;
     padding: 19px 44px 18px 20px;
-    border-radius: 8px;
+    border-radius: 3px;
   }
   .pv-path--listen { min-height: 165px; }
   .pv-path > strong,
@@ -3792,7 +3813,7 @@ body[data-page="home"] .pv-paths h2 {
 
 @media (hover: none) {
   .pv-path:hover { transform: none; }
-  .pv-path:hover .pv-threshold-media { transform: scale(1.005); }
+  .pv-path:hover .pv-threshold-media { transform: scale(1.002); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3817,11 +3838,16 @@ body[data-page="home"] .pv-paths h2 {
 
 /* Berlin guest date · 4 November 2026 */
 .pv-event-feature {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
   min-height: min(760px, 82vh);
-  background: #171a11;
+  overflow: hidden;
+  background:
+    linear-gradient(118deg, rgba(209,180,100,.045), transparent 38%),
+    #171a11;
   color: var(--cream);
+  isolation: isolate;
 }
 
 .pv-event-feature__media {
@@ -3834,35 +3860,77 @@ body[data-page="home"] .pv-paths h2 {
 .pv-event-feature__media::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 60%, rgba(23, 26, 17, .42));
+  background:
+    linear-gradient(90deg, transparent 58%, rgba(23, 26, 17, .5)),
+    linear-gradient(0deg, rgba(23,26,17,.2), transparent 34%);
   content: "";
   pointer-events: none;
 }
 
+.pv-event-feature__picture,
 .pv-event-feature__media img,
 .pv-event-detail__media img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+}
+
+.pv-event-feature__media img,
+.pv-event-detail__media img {
+  object-fit: cover;
 }
 
 .pv-event-feature__copy {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: clamp(3rem, 7vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+  overflow: hidden;
   border-top: 1px solid rgba(244, 240, 229, .16);
+  background:
+    radial-gradient(circle at 76% 22%, rgba(209,180,100,.08) 0 1px, transparent 1.45px),
+    #171a11;
+  background-size: 11px 11px, 100% 100%;
+  isolation: isolate;
 }
+
+.pv-event-feature__copy::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -8%;
+  background: url("images/living-charge/street-signals/street-create-resonance-v4.webp") 56% 46% / cover no-repeat;
+  filter: grayscale(.2) saturate(.72) contrast(1.05);
+  mix-blend-mode: screen;
+  opacity: .075;
+  pointer-events: none;
+  transform: rotate(-1.2deg) scale(1.02);
+}
+
+.pv-event-feature__copy::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  right: clamp(1.25rem, 4vw, 4rem);
+  bottom: 16px;
+  left: clamp(1.25rem, 4vw, 4rem);
+  height: 13px;
+  background: url("images/living-charge/street-signals/roller-line-v4.svg") center / 100% 100% no-repeat;
+  opacity: .72;
+  pointer-events: none;
+}
+
+.pv-event-feature__copy > * { position: relative; z-index: 1; }
 
 .pv-event-feature__copy h2 {
   max-width: 10ch;
   margin: .55rem 0 1.2rem;
   color: var(--cream);
-  font-family: var(--display);
+  font-family: var(--pv-street);
   font-size: clamp(2.6rem, 5.5vw, 6.2rem);
-  letter-spacing: -.055em;
-  line-height: .88;
+  letter-spacing: .005em;
+  line-height: .82;
   text-transform: uppercase;
 }
 
@@ -3889,10 +3957,42 @@ body[data-page="home"] .pv-paths h2 {
 }
 
 .pv-event-detail {
+  position: relative;
   padding: clamp(4rem, 8vw, 8rem) 0;
-  background: var(--cream);
+  overflow: hidden;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.2), transparent 43%),
+    var(--cream);
   color: var(--brown);
+  isolation: isolate;
 }
+
+.pv-event-detail::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: -12% -4%;
+  background: url("images/living-charge/street-signals/street-listen-deeply-v4.webp") 72% 38% / cover no-repeat;
+  filter: grayscale(.72) sepia(.16);
+  mix-blend-mode: multiply;
+  opacity: .04;
+  pointer-events: none;
+}
+
+.pv-event-detail::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: var(--pv-gutter);
+  left: var(--pv-gutter);
+  height: 14px;
+  background: url("images/living-charge/street-signals/roller-line-v4.svg") center / 100% 100% no-repeat;
+  opacity: .7;
+  pointer-events: none;
+}
+
+.pv-event-detail > .container { position: relative; z-index: 1; }
 
 .pv-event-detail__grid {
   display: grid;
@@ -3914,10 +4014,10 @@ body[data-page="home"] .pv-paths h2 {
   max-width: 11ch;
   margin: .55rem 0 1.2rem;
   color: var(--brown);
-  font-family: var(--display);
+  font-family: var(--pv-street);
   font-size: clamp(2.5rem, 5vw, 5.5rem);
-  letter-spacing: -.055em;
-  line-height: .9;
+  letter-spacing: .005em;
+  line-height: .84;
   text-transform: uppercase;
 }
 
@@ -3959,6 +4059,8 @@ body[data-page="home"] .pv-paths h2 {
 
 @media (max-width: 560px) {
   .pv-event-feature__copy { padding: 2.6rem 1.25rem 3rem; }
+  .pv-event-feature__copy::after { bottom: 12px; }
   .pv-event-detail { padding: 3.25rem 0; }
+  .pv-event-detail::after { top: 12px; }
   .pv-event-detail__facts > div { grid-template-columns: 1fr; gap: .25rem; }
 }
