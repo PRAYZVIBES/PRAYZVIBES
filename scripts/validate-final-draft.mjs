@@ -203,6 +203,16 @@ for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker
 }
 if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
 
+const editorialHeroAssets = [
+  "images/artist-cornfield-epk-editorial-v2.jpg",
+  "images/artist-cornfield-epk-editorial-v2-480.webp",
+  "images/artist-cornfield-epk-editorial-v2-800.webp",
+  "images/artist-cornfield-epk-editorial-v2-941.webp",
+];
+for (const asset of editorialHeroAssets) {
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: editorial homepage cover asset is missing`);
+}
+
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   const streetLinks = html.match(/class=["']pv-street-gallery__link["']/g) || [];
@@ -210,6 +220,13 @@ for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   if (streetLinks.length !== 4 || streetActions.length !== 4) {
     fail(`${file}: expected four functional street-gallery routes`);
   }
+  if (!html.includes("artist-cornfield-epk-editorial-v2-800.webp")) fail(`${file}: editorial homepage cover is not active`);
+}
+
+for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (!/id=["']dates["']/.test(html)) fail(`${file}: live-dates overview is missing`);
+  if (!html.includes('datetime="2026-11-04T20:00:00+01:00"')) fail(`${file}: confirmed Berlin date is missing from the schedule`);
 }
 
 const streetSignalAssets = [
@@ -255,7 +272,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-mountain-wall"]);
+const expectedAssetVersions = new Set(["20260825-refinement", "20260826-artist-cut", "20260903-live-cover-v2"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }

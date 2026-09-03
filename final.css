@@ -4495,3 +4495,200 @@ body[data-page="home"] .pv-support-note__actions {
   .pv-street-gallery__link:hover img,
   .pv-street-gallery__link:focus-visible img { transform: none; }
 }
+
+/* Nature × street · 2026-09-03
+   The editorial portrait stays natural; the copy side is anchored by a dark wall. */
+.pv-home--fan-first .pv-hero--fan-first::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0 auto 0 0;
+  width: 58%;
+  background:
+    linear-gradient(rgba(9,12,8,.7), rgba(9,12,8,.78)),
+    url("images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp") 54% center / cover no-repeat;
+  content: "";
+}
+
+.pv-home--fan-first .pv-hero__image { z-index: 0; }
+
+.pv-home--fan-first .pv-hero__shade {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(8,11,7,.67) 0%, rgba(8,11,7,.72) 40%, rgba(8,11,7,.76) 48%, rgba(8,11,7,.25) 58%, rgba(8,11,7,.08) 70%, rgba(8,11,7,.03) 100%),
+    linear-gradient(0deg, rgba(8,11,7,.7), transparent 45%);
+}
+
+/* Live dates · a useful schedule first, with the Berlin story directly below. */
+.pv-live-dates {
+  position: relative;
+  padding: clamp(68px, 8vw, 120px) 0 clamp(62px, 7vw, 104px);
+  overflow: hidden;
+  background:
+    linear-gradient(110deg, rgba(12,16,10,.93), rgba(12,16,10,.82)),
+    url("images/living-charge/street-signals/street-create-resonance-full-v4.webp") center 48% / cover no-repeat;
+  color: var(--pv-cream);
+  scroll-margin-top: 72px;
+  isolation: isolate;
+}
+
+.pv-live-dates::before {
+  position: absolute;
+  z-index: 0;
+  top: 18px;
+  right: var(--pv-gutter);
+  left: var(--pv-gutter);
+  height: 12px;
+  background: url("images/living-charge/street-signals/roller-line-v4.svg") center / 100% 100% no-repeat;
+  content: "";
+  opacity: .8;
+}
+
+.pv-live-dates > .container { position: relative; z-index: 1; }
+
+.pv-live-dates__heading {
+  display: grid;
+  grid-template-columns: minmax(320px, .95fr) minmax(280px, .65fr);
+  gap: clamp(30px, 6vw, 96px);
+  align-items: end;
+  margin-bottom: clamp(34px, 5vw, 62px);
+}
+
+.pv-live-dates .eyebrow { color: #e7c76d; }
+
+.subpage-body .pv-live-dates h2 {
+  max-width: 12ch;
+  margin: 15px 0 0;
+  color: var(--pv-cream);
+  font-family: var(--pv-body);
+  font-size: clamp(3.1rem, 5.7vw, 6.4rem);
+  font-weight: 730;
+  letter-spacing: -.055em;
+  line-height: .9;
+  text-transform: none;
+}
+
+.subpage-body .pv-live-dates h2 em {
+  display: inline-block;
+  color: #e7c76d;
+  font-family: var(--pv-graffiti);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.03em;
+  line-height: .85;
+  transform: rotate(-1.3deg);
+}
+
+.pv-live-dates__heading > p {
+  max-width: 41ch;
+  margin: 0 0 4px;
+  color: rgba(244,240,229,.76);
+  font-family: var(--pv-editorial);
+  font-size: clamp(1.08rem, 1.4vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.pv-live-dates__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pv-live-date {
+  display: grid;
+  grid-template-columns: 124px minmax(250px, 1.05fr) minmax(230px, .72fr) auto;
+  gap: clamp(22px, 3vw, 48px);
+  align-items: center;
+  padding: clamp(25px, 3vw, 40px);
+  background: rgba(244,240,229,.95);
+  color: var(--pv-ink);
+  box-shadow: 16px 18px 0 rgba(23,98,160,.58);
+  clip-path: polygon(0 4px, 99.5% 0, 100% calc(100% - 5px), .4% 100%);
+}
+
+.pv-live-date time {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding-right: 22px;
+  border-right: 1px solid rgba(17,21,14,.22);
+}
+
+.pv-live-date time span {
+  color: #1762a0;
+  font-family: var(--pv-street);
+  font-size: clamp(3.5rem, 5.2vw, 5.8rem);
+  line-height: .72;
+}
+
+.pv-live-date time small {
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  line-height: 1.35;
+}
+
+.pv-live-date__status {
+  color: var(--pv-rust);
+  font-size: max(.69rem, 11px);
+  font-weight: 900;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.subpage-body .pv-live-date h3 {
+  margin: 7px 0 5px;
+  color: var(--pv-ink);
+  font-family: var(--pv-display);
+  font-size: clamp(1.6rem, 2.3vw, 2.65rem);
+  line-height: .92;
+  letter-spacing: -.035em;
+}
+
+.pv-live-date__event p,
+.pv-live-date__place span { margin: 0; color: #51584d; font-size: .88rem; line-height: 1.45; }
+.pv-live-date__place { display: grid; gap: 6px; }
+.pv-live-date__place strong { font-size: .95rem; letter-spacing: .02em; }
+.pv-live-date__actions { display: grid; gap: 9px; justify-items: stretch; }
+.pv-live-date__actions .pv-button { min-height: 48px; padding: 12px 19px; }
+.pv-live-date__actions .pv-text-link { justify-content: center; color: var(--pv-ink); }
+
+.pv-live-dates__note {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: clamp(36px, 4vw, 54px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(244,240,229,.24);
+}
+
+.pv-live-dates__note p { margin: 0; color: rgba(244,240,229,.72); font-size: 1rem; }
+.pv-live-dates__note a { color: #e7c76d; font-size: .78rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+
+@media (max-width: 1040px) {
+  .pv-live-date { grid-template-columns: 110px minmax(250px, 1fr) minmax(220px, .75fr); }
+  .pv-live-date__actions { grid-column: 2 / -1; grid-template-columns: max-content max-content; justify-content: start; align-items: center; }
+}
+
+@media (max-width: 900px) {
+  .pv-home--fan-first .pv-hero--fan-first::before { width: 100%; }
+  .pv-home--fan-first .pv-hero__shade {
+    background: linear-gradient(0deg, rgba(8,11,7,.8) 0%, rgba(8,11,7,.82) 48%, rgba(8,11,7,.32) 72%, rgba(8,11,7,.07) 100%);
+  }
+  .pv-live-dates__heading { grid-template-columns: 1fr; gap: 24px; }
+  .pv-live-date { grid-template-columns: 105px minmax(0, 1fr); }
+  .pv-live-date__place { grid-column: 2; }
+  .pv-live-date__actions { grid-column: 2; }
+}
+
+@media (max-width: 620px) {
+  .pv-live-dates { padding: 60px 0 64px; }
+  .pv-live-dates::before { right: 20px; left: 20px; }
+  .subpage-body .pv-live-dates h2 { font-size: clamp(2.7rem, 13vw, 4rem); }
+  .pv-live-date { display: block; padding: 27px 22px 31px; box-shadow: 8px 10px 0 rgba(23,98,160,.58); }
+  .pv-live-date time { width: fit-content; margin-bottom: 25px; padding: 0 0 13px; border-right: 0; border-bottom: 1px solid rgba(17,21,14,.22); }
+  .pv-live-date__place { margin-top: 21px; }
+  .pv-live-date__actions { display: flex; flex-wrap: wrap; margin-top: 25px; }
+  .pv-live-dates__note { align-items: flex-start; flex-direction: column; }
+}
