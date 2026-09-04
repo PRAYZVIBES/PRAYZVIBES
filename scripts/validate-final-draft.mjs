@@ -204,10 +204,10 @@ for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker
 if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
 
 const editorialHeroAssets = [
-  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5.jpg",
-  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-480.jpg",
-  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-800.jpg",
-  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-941.jpg",
+  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8.jpg",
+  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-480.jpg",
+  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-800.jpg",
+  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-941.jpg",
   "images/photo-street-authentic-v5/02-story-listen-deeply-authentic-v5.jpg",
   "images/photo-street-authentic-v5/03-epk-living-charge-authentic-v5.jpg",
   "images/photo-street-authentic-v5/04-live-forest-live-consciously-authentic-v5.jpg",
@@ -221,7 +221,7 @@ for (const asset of editorialHeroAssets) {
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
-  if (!html.includes("01-hero-see-clearly-authentic-v5-800.jpg")) fail(`${file}: authentic street collage is not active on the homepage`);
+  if (!html.includes("01-hero-see-clearly-tagged-v8-800.jpg")) fail(`${file}: tagged authentic street collage is not active on the homepage`);
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
@@ -253,7 +253,7 @@ if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cine
 if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
 
 const berlinPanelAssets = [
-  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-authentic-v3-900x976.webp",
+  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-authentic-v4-900x976.webp",
   "images/events/prayzvibes-berlin-open-mic-2026-11-04-live-panel-authentic-v3-1600x1102.webp",
 ];
 for (const asset of berlinPanelAssets) {
