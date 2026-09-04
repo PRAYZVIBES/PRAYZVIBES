@@ -641,12 +641,14 @@
     const endCard = container?.querySelector("[data-native-video-end-card], [data-native-film-end-card]");
     const replayButton = container?.querySelector("[data-native-video-replay], [data-native-film-replay]");
     if (endCard) endCard.hidden = true;
+    if (playButton) video.controls = false;
 
     playButton?.addEventListener("click", async () => {
       const details = getMediaDetails(video);
       trackEvent("video_intent", details);
       pauseOtherNativeMedia(video);
       pauseYouTubeFrames();
+      video.controls = true;
       try {
         await video.play();
       } catch {
@@ -660,6 +662,7 @@
       pauseOtherNativeMedia(video);
       pauseYouTubeFrames();
       video.currentTime = 0;
+      video.controls = true;
       if (endCard) endCard.hidden = true;
       try {
         await video.play();
@@ -701,6 +704,7 @@
     video.addEventListener("ended", () => {
       container?.setAttribute("data-native-video-state", "complete");
       container?.setAttribute("data-native-film-state", "complete");
+      video.controls = false;
       if (endCard) endCard.hidden = false;
       if (!state.complete) {
         state.complete = true;
@@ -718,7 +722,9 @@
     iframe.allowFullscreen = true;
     iframe.loading = "lazy";
     iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.tabIndex = 0;
     block.replaceChildren(iframe);
+    if (autoplay) iframe.addEventListener("load", () => iframe.focus(), { once: true });
   };
 
   const applyConsent = (choices) => {
@@ -728,10 +734,17 @@
 
   let banner = document.querySelector("[data-cookie-banner]");
   if (!banner) {
-    document.body.insertAdjacentHTML("beforeend", '<div class="cookie-banner" data-cookie-banner role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-copy" hidden><div><h2 id="cookie-title">Your privacy, your choice.</h2><p id="cookie-copy">Essential storage keeps the site working. Optional analytics helps show which pages are useful.</p></div><div class="cookie-actions"><button class="button button--small button--ghost-dark" type="button" data-consent="essential">Essential only</button><button class="button button--small button--dark" type="button" data-open-preferences>Choose</button><button class="button button--small button--primary" type="button" data-consent="all">Accept all</button></div></div>');
+    const fallbackConsentText = {
+      en: { title: "Your privacy, your choice.", copy: "Essential storage keeps the site working. Optional analytics helps show which pages are useful.", essential: "Essential only", choose: "Choose", all: "Accept all" },
+      de: { title: "Deine Daten, deine Wahl.", copy: "Erforderliche Speicherung hält die Seite am Laufen. Eine optionale Analyse zeigt, welche Seiten hilfreich sind.", essential: "Nur erforderlich", choose: "Auswählen", all: "Alle akzeptieren" },
+      fr: { title: "Vos données, votre choix.", copy: "Le stockage essentiel fait fonctionner le site. La mesure d’audience facultative aide à comprendre quelles pages sont utiles.", essential: "Essentiels seulement", choose: "Choisir", all: "Tout accepter" },
+    };
+    const consentText = fallbackConsentText[currentLanguage] || fallbackConsentText.en;
+    document.body.insertAdjacentHTML("beforeend", `<div class="cookie-banner" data-cookie-banner role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-copy" hidden><div><h2 id="cookie-title">${consentText.title}</h2><p id="cookie-copy">${consentText.copy}</p></div><div class="cookie-actions"><button class="button button--small button--ghost-dark" type="button" data-consent="essential">${consentText.essential}</button><button class="button button--small button--dark" type="button" data-open-preferences>${consentText.choose}</button><button class="button button--small button--primary" type="button" data-consent="all">${consentText.all}</button></div></div>`);
     banner = document.querySelector("[data-cookie-banner]");
   }
   const dialog = document.querySelector("[data-cookie-dialog]");
+  if (!dialog) banner?.querySelector("[data-open-preferences]")?.remove();
   const analyticsInput = dialog?.querySelector('input[name="analytics"]');
   const mediaInput = dialog?.querySelector('input[name="media"]');
 

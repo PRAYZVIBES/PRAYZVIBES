@@ -4932,7 +4932,115 @@ body[data-page="epk"] .artwork-grid img { position: relative; z-index: 1; }
     opacity: .64;
   }
 
-  body[data-page="epk"] .artwork-grid::before {
+body[data-page="epk"] .artwork-grid::before {
     width: 100%;
+  }
+}
+
+/* Full-site audit refresh · 2026-09-04
+   Keep the approved street material on walls and paper while the artist photos
+   remain recognisably photographic. These rules intentionally close the late
+   cascade so mobile spacing and reading order cannot be undone upstream. */
+.pv-home--fan-first .pv-hero--fan-first::before,
+.subpage-body .subpage-hero::after {
+  content: none !important;
+  display: none !important;
+}
+
+.pv-home > section.pv-next-release {
+  padding: clamp(70px, 8.5vw, 128px) var(--pv-gutter) !important;
+  background:
+    linear-gradient(112deg, rgba(49,31,20,.94), rgba(31,37,27,.94)),
+    url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 56% 48% / cover no-repeat;
+}
+
+.pv-release__content {
+  background:
+    linear-gradient(rgba(244,240,229,.945), rgba(244,240,229,.945)),
+    url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 50% 48% / cover no-repeat;
+}
+
+.pv-event-feature { scroll-margin-top: 72px; }
+
+@media (max-width: 760px) {
+  .pv-home > section.pv-next-release {
+    gap: 38px;
+    padding: 50px 20px 54px !important;
+  }
+
+  .pv-home--fan-first .pv-release__art {
+    width: 100%;
+    min-height: 0 !important;
+    aspect-ratio: 1;
+  }
+
+  .pv-paths__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    grid-auto-columns: auto;
+    gap: 10px;
+    width: 100%;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close {
+    grid-column: auto;
+    width: 100%;
+    min-width: 0;
+    min-height: 148px;
+    padding: 17px 32px 16px 16px;
+  }
+
+  .pv-path--listen {
+    grid-column: 1 / -1;
+    min-height: 164px;
+  }
+
+  .pv-path > strong,
+  .pv-path--listen > strong { font-size: clamp(1.28rem, 6.2vw, 1.72rem); }
+  .pv-path > small { margin-top: 8px; font-size: max(.68rem, 11px); }
+
+  .pv-home--fan-first .pv-live--single .pv-live__media {
+    order: 1;
+    min-height: min(66svh, 560px);
+  }
+  .pv-home--fan-first .pv-live--single .pv-live__copy {
+    order: 2;
+    padding: 52px 20px 58px;
+  }
+
+  .pv-home--fan-first .pv-story--fan-first {
+    display: flex;
+    flex-direction: column;
+  }
+  .pv-home--fan-first .pv-story--fan-first .pv-story__portrait { order: 1; }
+  .pv-home--fan-first .pv-story--fan-first .pv-story__copy { order: 2; }
+  .pv-home--fan-first .pv-story--fan-first .pv-coin-memory { order: 3; }
+
+  .pv-home--fan-first .pv-hero__image { object-position: 50% top; }
+  .pv-home--fan-first .pv-hero__shade {
+    background:
+      linear-gradient(0deg, rgba(8,11,7,.92) 0%, rgba(8,11,7,.78) 50%, rgba(8,11,7,.18) 78%, rgba(8,11,7,.04) 100%),
+      linear-gradient(90deg, rgba(8,11,7,.38), rgba(8,11,7,.06));
+  }
+}
+
+@media (max-width: 380px) {
+  .pv-path,
+  .pv-path--listen,
+  .pv-path:nth-child(2),
+  .pv-path:nth-child(3),
+  .pv-path:nth-child(4),
+  .pv-path--close {
+    min-height: 142px;
+    padding-inline: 14px 28px;
   }
 }

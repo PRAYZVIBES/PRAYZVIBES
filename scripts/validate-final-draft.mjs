@@ -120,9 +120,9 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/wAsCW6AL5iY["']/.test(html)) fail(`${homepage}: missing Salzburg YouTube Short link`);
   if ((html.match(/\sdata-social-video(?:\s|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
-  if (!/06-mountain-day-integrated-v4\.jpg/.test(html)) fail(`${homepage}: missing integrated Mountain Day poster collage`);
+  if (!/06-mountain-day-original-poster-authentic-v5\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster collage`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
-  if (!/05-salzburg-create-resonance-integrated-v4\.jpg/.test(html)) fail(`${homepage}: missing integrated Salzburg poster collage`);
+  if (!/05-salzburg-create-resonance-authentic-v5\.jpg/.test(html)) fail(`${homepage}: missing authentic Salzburg poster collage`);
   if (!/id=["']sib-form["']/.test(html)) fail(`${homepage}: missing Brevo form`);
   if (!/name=["']EMAIL["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter email field`);
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
@@ -204,15 +204,15 @@ for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker
 if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
 
 const editorialHeroAssets = [
-  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4.jpg",
-  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-480.jpg",
-  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-800.jpg",
-  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-941.jpg",
-  "images/photo-street-integrated-v4/02-story-integrated-v4.jpg",
-  "images/photo-street-integrated-v4/03-epk-living-charge-integrated-v4.jpg",
-  "images/photo-street-integrated-v4/04-live-forest-integrated-v4.jpg",
-  "images/photo-street-integrated-v4/05-salzburg-create-resonance-integrated-v4.jpg",
-  "images/photo-street-integrated-v4/06-mountain-day-integrated-v4.jpg",
+  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5.jpg",
+  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-480.jpg",
+  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-800.jpg",
+  "images/photo-street-authentic-v5/01-hero-see-clearly-authentic-v5-941.jpg",
+  "images/photo-street-authentic-v5/02-story-listen-deeply-authentic-v5.jpg",
+  "images/photo-street-authentic-v5/03-epk-living-charge-authentic-v5.jpg",
+  "images/photo-street-authentic-v5/04-live-forest-live-consciously-authentic-v5.jpg",
+  "images/photo-street-authentic-v5/05-salzburg-create-resonance-authentic-v5.jpg",
+  "images/photo-street-authentic-v5/06-mountain-day-original-poster-authentic-v5.jpg",
 ];
 for (const asset of editorialHeroAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: editorial homepage cover asset is missing`);
@@ -221,7 +221,7 @@ for (const asset of editorialHeroAssets) {
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
-  if (!html.includes("01-hero-see-clearly-integrated-v4-800.jpg")) fail(`${file}: integrated street collage is not active on the homepage`);
+  if (!html.includes("01-hero-see-clearly-authentic-v5-800.jpg")) fail(`${file}: authentic street collage is not active on the homepage`);
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
@@ -253,8 +253,8 @@ if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cine
 if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
 
 const berlinPanelAssets = [
-  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-900x976.webp",
-  "images/events/prayzvibes-berlin-open-mic-2026-11-04-live-panel-1600x1102.webp",
+  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-authentic-v3-900x976.webp",
+  "images/events/prayzvibes-berlin-open-mic-2026-11-04-live-panel-authentic-v3-1600x1102.webp",
 ];
 for (const asset of berlinPanelAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: Berlin panel asset is missing`);
@@ -273,7 +273,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260904-original-photo-street-v1"]);
+const expectedAssetVersions = new Set(["20260904-authentic-photo-audit-v5"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
