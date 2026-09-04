@@ -220,11 +220,7 @@ for (const asset of editorialHeroAssets) {
 
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  const streetLinks = html.match(/class=["']pv-street-gallery__link["']/g) || [];
-  const streetActions = html.match(/class=["']pv-street-gallery__cta["']/g) || [];
-  if (streetLinks.length !== 4 || streetActions.length !== 4) {
-    fail(`${file}: expected four functional street-gallery routes`);
-  }
+  if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
   if (!html.includes("01-hero-see-clearly-integrated-v4-800.jpg")) fail(`${file}: integrated street collage is not active on the homepage`);
 }
 
