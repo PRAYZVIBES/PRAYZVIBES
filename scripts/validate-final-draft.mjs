@@ -120,9 +120,9 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/wAsCW6AL5iY["']/.test(html)) fail(`${homepage}: missing Salzburg YouTube Short link`);
   if ((html.match(/\sdata-social-video(?:\s|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
-  if (!/06-mountain-day-original-poster-exact-v3\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster collage`);
+  if (!/06-mountain-day-integrated-v4\.jpg/.test(html)) fail(`${homepage}: missing integrated Mountain Day poster collage`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
-  if (!/05-salzburg-create-resonance-exact-v3\.jpg/.test(html)) fail(`${homepage}: missing authentic Salzburg poster collage`);
+  if (!/05-salzburg-create-resonance-integrated-v4\.jpg/.test(html)) fail(`${homepage}: missing integrated Salzburg poster collage`);
   if (!/id=["']sib-form["']/.test(html)) fail(`${homepage}: missing Brevo form`);
   if (!/name=["']EMAIL["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter email field`);
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
@@ -204,15 +204,15 @@ for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker
 if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
 
 const editorialHeroAssets = [
-  "images/photo-street-exact-v3/01-hero-see-clearly-exact-v3.jpg",
-  "images/photo-street-exact-v3/01-hero-see-clearly-exact-v3-480.jpg",
-  "images/photo-street-exact-v3/01-hero-see-clearly-exact-v3-800.jpg",
-  "images/photo-street-exact-v3/01-hero-see-clearly-exact-v3-941.jpg",
-  "images/photo-street-exact-v3/02-story-listen-deeply-exact-v3.jpg",
-  "images/photo-street-exact-v3/03-epk-living-charge-exact-v3.jpg",
-  "images/photo-street-exact-v3/04-live-forest-live-consciously-exact-v3.jpg",
-  "images/photo-street-exact-v3/05-salzburg-create-resonance-exact-v3.jpg",
-  "images/photo-street-exact-v3/06-mountain-day-original-poster-exact-v3.jpg",
+  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4.jpg",
+  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-480.jpg",
+  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-800.jpg",
+  "images/photo-street-integrated-v4/01-hero-see-clearly-integrated-v4-941.jpg",
+  "images/photo-street-integrated-v4/02-story-integrated-v4.jpg",
+  "images/photo-street-integrated-v4/03-epk-living-charge-integrated-v4.jpg",
+  "images/photo-street-integrated-v4/04-live-forest-integrated-v4.jpg",
+  "images/photo-street-integrated-v4/05-salzburg-create-resonance-integrated-v4.jpg",
+  "images/photo-street-integrated-v4/06-mountain-day-integrated-v4.jpg",
 ];
 for (const asset of editorialHeroAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: editorial homepage cover asset is missing`);
@@ -225,7 +225,7 @@ for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   if (streetLinks.length !== 4 || streetActions.length !== 4) {
     fail(`${file}: expected four functional street-gallery routes`);
   }
-  if (!html.includes("01-hero-see-clearly-exact-v3-800.jpg")) fail(`${file}: exact original-photo street collage is not active on the homepage`);
+  if (!html.includes("01-hero-see-clearly-integrated-v4-800.jpg")) fail(`${file}: integrated street collage is not active on the homepage`);
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {

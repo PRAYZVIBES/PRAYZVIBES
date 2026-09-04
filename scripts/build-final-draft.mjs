@@ -107,8 +107,8 @@ const tracks = [
 
 const films = [
   ["Transience", "transience-ep-short.mp4", "transience.jpg"],
-  ["Mountain Day", "mountain-day-reel.mp4", "photo-street-exact-v3/06-mountain-day-original-poster-exact-v3.jpg"],
-  ["Salzburg", "transience-tour-salzburg-teaser.mp4", "photo-street-exact-v3/05-salzburg-create-resonance-exact-v3.jpg"]
+  ["Mountain Day", "mountain-day-reel.mp4", "photo-street-integrated-v4/06-mountain-day-integrated-v4.jpg"],
+  ["Salzburg", "transience-tour-salzburg-teaser.mp4", "photo-street-integrated-v4/05-salzburg-create-resonance-integrated-v4.jpg"]
 ];
 
 function extractNewsletter(html) {
@@ -131,7 +131,7 @@ function createMain(c, newsletter) {
 
   return `  <main id="main-content" class="pv-home">
     <section class="pv-hero" id="top" aria-labelledby="pv-hero-title">
-      <img class="pv-hero__image" src="${image("photo-street-exact-v3/01-hero-see-clearly-exact-v3.jpg")}" alt="PRAYZVIBES with a black acoustic guitar in a field">
+      <img class="pv-hero__image" src="${image("photo-street-integrated-v4/01-hero-see-clearly-integrated-v4.jpg")}" alt="PRAYZVIBES with a black acoustic guitar in a field">
       <div class="pv-hero__shade" aria-hidden="true"></div>
       <div class="pv-hero__content">
         <p class="pv-kicker">${c.kicker}</p>
@@ -151,9 +151,9 @@ function createMain(c, newsletter) {
 
     <section class="pv-films" id="films" aria-labelledby="pv-films-title"><header class="pv-heading reveal"><p class="pv-kicker">${c.filmsLabel}</p><h2 id="pv-films-title">${c.filmsTitle}</h2><p>${c.filmsCopy}</p></header><div class="pv-film-grid">${filmCards}</div></section>
 
-    <section class="pv-live" id="live-preview" aria-labelledby="pv-live-title"><div class="pv-live__media reveal"><div class="video-consent" data-video-id="wAsCW6AL5iY" data-video-title="TRANSIENCE TOUR — Chapter 1: Salzburg"><img src="${image("photo-street-exact-v3/05-salzburg-create-resonance-exact-v3.jpg")}" alt="PRAYZVIBES performing in Salzburg"><div class="video-shade" aria-hidden="true"></div><button class="video-load" type="button"><span aria-hidden="true">▶</span> ${c.watchSalzburg}</button></div></div><div class="pv-live__copy reveal"><p class="pv-kicker">${c.liveLabel}</p><h2 id="pv-live-title">${c.liveTitle}</h2><p>${c.liveCopy}</p><a class="pv-button pv-button--light" href="${page("live")}">${c.liveCta}</a></div></section>
+    <section class="pv-live" id="live-preview" aria-labelledby="pv-live-title"><div class="pv-live__media reveal"><div class="video-consent" data-video-id="wAsCW6AL5iY" data-video-title="TRANSIENCE TOUR — Chapter 1: Salzburg"><img src="${image("photo-street-integrated-v4/05-salzburg-create-resonance-integrated-v4.jpg")}" alt="PRAYZVIBES performing in Salzburg"><div class="video-shade" aria-hidden="true"></div><button class="video-load" type="button"><span aria-hidden="true">▶</span> ${c.watchSalzburg}</button></div></div><div class="pv-live__copy reveal"><p class="pv-kicker">${c.liveLabel}</p><h2 id="pv-live-title">${c.liveTitle}</h2><p>${c.liveCopy}</p><a class="pv-button pv-button--light" href="${page("live")}">${c.liveCta}</a></div></section>
 
-    <section class="pv-story" id="about" aria-labelledby="pv-story-title"><div class="pv-story__copy reveal"><p class="pv-kicker">${c.storyLabel}</p><h2 id="pv-story-title">${c.storyTitle}</h2><p>${c.storyCopy}</p><a class="pv-text-link pv-text-link--dark" href="${page("about")}">${c.storyCta} <span>→</span></a></div><div class="pv-story__portrait reveal"><img src="${image("photo-street-exact-v3/02-story-listen-deeply-exact-v3.jpg")}" alt="Portrait of PRAYZVIBES with acoustic guitar"></div><dl class="pv-facts">${c.facts.map(([term, value]) => `<div><dt>${term}</dt><dd>${value}</dd></div>`).join("")}</dl></section>
+    <section class="pv-story" id="about" aria-labelledby="pv-story-title"><div class="pv-story__copy reveal"><p class="pv-kicker">${c.storyLabel}</p><h2 id="pv-story-title">${c.storyTitle}</h2><p>${c.storyCopy}</p><a class="pv-text-link pv-text-link--dark" href="${page("about")}">${c.storyCta} <span>→</span></a></div><div class="pv-story__portrait reveal"><img src="${image("photo-street-integrated-v4/02-story-integrated-v4.jpg")}" alt="Portrait of PRAYZVIBES with acoustic guitar"></div><dl class="pv-facts">${c.facts.map(([term, value]) => `<div><dt>${term}</dt><dd>${value}</dd></div>`).join("")}</dl></section>
 
     <section class="pv-professional" id="press" aria-labelledby="pv-professional-title"><div class="pv-professional__intro reveal"><p class="pv-kicker">${c.proLabel}</p><h2 id="pv-professional-title">${c.proTitle}</h2><p>${c.proCopy}</p><div class="pv-actions"><a class="pv-button pv-button--light" href="${page("epk")}">${c.epk}</a><a class="pv-button pv-button--outline" href="mailto:booking@prayzvibes.com">${c.booking}</a></div></div><div class="pv-press"><p>${c.pressTitle}</p>${c.pressItems.map((item, index) => `<a href="${pressLinks[index]}" target="_blank" rel="noopener noreferrer"><span>0${index + 1}</span><strong>${item}</strong><b>↗</b></a>`).join("")}</div></section>
 
