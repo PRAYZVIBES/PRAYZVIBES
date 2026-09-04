@@ -4705,7 +4705,8 @@ body[data-page="home"] .pv-support-note__actions {
   background: rgba(18,20,14,.88);
   box-shadow: 0 14px 34px rgba(0,0,0,.26);
   color: #e7c76d;
-  content: "SEE CLEARLY";
+  content: none;
+  display: none;
   font-family: var(--pv-street);
   font-size: clamp(.86rem, 1.15vw, 1.15rem);
   letter-spacing: .085em;
@@ -4741,7 +4742,8 @@ body[data-page="home"] .pv-story__portrait::after {
   background: url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 50% 47% / cover no-repeat;
   box-shadow: -12px 15px 34px rgba(0,0,0,.24);
   clip-path: polygon(2% 1%, 99% 0, 100% 96%, 4% 100%, 0 9%);
-  content: "";
+  content: none;
+  display: none;
   pointer-events: none;
   transform: rotate(-2.2deg);
 }
@@ -4757,7 +4759,8 @@ body[data-page="home"] .pv-live--single .pv-live__media::after {
   background: url("images/living-charge/street-signals/street-create-resonance-full-v4.webp") 50% 48% / cover no-repeat;
   box-shadow: -12px 15px 34px rgba(0,0,0,.28);
   clip-path: polygon(1% 2%, 98% 0, 100% 95%, 3% 100%, 0 8%);
-  content: "";
+  content: none;
+  display: none;
   pointer-events: none;
   transform: rotate(1.8deg);
 }
@@ -4770,7 +4773,8 @@ body[data-page="home"] .pv-mountain__media .video-consent::before {
   width: clamp(62px, 7vw, 92px);
   aspect-ratio: 1;
   background: url("images/living-charge/mark-see-clearly.svg") center / contain no-repeat;
-  content: "";
+  content: none;
+  display: none;
   filter: drop-shadow(0 7px 11px rgba(0,0,0,.32));
   pointer-events: none;
 }
@@ -4833,6 +4837,19 @@ body[data-page="support"] {
 }
 
 .subpage-body .subpage-hero .container { z-index: 2; }
+
+/* The approved photo collages already contain their exact street-art signal.
+   Avoid adding a second floating panel over portrait-based subpage heroes. */
+body[data-page="about"] .subpage-hero::after,
+body[data-page="connect"] .subpage-hero::after,
+body[data-page="book"] .subpage-hero::after,
+body[data-page="live"] .subpage-hero::after,
+body[data-page="epk"] .subpage-hero::after,
+body[data-page="press-tjpl"] .subpage-hero::after,
+body[data-page="support"] .subpage-hero::after {
+  content: none;
+  display: none;
+}
 
 body[data-page="live"] .reel-frame::before,
 body[data-page="mountain-day"] .reel-frame::before,
