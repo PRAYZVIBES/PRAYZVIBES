@@ -1,0 +1,438 @@
+/* PRAYZVIBES · street editorial · local edition, September 2026.
+   Existing photographs, lettering and marks are the artwork. This layer only
+   gives them a material setting and keeps navigation separate from the image. */
+:root {
+  --pv-wall-surface: url("images/living-charge/street-signals/concrete-unlettered-1200.webp");
+  --pv-wall-ink: #161816;
+  --pv-paste-paper: #f3efe3;
+  --pv-paper-ink: #242720;
+  --pv-paper-muted: #55584f;
+  --pv-paper-accent: #805124;
+}
+
+/* A photographic opening: copy and the complete portrait occupy separate
+   columns. No gradient, zoom, filter or lettering covers the artist. */
+body[data-page="home"] .pv-home > .pv-hero--fan-first {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 68px);
+  min-height: 0;
+  padding: calc(var(--header-height) + 38px) var(--pv-gutter) 76px !important;
+  background: linear-gradient(100deg, rgba(17,20,17,.94), rgba(17,20,17,.76)),
+    var(--pv-wall-surface) center / cover no-repeat;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero__image {
+  position: relative;
+  inset: auto;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 860px;
+  object-fit: contain;
+  object-position: center;
+  filter: none;
+  transform: none;
+  animation: none;
+  border: 0;
+  box-shadow: none;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero__shade { display: none; }
+body[data-page="home"] .pv-home--fan-first .pv-hero__content {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 28px 0;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero__content .pv-kicker {
+  max-width: 36ch;
+  font-size: .875rem;
+  line-height: 1.55;
+  color: #e4cb8e;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero h1 {
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(4rem, 9.4vw, 8.7rem);
+  line-height: .8;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero h1 span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero h1 span:last-child {
+  margin-left: 8%;
+  color: var(--pv-paste-paper);
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero__hook {
+  max-width: 28ch;
+  margin: 30px 0 0;
+  color: var(--pv-paste-paper);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+body[data-page="home"] .pv-home--fan-first .pv-quick-preview {
+  width: 100%;
+  max-width: 30rem;
+  margin-left: 0;
+}
+body[data-page="home"] .pv-home--fan-first .pv-hero .pv-actions { margin-left: 0; }
+body[data-page="home"] .pv-home--fan-first .pv-release-note {
+  top: auto;
+  right: auto;
+  bottom: 22px;
+  left: var(--pv-gutter);
+  font-size: .8rem;
+}
+
+/* Keep the approved mark and its original lettering visible above a solid
+   paper label. One whole card remains one link with an explicit destination. */
+body[data-page="home"] .pv-home > .pv-paths {
+  display: block;
+  padding: clamp(38px, 5vw, 76px) var(--pv-gutter) !important;
+  background: linear-gradient(rgba(243,239,227,.90), rgba(243,239,227,.90)),
+    var(--pv-wall-surface) center / cover no-repeat;
+  color: var(--pv-paper-ink);
+  overflow: visible;
+}
+body[data-page="home"] .pv-paths::after { content: none; }
+body[data-page="home"] .pv-paths__intro { display: block; margin-bottom: 28px; }
+body[data-page="home"] .pv-paths h2 {
+  max-width: 24ch;
+  font-size: clamp(2.2rem, 4.3vw, 4rem);
+  line-height: 1.08;
+}
+body[data-page="home"] .pv-paths__intro > .pv-kicker { color: var(--pv-paper-accent); }
+body[data-page="home"] .pv-paths__grid {
+  grid-template-columns: 1.15fr 1.15fr repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto;
+  gap: 16px;
+  align-items: stretch;
+}
+body[data-page="home"] .pv-path[data-journey-path] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  grid-column: auto;
+  grid-row: auto;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid rgba(36,39,32,.22);
+  border-radius: 0;
+  overflow: visible;
+  background: var(--pv-paste-paper);
+  color: var(--pv-paper-ink);
+  box-shadow: 4px 5px 0 rgba(36,39,32,.12);
+  transform: none;
+}
+body[data-page="home"] .pv-path[data-journey-path]::before,
+body[data-page="home"] .pv-path[data-journey-path]::after,
+body[data-page="home"] .pv-threshold-media::before,
+body[data-page="home"] .pv-threshold-media::after { content: none; }
+body[data-page="home"] .pv-path .pv-threshold-media {
+  position: relative;
+  inset: auto;
+  flex: none;
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+  filter: none;
+  transform: none;
+  transition: none;
+}
+body[data-page="home"] .pv-path[data-journey-path="listen"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp");
+}
+body[data-page="home"] .pv-path[data-journey-path="invite"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-create-resonance-full-v4.webp");
+}
+body[data-page="home"] .pv-path[data-journey-path="meet"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-see-clearly-v4.webp");
+}
+body[data-page="home"] .pv-path[data-journey-path="carry"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp");
+}
+body[data-page="home"] .pv-path[data-journey-path="stay-close"] .pv-threshold-media {
+  background-image: url("images/living-charge/street-signals/street-live-consciously-full-v4.webp");
+}
+body[data-page="home"] .pv-path .pv-path__number { display: none; }
+body[data-page="home"] .pv-path .pv-path__copy {
+  display: block;
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  padding: 18px 32px 20px 16px;
+  border-top: 3px solid #bbb4a3;
+  background: var(--pv-paste-paper);
+  color: var(--pv-paper-ink);
+  text-transform: none;
+  text-shadow: none;
+}
+body[data-page="home"] .pv-path:nth-child(-n+2) .pv-path__copy { border-top-color: #805124; }
+body[data-page="home"] .pv-path .pv-path__title {
+  display: block;
+  max-width: none;
+  margin: 0;
+  color: var(--pv-paper-ink);
+  font-family: var(--pv-body);
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+  text-shadow: none;
+}
+body[data-page="home"] .pv-path .pv-path__detail {
+  display: block;
+  margin: 9px 0 0;
+  color: var(--pv-paper-muted);
+  font-family: var(--pv-body);
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-transform: none;
+  overflow-wrap: anywhere;
+  text-shadow: none;
+}
+body[data-page="home"] .pv-path .pv-path__arrow {
+  position: absolute;
+  top: auto;
+  right: 12px;
+  bottom: 17px;
+  color: var(--pv-paper-accent);
+  font-size: 1.2rem;
+  opacity: 1;
+}
+body[data-page="home"] .pv-path[data-journey-path]:hover {
+  background: var(--pv-paste-paper);
+  border-color: #805124;
+  box-shadow: 4px 7px 0 rgba(36,39,32,.22);
+  transform: translateY(-2px);
+}
+body[data-page="home"] .pv-path[data-journey-path]:focus-visible {
+  outline: 3px solid #1762a0;
+  outline-offset: 4px;
+}
+
+/* Short, handwritten emphasis only; original campaign tags stay in assets. */
+.pv-handline {
+  display: inline-block;
+  font-family: var(--pv-graffiti);
+  font-style: normal;
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: .88em;
+  letter-spacing: -.025em;
+  line-height: 1.2;
+}
+body[data-page="home"] .pv-paths .pv-handline { color: var(--pv-paper-accent); }
+
+/* Berlin is a single wall-mounted event notice, not an image under overlays. */
+body[data-page="home"] .pv-home > .pv-event-feature {
+  min-height: 0;
+  align-items: center;
+  gap: clamp(24px, 4vw, 58px);
+  padding: clamp(36px, 5vw, 80px) var(--pv-gutter) !important;
+  background: linear-gradient(rgba(20,24,21,.84), rgba(20,24,21,.84)),
+    var(--pv-wall-surface) center / cover no-repeat;
+}
+body[data-page="home"] .pv-event-feature__media {
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  aspect-ratio: auto;
+  overflow: visible;
+  background: none;
+  box-shadow: none;
+}
+body[data-page="home"] .pv-event-feature__media::after { content: none; }
+body[data-page="home"] .pv-event-feature__pasteup { display: none; }
+body[data-page="home"] .pv-event-feature__picture,
+body[data-page="home"] .pv-event-feature__media img { height: auto; object-fit: contain; }
+body[data-page="home"] .pv-event-feature__copy {
+  align-self: center;
+  padding: clamp(26px, 3vw, 48px);
+  border: 1px solid rgba(36,39,32,.25);
+  background: var(--pv-paste-paper);
+  color: var(--pv-paper-ink);
+  overflow: visible;
+  box-shadow: 6px 8px 0 rgba(0,0,0,.2);
+}
+body[data-page="home"] .pv-event-feature__copy::before,
+body[data-page="home"] .pv-event-feature__copy::after { content: none; }
+body[data-page="home"] .pv-event-feature__copy h2,
+.subpage-body .pv-event-detail__copy h2 {
+  max-width: 13ch;
+  color: var(--pv-paper-ink);
+  font-family: var(--pv-street);
+  font-size: clamp(2.5rem, 4.9vw, 5.1rem);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: .005em;
+}
+body[data-page="home"] .pv-event-feature__copy > p { color: var(--pv-paper-ink); }
+body[data-page="home"] .pv-event-feature__copy .pv-kicker { color: var(--pv-paper-accent); font-size: .85rem; }
+body[data-page="home"] .pv-event-feature__copy .pv-event-feature__note { color: var(--pv-paper-muted); font-size: .8rem; }
+body[data-page="home"] .pv-event-feature__copy .pv-event-feature__access { font-size: .875rem; }
+body[data-page="home"] .pv-event-feature__copy .pv-event-feature__call {
+  font-family: var(--pv-graffiti);
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+body[data-page="home"] .pv-event-feature__copy .pv-text-link { color: var(--pv-paper-ink); }
+body[data-page="home"] .pv-event-feature__copy .pv-button {
+  background: var(--pv-paper-ink);
+  border-color: var(--pv-paper-ink);
+  color: var(--pv-paste-paper);
+}
+body[data-page="home"] .pv-event-feature__copy .pv-button:hover { background: #403b2f; }
+body[data-page="home"] .pv-event-feature__copy :is(a, button):focus-visible {
+  outline: 3px solid #1762a0;
+  outline-offset: 4px;
+}
+.subpage-body .pv-event-detail__media {
+  align-self: start;
+  aspect-ratio: auto;
+  height: auto;
+  border: 0;
+  overflow: visible;
+  box-shadow: none;
+}
+.subpage-body .pv-event-detail__media img { display: block; width: 100%; height: auto; object-fit: contain; }
+.subpage-body .pv-event-detail__call { color: var(--pv-paper-accent); }
+.subpage-body .pv-live-date { clip-path: none; border-left: 4px solid #805124; box-shadow: 6px 8px 0 rgba(0,0,0,.25); }
+.subpage-body .pv-live-date time small,
+.subpage-body .pv-live-date__status { font-size: .8rem; }
+
+/* Quiet unlettered walls under reading areas. The copy never sits on a
+   competing slogan. Warmth comes from the original fields and forest. */
+body[data-page="home"] :is(.pv-mountain__copy, .pv-release__content, .pv-story__copy) {
+  background: linear-gradient(rgba(243,239,227,.94), rgba(243,239,227,.94)),
+    var(--pv-wall-surface) center / cover no-repeat;
+  color: var(--pv-paper-ink);
+}
+body[data-page="home"] .pv-story__copy::before { content: none; }
+body[data-page="home"] .pv-story__copy .pv-kicker { color: var(--pv-paper-accent); }
+body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  height: auto;
+  padding: clamp(24px, 3vw, 48px);
+  background: linear-gradient(rgba(20,24,21,.72), rgba(20,24,21,.72)),
+    var(--pv-wall-surface) center / cover no-repeat;
+}
+body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait img {
+  position: relative;
+  inset: auto;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 760px;
+  object-fit: contain;
+  filter: none;
+  box-shadow: none;
+}
+.subpage-body .content-section:not(.content-section--dark),
+.subpage-body .pv-event-detail {
+  background: linear-gradient(rgba(243,239,227,.94), rgba(243,239,227,.94)),
+    var(--pv-wall-surface) center / cover no-repeat;
+  color: var(--pv-paper-ink);
+}
+.subpage-body .content-section--dark,
+.subpage-body .pv-live-dates {
+  background: linear-gradient(rgba(20,24,21,.92), rgba(20,24,21,.92)),
+    var(--pv-wall-surface) center / cover no-repeat;
+}
+.subpage-body .content-card:not(.content-card--dark) {
+  border: 1px solid rgba(36,39,32,.2);
+  border-top: 3px solid #805124;
+  border-radius: 0;
+  box-shadow: 5px 6px 0 rgba(36,39,32,.08);
+}
+body[data-page="about"] .subpage-hero h1,
+body[data-page="epk"] .subpage-hero h1 {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1100px) {
+  body[data-page="home"] .pv-paths__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  body[data-page="home"] .pv-path[data-journey-path] { grid-column: span 2; }
+  body[data-page="home"] .pv-path[data-journey-path]:nth-child(-n+2) { grid-column: span 3; }
+  body[data-page="home"] .pv-path .pv-threshold-media { aspect-ratio: 4 / 3; background-size: contain; background-color: #232721; }
+}
+@media (max-width: 900px) {
+  body[data-page="home"] .pv-home > .pv-hero--fan-first {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .85fr);
+    gap: 24px;
+    padding-top: calc(var(--header-height) + 28px) !important;
+  }
+  body[data-page="home"] .pv-home--fan-first .pv-hero h1 { font-size: clamp(3.3rem, 8.8vw, 6.5rem); }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__hook { font-size: 1.2rem; }
+  body[data-page="home"] .pv-home > .pv-event-feature { grid-template-columns: minmax(0, 1fr); }
+  body[data-page="home"] .pv-event-feature__media { max-width: 650px; justify-self: center; }
+  body[data-page="home"] .pv-event-feature__copy { width: 100%; }
+  .subpage-body .pv-event-detail__grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  body[data-page="home"] .pv-home > .pv-hero--fan-first {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: calc(var(--header-height) + 20px) 20px 64px !important;
+  }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__content { grid-column: 1; grid-row: 1; padding: 0; }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__image {
+    grid-column: 1;
+    grid-row: 2;
+    max-height: 610px;
+  }
+  body[data-page="home"] .pv-home--fan-first .pv-hero h1 { font-size: clamp(3.4rem, 17vw, 5.5rem); }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__hook { max-width: 32ch; margin-top: 20px; }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__content .pv-kicker { font-size: .8rem; }
+  body[data-page="home"] .pv-paths__grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  body[data-page="home"] .pv-path[data-journey-path],
+  body[data-page="home"] .pv-path[data-journey-path]:nth-child(-n+2) {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    grid-column: auto;
+    min-height: 0;
+  }
+  body[data-page="home"] .pv-path .pv-threshold-media {
+    height: 100%;
+    min-height: 150px;
+    aspect-ratio: auto;
+    background-size: contain;
+  }
+  body[data-page="home"] .pv-path .pv-path__copy { align-content: center; padding: 18px 28px 18px 14px; border-top: 0; border-left: 3px solid #bbb4a3; }
+  body[data-page="home"] .pv-path:nth-child(-n+2) .pv-path__copy { border-left-color: #805124; }
+  body[data-page="home"] .pv-path .pv-path__title { font-size: 1.05rem; }
+  body[data-page="home"] .pv-path .pv-path__detail { font-size: .8rem; }
+  body[data-page="home"] .pv-event-feature__copy { padding: 26px 22px; }
+  body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait { padding: 24px 20px; }
+  body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait img { max-height: 570px; }
+  .subpage-body .pv-live-date__actions { display: flex; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="home"] .pv-path[data-journey-path] { transition: none; }
+  body[data-page="home"] .pv-path[data-journey-path]:hover { transform: none; }
+}
+@media (forced-colors: active) {
+  body[data-page="home"] .pv-path[data-journey-path],
+  body[data-page="home"] .pv-event-feature__copy { border: 1px solid CanvasText; }
+  body[data-page="home"] .pv-path[data-journey-path]:focus-visible,
+  body[data-page="home"] .pv-event-feature__copy :is(a, button):focus-visible { outline-color: Highlight; }
+}

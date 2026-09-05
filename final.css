@@ -4960,9 +4960,64 @@ body[data-page="epk"] .artwork-grid::before {
     url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") 50% 48% / cover no-repeat;
 }
 
-.pv-event-feature { scroll-margin-top: 72px; }
+.pv-event-feature {
+  scroll-margin-top: 88px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  align-items: start;
+  background: #171a11;
+}
+.pv-event-feature__media {
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 900 / 976;
+  align-self: start;
+}
+.pv-event-feature__picture,
+.pv-event-feature__media img { height: auto; }
+.pv-event-feature__media img { object-fit: contain; }
+.pv-event-feature__copy {
+  min-width: 0;
+  align-self: stretch;
+  padding: clamp(32px, 4vw, 64px);
+}
+.pv-event-feature__copy h2 { overflow-wrap: normal; }
+.pv-event-feature__access {
+  margin: 16px 0 0;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: #f4f0e5;
+}
+
+/* Keep the entire original photograph visible inside its paper composition. */
+.pv-home--fan-first .pv-story--fan-first .pv-story__portrait img {
+  object-fit: contain;
+  object-position: center;
+}
+.pv-home--fan-first .pv-story--fan-first .pv-story__portrait {
+  background: #24271f url("images/living-charge/street-signals/street-listen-deeply-full-v4.webp") center / cover;
+}
+.pv-path > small { font-size: .875rem; }
+.pv-media-privacy { text-wrap: pretty; }
+.pv-native-film video:focus-visible {
+  outline: 3px solid var(--pv-gold);
+  outline-offset: -4px;
+}
+
+@media (max-width: 1050px) {
+  .pv-event-feature { grid-template-columns: 1fr; }
+  .pv-event-feature__media { width: min(100%, 680px); justify-self: center; }
+  .pv-event-feature__copy { padding: 36px var(--pv-gutter) 44px; }
+}
 
 @media (max-width: 760px) {
+  .pv-home > section.pv-paths { padding: 32px 20px 38px !important; }
+  .pv-paths__intro { display: block; margin-bottom: 20px; }
+  body[data-page="home"] .pv-paths h2 {
+    max-width: 19ch;
+    font-size: clamp(2rem, 8vw, 2.65rem);
+    line-height: 1.06;
+  }
+  .pv-paths__intro > p:last-child { margin-top: 12px; }
   .pv-home > section.pv-next-release {
     gap: 38px;
     padding: 50px 20px 54px !important;
@@ -4995,33 +5050,48 @@ body[data-page="epk"] .artwork-grid::before {
     grid-column: auto;
     width: 100%;
     min-width: 0;
-    min-height: 148px;
-    padding: 17px 32px 16px 16px;
+    min-height: 132px;
+    padding: 14px 30px 14px 14px;
   }
 
   .pv-path--listen {
     grid-column: 1 / -1;
-    min-height: 164px;
+    min-height: 118px;
   }
 
   .pv-path > strong,
-  .pv-path--listen > strong { font-size: clamp(1.28rem, 6.2vw, 1.72rem); }
-  .pv-path > small { margin-top: 8px; font-size: max(.68rem, 11px); }
+  .pv-path--listen > strong { font-size: clamp(1.16rem, 5.2vw, 1.45rem); }
+  .pv-path > small { margin-top: 6px; font-size: .875rem; }
+
+  body[data-page="home"] .pv-mountain__media { min-height: 0; padding: 30px 20px; }
+  .pv-mountain__media .video-consent { width: min(100%, 290px); }
+  .pv-mountain__copy { padding: 36px 20px 42px; }
+  body[data-page="home"] .pv-mountain h2 { font-size: clamp(2.2rem, 9vw, 3rem); line-height: 1.03; }
+  .pv-release__content { padding: 36px 20px 42px; }
 
   .pv-home--fan-first .pv-live--single .pv-live__media {
     order: 1;
-    min-height: min(66svh, 560px);
+    min-height: 0;
+    height: min(76svh, 570px);
+  }
+  .pv-home--fan-first .pv-live--single .pv-live__media video {
+    min-height: 0;
+    object-fit: contain;
   }
   .pv-home--fan-first .pv-live--single .pv-live__copy {
     order: 2;
-    padding: 52px 20px 58px;
+    padding: 36px 20px 42px;
   }
 
   .pv-home--fan-first .pv-story--fan-first {
     display: flex;
     flex-direction: column;
   }
-  .pv-home--fan-first .pv-story--fan-first .pv-story__portrait { order: 1; }
+  .pv-home--fan-first .pv-story--fan-first .pv-story__portrait {
+    order: 1;
+    min-height: 0;
+    height: min(74svh, 560px);
+  }
   .pv-home--fan-first .pv-story--fan-first .pv-story__copy { order: 2; }
   .pv-home--fan-first .pv-story--fan-first .pv-coin-memory { order: 3; }
 
@@ -5040,7 +5110,7 @@ body[data-page="epk"] .artwork-grid::before {
   .pv-path:nth-child(3),
   .pv-path:nth-child(4),
   .pv-path--close {
-    min-height: 142px;
+    min-height: 132px;
     padding-inline: 14px 28px;
   }
 }

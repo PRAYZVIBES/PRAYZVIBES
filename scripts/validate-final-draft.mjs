@@ -86,9 +86,9 @@ const homepageLocales = new Map([
 ]);
 
 const tjplDisclosureByLocale = new Map([
-  ["en", /participation is paid partner content/i],
-  ["de", /Teilnahme von PRAYZVIBES ist bezahlter Partnerinhalt/i],
-  ["fr", /participation de PRAYZVIBES est un contenu partenaire rémunéré/i],
+  ["en", /This is paid partner content, as labelled by TJPL/i],
+  ["de", /Der Beitrag ist bezahlter Partnerinhalt, wie von TJPL gekennzeichnet/i],
+  ["fr", /Il s’agit d’un contenu sponsorisé, signalé comme tel par TJPL/i],
 ]);
 
 for (const [homepage, locale] of homepageLocales) {
@@ -208,9 +208,9 @@ const editorialHeroAssets = [
   "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-480.jpg",
   "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-800.jpg",
   "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-941.jpg",
-  "images/photo-street-authentic-v5/02-story-listen-deeply-authentic-v5.jpg",
-  "images/photo-street-authentic-v5/03-epk-living-charge-authentic-v5.jpg",
-  "images/photo-street-authentic-v5/04-live-forest-live-consciously-authentic-v5.jpg",
+  "images/photo-street-native-v9/02-story-listen-deeply-native-v9.jpg",
+  "images/photo-street-native-v9/03-epk-living-charge-native-v9.jpg",
+  "images/photo-street-native-v9/04-live-forest-live-consciously-native-v9.jpg",
   "images/photo-street-authentic-v5/05-salzburg-create-resonance-authentic-v5.jpg",
   "images/photo-street-authentic-v5/06-mountain-day-original-poster-authentic-v5.jpg",
 ];
@@ -221,7 +221,9 @@ for (const asset of editorialHeroAssets) {
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
-  if (!html.includes("01-hero-see-clearly-tagged-v8-800.jpg")) fail(`${file}: tagged authentic street collage is not active on the homepage`);
+  if (!html.includes("images/pasteup-v14/hero-cornfield-800.webp")) fail(`${file}: current cornfield paste-up is not active on the homepage`);
+  if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
+  if (!html.includes("images/pasteup-v14/listen-deeply-800.webp")) fail(`${file}: selected LISTEN DEEPLY collage is missing`);
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
@@ -253,8 +255,8 @@ if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cine
 if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
 
 const berlinPanelAssets = [
-  "images/events/prayzvibes-berlin-open-mic-2026-11-04-home-panel-authentic-v4-900x976.webp",
-  "images/events/prayzvibes-berlin-open-mic-2026-11-04-live-panel-authentic-v3-1600x1102.webp",
+  "images/events/arno-zillmers-open-mic-original-v14.jpg",
+  "images/pasteup-v14/live-forest-800.webp",
 ];
 for (const asset of berlinPanelAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: Berlin panel asset is missing`);
@@ -273,7 +275,7 @@ for (const [file, html] of renderedPages) {
   if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
   if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
 }
-const expectedAssetVersions = new Set(["20260904-authentic-photo-audit-v5"]);
+const expectedAssetVersions = new Set(["20260905-local-refinement-v9"]);
 if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
   fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
 }
