@@ -120,9 +120,9 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/wAsCW6AL5iY["']/.test(html)) fail(`${homepage}: missing Salzburg YouTube Short link`);
   if ((html.match(/\sdata-social-video(?:\s|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
-  if (!/06-mountain-day-original-poster-authentic-v5\.jpg/.test(html)) fail(`${homepage}: missing authentic Mountain Day poster collage`);
+  if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing original Mountain Day film thumbnail`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
-  if (!/05-salzburg-create-resonance-authentic-v5\.jpg/.test(html)) fail(`${homepage}: missing authentic Salzburg poster collage`);
+  if (!/poster=["'][^"']*artist-live-salzburg-13s55-e11f9305ea66-720\.webp["']/.test(html)) fail(`${homepage}: Salzburg film must use its real performance still`);
   if (!/id=["']sib-form["']/.test(html)) fail(`${homepage}: missing Brevo form`);
   if (!/name=["']EMAIL["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter email field`);
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
@@ -204,15 +204,14 @@ for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker
 if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
 
 const editorialHeroAssets = [
-  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8.jpg",
-  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-480.jpg",
-  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-800.jpg",
-  "images/photo-street-authentic-v8/01-hero-see-clearly-tagged-v8-941.jpg",
-  "images/photo-street-native-v9/02-story-listen-deeply-native-v9.jpg",
-  "images/photo-street-native-v9/03-epk-living-charge-native-v9.jpg",
-  "images/photo-street-native-v9/04-live-forest-live-consciously-native-v9.jpg",
-  "images/photo-street-authentic-v5/05-salzburg-create-resonance-authentic-v5.jpg",
-  "images/photo-street-authentic-v5/06-mountain-day-original-poster-authentic-v5.jpg",
+  "images/artist-cornfield-original-press-480.webp",
+  "images/artist-cornfield-original-press-800.webp",
+  "images/artist-cornfield-original-press-941.webp",
+  "images/artist-cornfield-about.jpg",
+  "images/artist-cornfield-epk.jpg",
+  "images/artist-live-forest.jpg",
+  "images/artist-live-salzburg-13s55-e11f9305ea66-720.webp",
+  "images/mountain-day-reel-poster.jpg",
 ];
 for (const asset of editorialHeroAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: editorial homepage cover asset is missing`);
@@ -221,9 +220,10 @@ for (const asset of editorialHeroAssets) {
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
-  if (!html.includes("images/pasteup-v14/hero-cornfield-800.webp")) fail(`${file}: current cornfield paste-up is not active on the homepage`);
+  if (!html.includes("images/artist-cornfield-original-press.jpg")) fail(`${file}: original B photo source is not active on the homepage`);
   if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
-  if (!html.includes("images/pasteup-v14/listen-deeply-800.webp")) fail(`${file}: selected LISTEN DEEPLY collage is missing`);
+  if (!html.includes("images/artist-live-forest.jpg")) fail(`${file}: original E photo source is missing`);
+  if (!html.includes("images/living-charge/street-signals/street-listen-deeply-full-v4.webp")) fail(`${file}: approved F artwork is missing`);
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
@@ -256,7 +256,7 @@ if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css
 
 const berlinPanelAssets = [
   "images/events/arno-zillmers-open-mic-original-v14.jpg",
-  "images/pasteup-v14/live-forest-800.webp",
+  "images/artist-live-forest.jpg",
 ];
 for (const asset of berlinPanelAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: Berlin panel asset is missing`);

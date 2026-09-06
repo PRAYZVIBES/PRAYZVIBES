@@ -1,0 +1,59 @@
+/* Material v19: original colours, unchanged photos, real source marks.
+   The generated grain is an isolated background layer, never an image filter. */
+:root { --pv-material-texture: url("images/material-v19/mineral-plaster-v19.webp"); }
+.pv-material-host { position: relative; isolation: isolate; }
+.pv-material-grain {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--pv-material-texture);
+  background-size: 760px 760px; background-repeat: repeat;
+  filter: grayscale(1); mix-blend-mode: soft-light; opacity: .7;
+}
+/* Inner copy surfaces inherit the continuous material of their own section. */
+body[data-page="home"] :is(.pv-mountain__copy,.pv-mountain__media,.pv-story__copy,.pv-release__content) {
+  background: transparent;
+}
+/* Only peripheral scenery fades. The right-side guitar headstock remains opaque:
+   a small protective mask band restores that edge between 25% and 36% height. */
+body[data-page="home"] .pv-home--fan-first .pv-hero__image {
+  -webkit-mask-image: linear-gradient(to bottom,transparent 22%,#000 25%,#000 36%,transparent 39%),linear-gradient(to right,transparent,#000 3%,#000 98.5%,transparent),linear-gradient(to bottom,transparent,#000 2%,#000 98%,transparent);
+  mask-image: linear-gradient(to bottom,transparent 22%,#000 25%,#000 36%,transparent 39%),linear-gradient(to right,transparent,#000 3%,#000 98.5%,transparent),linear-gradient(to bottom,transparent,#000 2%,#000 98%,transparent);
+  -webkit-mask-size: 10% 100%,100% 100%,100% 100%;
+  mask-size: 10% 100%,100% 100%,100% 100%;
+  -webkit-mask-position: right,center,center;
+  mask-position: right,center,center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-over,source-in;
+  mask-composite: add,intersect;
+  border: 0; box-shadow: none;
+}
+body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait {
+  padding: 0; background: transparent;
+}
+body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait > img {
+  aspect-ratio: 941 / 1672;
+  -webkit-mask-image: linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 2%,#000 98%,transparent);
+  mask-image: linear-gradient(to right,transparent,#000 2%,#000 98%,transparent),linear-gradient(to bottom,transparent,#000 2%,#000 98%,transparent);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+  border: 0; box-shadow: none;
+}
+/* Source SVGs and existing lettering: accessible links, not generated image text. */
+.pv-portrait-sign {
+  display: flex; align-items: center; gap: 12px; width: fit-content;
+  padding: 8px 0; margin: 0 0 22px; color: var(--pv-gold-light);
+  font-family: var(--pv-street); font-size: 1.5rem; line-height: 1.2;
+  text-decoration: none;
+}
+.pv-portrait-sign img { width: 44px; height: 44px; object-fit: contain; flex: none; }
+.pv-portrait-sign:hover { text-decoration: underline; text-underline-offset: 5px; }
+.pv-portrait-sign:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+body[data-page="home"] .pv-story__copy .pv-portrait-sign {
+  color: #35462d; margin-top: 26px; margin-bottom: 12px;
+}
+@media (forced-colors: active) {
+  .pv-material-grain { display: none; }
+  body[data-page="home"] .pv-home--fan-first .pv-hero__image,
+  body[data-page="home"] .pv-home--fan-first .pv-story--fan-first .pv-story__portrait > img {
+    mask-image: none; -webkit-mask-image: none;
+  }
+}
