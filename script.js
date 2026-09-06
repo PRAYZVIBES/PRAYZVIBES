@@ -87,7 +87,7 @@
 
   menuToggle?.addEventListener("click", () => setMenu(menuToggle.getAttribute("aria-expanded") !== "true"));
   mobileMenu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setMenu(false)));
-  const desktopNavigationQuery = window.matchMedia("(min-width: 1081px)");
+  const desktopNavigationQuery = window.matchMedia("(min-width: 1201px)");
   const closeMenuAtDesktop = (event) => {
     if (event.matches && menuToggle?.getAttribute("aria-expanded") === "true") setMenu(false);
   };
@@ -732,6 +732,24 @@
     block.replaceChildren(iframe);
     if (autoplay) iframe.addEventListener("load", () => iframe.focus(), { once: true });
   };
+
+  // Atelier interactions reuse the same live consent gate. Never send quote text.
+  const atelierEventFields = {
+    thought_open: ['thought_id'], thought_share: ['thought_id', 'share_method'],
+    event_share: ['event_id', 'share_method'], calendar_download: ['event_id'],
+    room_navigation: ['room_name'], track_next: ['from_track', 'to_track']
+  };
+  document.addEventListener('pv:interaction', (event) => {
+    const { name, parameters = {} } = event.detail || {};
+    const fields = Object.hasOwn(atelierEventFields, name) ? atelierEventFields[name] : null;
+    if (!fields) return;
+    const safe = Object.fromEntries(fields.filter((key) => typeof parameters[key] === 'string').map((key) => [key, parameters[key].slice(0, 100)]));
+    trackEvent(name, safe);
+  });
+  document.addEventListener('click', (event) => {
+    const calendar = event.target.closest('a[href*="prayzvibes-wabe-berlin-2026-11-04.ics"]');
+    if (calendar && !calendar.hasAttribute('data-tear-ticket')) trackEvent('calendar_download', { event_id: 'berlin-2026-11-04' });
+  });
 
   const applyConsent = (choices) => {
     activeConsent = { ...choices, analytics: choices?.analytics === true, media: choices?.media === true };

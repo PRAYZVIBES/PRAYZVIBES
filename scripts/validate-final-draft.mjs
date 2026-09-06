@@ -200,7 +200,7 @@ try {
   fail(`script.js: ${error.message}`);
 }
 
-// Validate the stylesheet actually loaded by v23, not the archived cascade.
+// Validate the active v27 layer shared by every localized route.
 const css = fs.readFileSync(path.join(root, "atelier-world.css"), "utf8");
 const openBraces = (css.match(/{/g) || []).length;
 const closeBraces = (css.match(/}/g) || []).length;
@@ -231,6 +231,7 @@ for (const asset of editorialHeroAssets) {
 
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (/<aside class="atelier-pure"/.test(html)) fail(`${file}: Pure Existence is reserved for a future collection`);
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
   if (!html.includes("images/artist-cornfield-original-press-800.webp")) fail(`${file}: responsive derivative of original B photo is not active on the homepage`);
   if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
@@ -247,6 +248,7 @@ for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html
 }
 
 const originalMarkAssets = [
+  "images/living-charge/mark-living-charge.svg",
   "images/living-charge/mark-see-clearly.svg",
   "images/living-charge/mark-listen-deeply.svg",
   "images/living-charge/mark-create-resonance.svg",
@@ -263,9 +265,13 @@ for (const asset of originalMarkAssets) {
 if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("atelier-world.css: legacy cinematic journey imagery is still active");
 if (/\.pv-path[^{}]*::after\s*{[^}]*url\(/.test(css)) fail("atelier-world.css: a decorative journey overlay has returned");
 
-const atelierMaterial = "images/atelier-v25-material-wall-1920.webp";
-if (!fs.existsSync(path.join(root, atelierMaterial))) fail(`${atelierMaterial}: photorealistic atelier material is missing`);
-if (!css.includes(atelierMaterial)) fail(`${atelierMaterial}: atelier material is not referenced`);
+for (const name of ['hero-painted-alpine-v26', 'atelier-cream-surface-v26', 'living-charge-concrete-v26']) {
+  const asset = `images/atelier-v26/${name}.webp`;
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: material study is missing`);
+  if (!originalMarkSources.includes(asset)) fail(`${asset}: material study is unused`);
+}
+if ((css.match(/url\('images\/atelier-v25-material-wall-1920\.webp'\)/g) || []).length > 1) fail('atelier-world.css: the photographed wall repeats across rooms');
+if (!fs.existsSync(path.join(root,'images/atelier-v27/gold-blue-impasto.webp'))) fail('v27: pigment material missing');
 if (/outdoor-graffiti-atlas-v2/.test(css)) fail("atelier-world.css: synthetic outdoor atlas is still active");
 
 const berlinPanelAssets = [
@@ -284,16 +290,13 @@ const renderedPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
 const expectedAssetVersions = new Map([
-  ['atelier-world.css', '20260906-atelier-v23'],
-  ['script.js', '20260905-local-refinement-v9'],
+  ['atelier-world.css', '20260907-living-workbench-v27'],
+  ['script.js', '20260907-living-workbench-v27'],
+  ['atelier-world.js', '20260907-living-workbench-v27'],
 ]);
 for (const [file, html] of renderedPages) {
   for (const [asset, version] of expectedAssetVersions) {
-    const normalizedFile = file.replaceAll('\\', '/');
-    const homepage = /^(?:de\/|fr\/)?index\.html$/.test(normalizedFile);
-    const expectedVersion = asset === 'atelier-world.css' && homepage
-      ? '20260906-living-current-v25'
-      : version;
+    const expectedVersion = version;
     const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
     if (refs.length !== 1 || refs[0]?.[1] !== expectedVersion) fail(`${file}: expected one ${asset}?v=${expectedVersion} reference`);
   }
@@ -301,7 +304,26 @@ for (const [file, html] of renderedPages) {
 
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  if (!/atelier-world\.js\?v=20260906-living-current-v25/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
+  if (!/atelier-world\.js\?v=20260907-living-workbench-v27/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
+  if (/src=["'][^"']*atelier\.js/.test(html)) fail(`${file}: obsolete duplicate interaction script is loaded`);
+  const order = ['journey','music','watch','about','living-charge','shop','berlin-2026-11-04','live-preview','next-release'];
+  const positions = order.map(id => html.indexOf(`id="${id}"`));
+  if (positions.some((n, i) => n < 0 || (i && n <= positions[i - 1]))) fail(`${file}: rooms are out of order`);
+  if (!/href="#berlin-2026-11-04" data-room-link="stage"/.test(html)) fail(`${file}: stage navigation misses Berlin`);
+  if (/Originalzeichen auf Ateliermaterial|original mark on atelier material|signe original sur matière/.test(html)) fail(`${file}: physical-provenance overstatement remains`);
+}
+
+const atelierScript = fs.readFileSync(path.join(root, 'atelier-world.js'), 'utf8');
+if (!/\.aw-wordmark img\s*\{[^}]*filter:\s*brightness\(0\)/.test(css)) fail('atelier-world.css: the main original signature must render black');
+try { new Function(atelierScript); } catch (error) { fail(`atelier-world.js: ${error.message}`); }
+if (/(?:window|document)\.addEventListener\('pointermove'/.test(atelierScript)) fail('atelier-world.js: global cursor takeover is not allowed');
+for (const requirement of ['initTearTickets','createMediaElementSource','getByteTimeDomainData','prefers-reduced-motion']) {
+  if (!atelierScript.includes(requirement)) fail(`v27: missing interaction safeguard ${requirement}`);
+}
+for (const page of ['pages/live.html', 'de/pages/live.html', 'fr/pages/live.html']) {
+  const html = fs.readFileSync(path.join(root, page), 'utf8');
+  if (!/data-share-berlin/.test(html) || !/downloads\/prayzvibes-wabe-berlin-2026-11-04\.ics/.test(html)) fail(`${page}: event take-away actions missing`);
+  if (!/data-share-url="https:\/\/www.prayzvibes.com\/(?:de\/|fr\/)?pages\/live.html#berlin-2026-11-04"/.test(html)) fail(`${page}: share URL misses event metadata`);
 }
 
 if (errors.length) {
