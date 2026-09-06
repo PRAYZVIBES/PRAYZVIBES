@@ -192,7 +192,7 @@ try {
   fail(`script.js: ${error.message}`);
 }
 
-// Validate the stylesheet actually loaded by v22, not the archived cascade.
+// Validate the stylesheet actually loaded by v23, not the archived cascade.
 const css = fs.readFileSync(path.join(root, "atelier-world.css"), "utf8");
 const openBraces = (css.match(/{/g) || []).length;
 const closeBraces = (css.match(/}/g) || []).length;
@@ -224,9 +224,9 @@ for (const asset of editorialHeroAssets) {
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
-  if (!html.includes("images/artist-cornfield-original-press.jpg")) fail(`${file}: original B photo source is not active on the homepage`);
+  if (!html.includes("images/artist-cornfield-original-press-800.webp")) fail(`${file}: responsive derivative of original B photo is not active on the homepage`);
   if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
-  if (!html.includes("images/artist-live-forest.jpg")) fail(`${file}: original E photo source is missing`);
+  if (!html.includes("images/pasteup-v14/live-forest-800.webp")) fail(`${file}: responsive derivative of original E photo is missing`);
   if (!html.includes("images/living-charge/street-signals/street-listen-deeply-full-v4.webp")) fail(`${file}: approved F artwork is missing`);
 }
 
@@ -269,7 +269,7 @@ const renderedPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
 const expectedAssetVersions = new Map([
-  ['atelier-world.css', '20260906-atelier-v22'],
+  ['atelier-world.css', '20260906-atelier-v23'],
   ['script.js', '20260905-local-refinement-v9'],
 ]);
 for (const [file, html] of renderedPages) {
