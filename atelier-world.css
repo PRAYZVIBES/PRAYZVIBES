@@ -1,5 +1,5 @@
-/* PRAYZVIBES · Open atelier v23. Original images, marks and content.
-   A spatial composition with an ordinary, accessible reading order. */
+/* PRAYZVIBES · Living canvas v24. Original photographs stay photographs;
+   street material, painted marks and motion live around them. */
 @font-face { font-family: 'Archivo Black'; src: url('fonts/archivo-black-latin.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'DM Sans'; src: url('fonts/dm-sans-latin-variable.woff2') format('woff2'); font-weight: 400 800; font-display: swap; }
 @font-face { font-family: 'Passion One'; src: url('fonts/passion-one-regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
@@ -109,19 +109,30 @@ body.pv-world .site-header { height: var(--header-height); background: var(--aw-
 .aw-intro .pv-text-link { font-size: .78rem; letter-spacing: .03em; }
 .aw-hero-art {
   grid-column: 5/-1; align-self: start; display: grid;
-  grid-template-columns: repeat(12,minmax(0,1fr)); position: relative;
-  isolation: isolate; min-width: 0; padding: 10px 0 38px;
+  grid-template-columns: repeat(14,minmax(0,1fr)); position: relative;
+  isolation: isolate; min-width: 0; padding: 10px 0 42px;
+  --pv-photo-x: 0px; --pv-photo-y: 0px; --pv-wall-x: 0px; --pv-wall-y: 0px;
 }
 .aw-hero-art::before {
-  content: ''; position: absolute; z-index: -1; inset: 5% 0 1% 7%;
-  border: 1px solid var(--aw-rule); background: #17201955;
-  box-shadow: 0 34px 90px #0005;
+  content: none;
 }
-.aw-portrait { grid-column: 1/7; grid-row: 1; z-index: 2; position: relative; margin: 0; min-width: 0; align-self: start; }
+.aw-hero-art::after {
+  content: ''; position: absolute; z-index: 4; left: -3%; right: -2%; top: 78%; height: 28px;
+  background: url('images/living-charge/street-signals/roller-line-v4.svg') center/100% 28px no-repeat;
+  opacity: 0; transform: rotate(-1.25deg) scaleX(.08); transform-origin: left center;
+  transition: transform 1.05s cubic-bezier(.18,.75,.18,1),opacity .18s ease;
+}
+.pv-world-js .aw-hero-art.is-painted::after { opacity: .92; transform: rotate(-1.25deg) scaleX(1); }
+.aw-portrait {
+  grid-column: 1/7; grid-row: 1; z-index: 2; position: relative; margin: 0; min-width: 0;
+  align-self: start; padding: clamp(4px,.55vw,8px); background: var(--aw-paper);
+  box-shadow: 14px 24px 54px #0006;
+  transform: translate3d(var(--pv-photo-x),var(--pv-photo-y),0);
+  transition: transform .22s ease-out;
+}
 .aw-portrait img {
   display: block; width: 100%; height: auto; aspect-ratio: 941/1672;
-  object-fit: contain; filter: drop-shadow(22px 26px 30px #0008);
-  clip-path: polygon(0 0,94% 0,100% 7%,97% 24%,100% 47%,96% 70%,100% 89%,93% 100%,0 100%);
+  object-fit: contain; filter: none; clip-path: none;
 }
 .aw-portrait figcaption {
   position: absolute; left: 14px; bottom: 14px; margin: 0; padding: 8px 11px;
@@ -130,12 +141,14 @@ body.pv-world .site-header { height: var(--header-height); background: var(--aw-
 }
 .aw-hero .pv-paths__wall {
   grid-column: 5/-1; grid-row: 1; z-index: 1; position: relative;
-  margin: 0; min-width: 0; align-self: center; transform: translateY(4%);
+  margin: 0; min-width: 0; align-self: center;
+  transform: translate3d(var(--pv-wall-x),calc(4% + var(--pv-wall-y)),0);
+  transition: transform .25s ease-out;
 }
 .aw-hero .pv-paths__wall a { display: block; position: relative; color: var(--aw-gold); text-decoration: none; }
 .aw-hero .pv-paths__wall img {
   display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;
-  filter: saturate(.86) contrast(1.08); box-shadow: 0 28px 72px #0007;
+  filter: saturate(.94) contrast(1.04); box-shadow: 0 20px 52px #0006;
   transition: filter .2s ease,transform .2s ease;
 }
 .aw-hero .pv-paths__wall figcaption {
@@ -147,6 +160,39 @@ body.pv-world .site-header { height: var(--header-height); background: var(--aw-
 .aw-hero .pv-paths__wall a:hover figcaption { text-decoration: underline; text-underline-offset: 5px; }
 .aw-entry { grid-column: 1/-1; display: flex; justify-content: space-between; gap: 20px; padding: 18px 0 0; border-top: 1px solid var(--aw-rule); font-size: .82rem; text-decoration: none; }
 .aw-entry b { font-weight: 400; font-size: 1.2rem; }
+/* Four small, poster-like traces from the outdoors. The generated atlas is
+   deliberately treated as printed ink on the page instead of fake scenery. */
+.pv-atlas-host > :not(.pv-material-grain) { position: relative; z-index: 1; }
+.pv-atlas-host::before {
+  content: attr(data-pv-tag); position: absolute; z-index: 0; font-family: var(--pv-graffiti);
+  font-size: clamp(2rem,4vw,4.8rem); line-height: .9; letter-spacing: -.035em; color: var(--pv-atlas-tag,#274e51);
+  opacity: 0; mix-blend-mode: multiply; transform: translateY(18px) rotate(var(--pv-tag-turn,-2deg));
+  transition: opacity .55s .28s ease,transform .75s .28s cubic-bezier(.18,.75,.18,1);
+}
+.pv-world-js .pv-atlas-host.is-painted::before { opacity: var(--pv-tag-opacity,.28); transform: translateY(0) rotate(var(--pv-tag-turn,-2deg)); }
+.pv-atlas-host::after {
+  content: ''; position: absolute; z-index: 0; width: clamp(230px,31vw,520px); aspect-ratio: 16/9;
+  background-image: url('images/atelier-v24/outdoor-graffiti-atlas-v2.webp');
+  background-repeat: no-repeat; background-size: 200% 200%; background-position: var(--pv-atlas-position);
+  filter: brightness(1.045) contrast(1.13) saturate(1.08); mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse at center,#000 54%,transparent 96%);
+  mask-image: radial-gradient(ellipse at center,#000 54%,transparent 96%);
+  opacity: 0; transform: translate3d(var(--pv-atlas-enter-x,0),var(--pv-atlas-enter-y,28px),0) rotate(var(--pv-atlas-turn,0deg));
+  transition: opacity .8s ease,transform 1s cubic-bezier(.18,.75,.18,1);
+}
+.pv-world-js .pv-atlas-host.is-painted::after { opacity: var(--pv-atlas-opacity,.22); transform: translate3d(0,0,0) rotate(var(--pv-atlas-turn,0deg)); }
+.pv-atlas-host--flight { --pv-atlas-position: 0% 0%; --pv-atlas-opacity: .38; --pv-atlas-turn: -2deg; --pv-atlas-enter-x: 34px; --pv-atlas-tag: #57683f; --pv-tag-turn: -3deg; --pv-tag-opacity: .38; }
+.pv-atlas-host--flight::before { right: 2%; bottom: 8%; }
+.pv-atlas-host--flight::after { right: -7%; top: 4%; }
+.pv-atlas-host--kayak { --pv-atlas-position: 100% 0%; --pv-atlas-opacity: .34; --pv-atlas-turn: 2deg; --pv-atlas-enter-x: 38px; --pv-atlas-tag: #1f5b65; --pv-tag-turn: 2deg; --pv-tag-opacity: .34; }
+.pv-atlas-host--kayak::before { left: 3%; bottom: 3%; }
+.pv-atlas-host--kayak::after { right: -5%; bottom: -2%; }
+.pv-atlas-host--hike { --pv-atlas-position: 0% 100%; --pv-atlas-opacity: .28; --pv-atlas-turn: -3deg; --pv-atlas-enter-x: -36px; --pv-atlas-tag: #3f5135; --pv-tag-turn: -4deg; --pv-tag-opacity: .34; }
+.pv-atlas-host--hike::before { right: 3%; top: 30%; }
+.pv-atlas-host--hike::after { left: -5%; bottom: -3%; }
+.pv-atlas-host--paint { --pv-atlas-position: 100% 100%; --pv-atlas-opacity: .54; --pv-atlas-turn: 1deg; --pv-atlas-enter-x: 34px; --pv-atlas-tag: #172019; --pv-tag-turn: 1deg; --pv-tag-opacity: .46; }
+.pv-atlas-host--paint::before { right: 4%; bottom: 7%; }
+.pv-atlas-host--paint::after { right: -4%; top: 8%; }
 /* Entrance: a short personal note and an index, not five decorative tiles. */
 .pv-world .pv-home > .pv-paths { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); gap: 40px 10%; background: var(--aw-paper); color: var(--aw-ink); }
 .pv-paths__intro { max-width: 700px; }
@@ -256,26 +302,50 @@ body.pv-world .site-header { height: var(--header-height); background: var(--aw-
 /* Living Charge: one large work changes with the thought you choose. */
 .pv-world .pv-home > .pv-thoughts { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); align-items: start; gap: 50px 7%; background: #171d19; color: var(--aw-paper); }
 .pv-thoughts__intro { grid-column: 1/-1; max-width: 900px; }
+.pv-thoughts__intro::after {
+  content: ''; display: block; width: min(100%,780px); height: 28px; margin-top: 28px;
+  background: url('images/living-charge/street-signals/roller-line-v4.svg') left center/100% 28px no-repeat;
+  opacity: 0; transform: scaleX(.06); transform-origin: left center;
+  transition: transform 1.05s .08s cubic-bezier(.18,.75,.18,1),opacity .18s ease;
+}
+.pv-world-js .pv-thoughts.is-painted .pv-thoughts__intro::after { opacity: 1; transform: scaleX(1); }
 .pv-world .pv-thoughts__intro h2 { font-family: var(--pv-street); font-size: clamp(3.6rem,7vw,7rem); line-height: .96; letter-spacing: -.02em; }
 .pv-thoughts__intro > p:last-child { max-width: 64ch; }
-.pv-thoughts__art { margin: 0; position: sticky; top: 110px; min-width: 0; }
+.pv-thoughts__art { margin: 0; position: sticky; top: 110px; min-width: 0; padding: clamp(4px,.55vw,9px); background: #0d120f; box-shadow: 0 30px 80px #0007; }
 .pv-thoughts__art img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; transition: opacity .16s ease; }
+.pv-world-js .pv-thoughts__art { opacity: .2; clip-path: inset(0 100% 0 0); transition: clip-path 1.05s cubic-bezier(.18,.75,.18,1),opacity .45s ease; }
+.pv-world-js .pv-thoughts.is-painted .pv-thoughts__art { opacity: 1; clip-path: inset(0); }
 .pv-thoughts__art.is-changing img { opacity: .42; }
 .pv-thoughts__caption { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; font-size: .78rem; line-height: 1.5; border-bottom: 1px solid var(--aw-rule); }
 .pv-thoughts__windows { min-width: 0; padding-top: 34px; counter-reset: pv-thought; }
-.pv-world .pv-studio-draft-label { font-size: .8rem; letter-spacing: .08em; color: var(--aw-gold); margin-bottom: 26px; }
+.pv-world .pv-studio-draft-label { font-family: var(--pv-graffiti); font-size: 1.15rem; line-height: 1; letter-spacing: .02em; color: var(--aw-gold); margin-bottom: 28px; transform: rotate(-1deg); transform-origin: left center; }
 .pv-studio-draft-label > span { display: block; color: var(--aw-paper); font-size: .73rem; letter-spacing: .02em; margin-top: 6px; }
 .pv-thought { border-top: 1px solid var(--aw-rule); scroll-margin-top: 110px; counter-increment: pv-thought; }
 .pv-thought:last-child { border-bottom: 1px solid var(--aw-rule); }
-.pv-thought summary { display: grid; grid-template-columns: 28px 52px minmax(0,1fr) 22px; align-items: center; gap: 16px; min-height: 78px; padding: 17px 0; list-style: none; cursor: pointer; transition: padding-left .16s ease; }
+.pv-thought summary { display: grid; grid-template-columns: 28px 52px minmax(0,1fr) 22px; align-items: center; gap: 16px; min-height: 86px; padding: 17px 0; position: relative; isolation: isolate; overflow: hidden; list-style: none; cursor: pointer; transition: padding-left .16s ease; }
 .pv-thought summary::-webkit-details-marker { display: none; }
-.pv-thought summary::before { content: '0' counter(pv-thought); font-family: var(--pv-editorial); font-size: .8rem; color: var(--aw-gold); }
-.pv-thought summary img { flex: none; width: 52px; height: 52px; object-fit: contain; }
+.pv-thought summary::before { content: '0' counter(pv-thought); position: relative; z-index: 2; font-family: var(--pv-editorial); font-size: .8rem; color: var(--aw-gold); }
+.pv-thought summary::after {
+  content: ''; position: absolute; z-index: 0; inset: 6px 34px 6px 52%;
+  background-position: center; background-repeat: no-repeat; background-size: cover;
+  opacity: .43; filter: saturate(.7) contrast(1.08);
+  -webkit-mask-image: linear-gradient(90deg,transparent,#000 25%);
+  mask-image: linear-gradient(90deg,transparent,#000 25%);
+  transform: translateX(14px) scale(1.02); transition: opacity .25s ease,transform .42s cubic-bezier(.18,.75,.18,1);
+}
+#thought-see-clearly summary::after { background-image: url('images/atelier-v20/see-clearly-full-v4.webp'); }
+#thought-listen-deeply summary::after { background-image: url('images/living-charge/street-signals/street-listen-deeply-full-v4.webp'); }
+#thought-create-resonance summary::after { background-image: url('images/living-charge/street-signals/street-create-resonance-full-v4.webp'); }
+#thought-live-consciously summary::after { background-image: url('images/living-charge/street-signals/street-live-consciously-full-v4.webp'); }
+.pv-thought summary > * { position: relative; z-index: 2; }
+.pv-thought summary img { flex: none; width: 52px; height: 52px; object-fit: contain; transition: transform .25s ease; }
 .pv-thought summary > span { min-width: 0; }
 .pv-thought summary strong { display: block; font-family: var(--pv-street); color: var(--aw-gold); font-size: clamp(1.3rem,2vw,1.9rem); font-weight: 400; line-height: 1.1; }
 .pv-thought summary small { display: block; font-size: .78rem; line-height: 1.5; margin-top: 7px; }
 .pv-thought summary b { font-size: 1.6rem; font-weight: 400; transition: transform .16s ease; }
 .pv-thought[open] summary { padding-left: 14px; box-shadow: inset 3px 0 var(--aw-gold); }
+.pv-thought[open] summary::after { opacity: .68; transform: translateX(0) scale(1.055); }
+.pv-thought[open] summary img { transform: rotate(-4deg) scale(1.07); }
 .pv-thought[open] summary b { transform: rotate(45deg); }
 .pv-thought__body { padding: 4px 0 28px; }
 .pv-thought__local-art { width: min(100%,420px); margin: 0 0 24px; }
@@ -343,9 +413,6 @@ body.pv-world .site-header { height: var(--header-height); background: var(--aw-
 .pv-world .newsletter-consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 18px; }
 .pv-world .newsletter-consent input { flex: none; width: 20px; height: 20px; margin-top: 3px; }
 .pv-world :is(.newsletter-consent,.entry__specification) { font-size: .78rem; line-height: 1.6; }
-.pv-studio-resonance { grid-column: 1; grid-row: 2; width: 100%; max-width: 520px; margin: 0; }
-.pv-studio-resonance img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
-.pv-studio-resonance figcaption { font-size: .8rem; padding-top: 16px; }
 .pv-world .pv-home > .pv-support-note { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); gap: 8%; align-items: center; background: var(--aw-gold); color: var(--aw-ink); }
 .pv-world .pv-support-note h2 { font-family: var(--pv-editorial); font-size: clamp(2.2rem,3.5vw,3.6rem); text-transform: none; }
 .pv-world .pv-support-note .pv-kicker { color: #493d21; }
@@ -484,10 +551,10 @@ body.pv-world .footer-socials { grid-column: 1/-1; display: flex; flex-wrap: wra
   .aw-intro { grid-column: 1/-1; padding: 0; }
   .aw-intro .aw-home { max-width: 18ch; margin: 18px 0; font-size: 2.4rem; }
   .aw-intro .aw-bio { max-width: 40ch; }
-  .aw-hero-art { grid-column: 1/-1; grid-template-columns: repeat(10,minmax(0,1fr)); width: min(100%,440px); justify-self: center; padding: 0; }
-  .aw-portrait { grid-column: 1/-1; grid-row: 1; width: 86%; justify-self: start; }
-  .aw-hero .pv-paths__wall { grid-column: 1/-1; grid-row: 2; z-index: 3; width: 92%; justify-self: end; margin-top: -32%; transform: none; }
-  .aw-hero-art::before { inset: 4% 0 4% 5%; }
+  .aw-hero-art { grid-column: 1/-1; grid-template-columns: repeat(14,minmax(0,1fr)); width: min(100%,440px); justify-self: center; padding: 0 0 22px; }
+  .aw-portrait { grid-column: 1/10; grid-row: 1; width: 100%; justify-self: start; }
+  .aw-hero .pv-paths__wall { grid-column: 5/-1; grid-row: 2; z-index: 3; width: 100%; justify-self: end; margin-top: -13%; transform: none; }
+  .aw-hero-art::after { top: 70%; }
   .aw-portrait figcaption,.aw-hero .pv-paths__wall figcaption { font-size: .73rem; }
 }
 @media (max-width: 900px) {
@@ -506,8 +573,7 @@ body.pv-world .footer-socials { grid-column: 1/-1; display: flex; flex-wrap: wra
   .pv-shop-feature__intro h2 { max-width: 15ch; }
   .pv-shop-feature__products { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 38px 22px; }
   .pv-shop-feature__products > li:nth-child(even) { padding-top: 36px; }
-  .pv-studio-resonance { display: block; max-width: 640px; }
-  .pv-next-release__form,.pv-studio-resonance { grid-column: 1; grid-row: auto; }
+  .pv-next-release__form { grid-column: 1; grid-row: auto; }
   body.pv-world .footer-main { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 38px; }
   .pv-world.subpage-body :is(.pv-page-heading,.content-grid,.reel-layout,.pv-live-dates__heading,.pv-event-detail__grid) { grid-template-columns: minmax(0,1fr); gap: 40px; }
   .pv-page-heading__art { justify-self: start; max-width: 360px; }
@@ -542,6 +608,12 @@ body.pv-world .footer-socials { grid-column: 1/-1; display: flex; flex-wrap: wra
   .pv-ep-preview__time { grid-row: 2; }
   .pv-thought summary { grid-template-columns: 22px 44px minmax(0,1fr) 20px; gap: 12px; }
   .pv-thought summary img { width: 44px; height: 44px; }
+  .pv-thought summary::after { left: 57%; opacity: .28; }
+  .pv-thought[open] summary::after { opacity: .46; }
+  .pv-atlas-host::after { width: 300px; opacity: 0; }
+  .pv-world-js .pv-atlas-host.is-painted::after { opacity: .20; }
+  .pv-world-js .pv-atlas-host--paint.is-painted::after { opacity: .32; }
+  .pv-world-js .pv-atlas-host.is-painted::before { opacity: .22; }
   .pv-transience-list li { grid-template-columns: 64px 24px minmax(0,1fr); gap: 12px; }
   .pv-transience-list img { width: 64px; height: 64px; }
   .pv-transience-list__actions { grid-column: 2/-1; justify-items: start; display: flex; flex-wrap: wrap; gap: 4px 18px; }

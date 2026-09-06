@@ -1,4 +1,4 @@
-/* PRAYZVIBES open atelier v23.
+/* PRAYZVIBES living canvas v24.
    Native details remain complete without JavaScript. This layer only keeps the
    large artwork in sync and controls the user-initiated local EP excerpt. */
 (() => {
@@ -118,6 +118,50 @@
   if (trackExplorerReady || thoughtExplorerReady) {
     document.documentElement.classList.add('has-artwork-explorer');
   }
+
+  function initLivingCanvas() {
+    const pieces = [...document.querySelectorAll('.aw-hero-art,.pv-thoughts,.pv-atlas-host')];
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-painted');
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
+      pieces.forEach((piece) => observer.observe(piece));
+    } else {
+      pieces.forEach((piece) => piece.classList.add('is-painted'));
+    }
+
+    const hero = document.querySelector('.aw-hero-art');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!hero || reducedMotion || !finePointer) return;
+
+    let frame = 0;
+    hero.addEventListener('pointermove', (event) => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        const x = Math.max(-1, Math.min(1, (event.clientX - rect.left) / rect.width * 2 - 1));
+        const y = Math.max(-1, Math.min(1, (event.clientY - rect.top) / rect.height * 2 - 1));
+        hero.style.setProperty('--pv-photo-x', `${(-x * 4).toFixed(2)}px`);
+        hero.style.setProperty('--pv-photo-y', `${(-y * 3).toFixed(2)}px`);
+        hero.style.setProperty('--pv-wall-x', `${(x * 6).toFixed(2)}px`);
+        hero.style.setProperty('--pv-wall-y', `${(y * 4).toFixed(2)}px`);
+        frame = 0;
+      });
+    });
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--pv-photo-x', '0px');
+      hero.style.setProperty('--pv-photo-y', '0px');
+      hero.style.setProperty('--pv-wall-x', '0px');
+      hero.style.setProperty('--pv-wall-y', '0px');
+    });
+  }
+
+  initLivingCanvas();
 
   function initEpPreview() {
     const root = document.querySelector('[data-ep-preview]');

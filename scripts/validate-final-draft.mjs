@@ -109,6 +109,10 @@ for (const [homepage, locale] of homepageLocales) {
   for (const signal of ["SEE CLEARLY", "LISTEN DEEPLY", "CREATE RESONANCE", "LIVE CONSCIOUSLY"]) {
     if (!html.includes(signal)) fail(`${homepage}: missing Living Charge signal ${signal}`);
   }
+  for (const canvasHost of ["flight", "kayak", "hike", "paint"]) {
+    if (!html.includes(`pv-atlas-host--${canvasHost}`)) fail(`${homepage}: missing living-canvas ${canvasHost} trace`);
+  }
+  if (/pv-studio-resonance/.test(html)) fail(`${homepage}: detached CREATE RESONANCE collage remains outside Living Charge`);
   if ((html.match(/class=["'][^"']*pv-shop-feature__product-link\b/g) || []).length !== 4) fail(`${homepage}: expected four direct Living Charge product links`);
   if ((html.match(/class=["'][^"']*pv-support-note\b/g) || []).length !== 1) fail(`${homepage}: expected one homepage support invitation`);
   if (!/class=["'][^"']*pv-support-note\b[\s\S]*?href=["']pages\/support\.html["']/.test(html)) fail(`${homepage}: homepage support invitation does not reach the localized support page`);
@@ -253,6 +257,10 @@ for (const asset of streetSignalAssets) {
 if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("atelier-world.css: legacy cinematic journey imagery is still active");
 if (/\.pv-path[^{}]*::after\s*{[^}]*url\(/.test(css)) fail("atelier-world.css: a decorative journey overlay has returned");
 
+const canvasAtlas = "images/atelier-v24/outdoor-graffiti-atlas-v2.webp";
+if (!fs.existsSync(path.join(root, canvasAtlas))) fail(`${canvasAtlas}: living-canvas sketch atlas is missing`);
+if (!css.includes(canvasAtlas)) fail(`${canvasAtlas}: living-canvas sketch atlas is not referenced`);
+
 const berlinPanelAssets = [
   "images/events/arno-zillmers-open-mic-original-v14.jpg",
   "images/artist-live-forest.jpg",
@@ -274,8 +282,13 @@ const expectedAssetVersions = new Map([
 ]);
 for (const [file, html] of renderedPages) {
   for (const [asset, version] of expectedAssetVersions) {
+    const normalizedFile = file.replaceAll('\\', '/');
+    const homepage = /^(?:de\/|fr\/)?index\.html$/.test(normalizedFile);
+    const expectedVersion = asset === 'atelier-world.css' && homepage
+      ? '20260906-living-canvas-v24'
+      : version;
     const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
-    if (refs.length !== 1 || refs[0]?.[1] !== version) fail(`${file}: expected one ${asset}?v=${version} reference`);
+    if (refs.length !== 1 || refs[0]?.[1] !== expectedVersion) fail(`${file}: expected one ${asset}?v=${expectedVersion} reference`);
   }
 }
 
