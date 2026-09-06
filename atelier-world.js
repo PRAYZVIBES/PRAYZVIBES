@@ -1,4 +1,4 @@
-/* PRAYZVIBES living canvas v24.
+/* PRAYZVIBES Living Current v25.
    Native details remain complete without JavaScript. This layer only keeps the
    large artwork in sync and controls the user-initiated local EP excerpt. */
 (() => {
@@ -120,7 +120,7 @@
   }
 
   function initLivingCanvas() {
-    const pieces = [...document.querySelectorAll('.aw-hero-art,.pv-thoughts,.pv-atlas-host')];
+    const pieces = [...document.querySelectorAll('.aw-hero-art,.pv-thoughts,.pv-room--start')];
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -162,6 +162,169 @@
   }
 
   initLivingCanvas();
+
+  function localeCopy() {
+    const lang = document.documentElement.lang?.slice(0, 2);
+    if (lang === 'de') return {
+      next: (title) => `Nächster Song: ${title}`,
+      complete: 'Transience als Ganzes hören',
+      shareThought: 'Gedanken teilen',
+      thoughtCopied: 'Link und Gedanke kopiert.'
+    };
+    if (lang === 'fr') return {
+      next: (title) => `Chanson suivante : ${title}`,
+      complete: 'Écouter Transience en entier',
+      shareThought: 'Partager la réflexion',
+      thoughtCopied: 'Lien et réflexion copiés.'
+    };
+    return {
+      next: (title) => `Next song: ${title}`,
+      complete: 'Hear Transience as a whole',
+      shareThought: 'Share this thought',
+      thoughtCopied: 'Thought and link copied.'
+    };
+  }
+
+  function initRoomRail() {
+    const rail = document.querySelector('[data-room-rail]');
+    if (!rail) return;
+    const roots = [
+      ['outside', document.querySelector('#journey')],
+      ['atelier', document.querySelector('#about')],
+      ['stage', document.querySelector('#live-preview')]
+    ].filter(([, node]) => node);
+    const links = [...rail.querySelectorAll('[data-room-link]')];
+    let scheduled = false;
+
+    function update() {
+      scheduled = false;
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const progress = Math.max(0, Math.min(100, window.scrollY / max * 100));
+      document.documentElement.style.setProperty('--pv-page-progress', `${progress.toFixed(2)}%`);
+      const marker = window.scrollY + window.innerHeight * .4;
+      let active = roots[0]?.[0];
+      roots.forEach(([key, node]) => {
+        if (node.offsetTop <= marker) active = key;
+      });
+      links.forEach((link) => {
+        if (link.dataset.roomLink === active) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }
+
+    function requestUpdate() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    update();
+  }
+
+  function initTrackJourney() {
+    const tracks = [...document.querySelectorAll('[data-track-explorer] .pv-track')];
+    if (!tracks.length) return;
+    const copy = localeCopy();
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    tracks.forEach((track, index) => {
+      const body = track.querySelector('.pv-track__body');
+      if (!body || body.querySelector('.pv-track__next')) return;
+      const next = tracks[index + 1];
+      if (!next) {
+        const link = document.createElement('a');
+        link.className = 'pv-track__next';
+        link.href = 'https://listen.music-hub.com/rAGDlw';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.innerHTML = `${copy.complete} <span aria-hidden="true">↗</span>`;
+        body.append(link);
+        return;
+      }
+      const title = next.querySelector('summary strong')?.textContent.trim() || '';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'pv-track__next';
+      button.innerHTML = `${copy.next(title)} <span aria-hidden="true">↓</span>`;
+      button.addEventListener('click', () => {
+        next.open = true;
+        const summary = next.querySelector('summary');
+        summary?.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'center' });
+        window.setTimeout(() => summary?.focus({ preventScroll: true }), reducedMotion.matches ? 0 : 350);
+      });
+      body.append(button);
+    });
+  }
+
+  async function shareOrCopy({ title, text, url, copied, status }) {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text, url });
+        return;
+      }
+      const payload = `${text}\n${url}`;
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(payload);
+      else {
+        const field = document.createElement('textarea');
+        field.value = payload;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.append(field);
+        field.select();
+        document.execCommand('copy');
+        field.remove();
+      }
+      if (status) status.textContent = copied;
+    } catch (error) {
+      if (error?.name !== 'AbortError' && status) status.textContent = url;
+    }
+  }
+
+  function initSharing() {
+    document.querySelectorAll('[data-share-berlin]').forEach((button) => {
+      button.addEventListener('click', () => shareOrCopy({
+        title: button.dataset.shareTitle || document.title,
+        text: button.dataset.shareText || '',
+        url: button.dataset.shareUrl || window.location.href,
+        copied: button.dataset.shareCopied || '',
+        status: button.closest('.pv-event-feature__copy')?.querySelector('[data-berlin-share-status]')
+      }));
+    });
+
+    const copy = localeCopy();
+    document.querySelectorAll('.pv-thought').forEach((thought) => {
+      const actions = thought.querySelector('.pv-thought__actions');
+      const quote = thought.querySelector('blockquote p')?.textContent.trim();
+      const title = thought.querySelector('summary strong')?.textContent.trim();
+      if (!actions || !quote || !title || actions.querySelector('[data-share-thought]')) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.shareThought = '';
+      button.innerHTML = `${copy.shareThought} <span aria-hidden="true">↗</span>`;
+      const status = document.createElement('span');
+      status.className = 'pv-thought__share-status';
+      status.setAttribute('aria-live', 'polite');
+      actions.append(button, status);
+      button.addEventListener('click', () => {
+        const url = new URL(window.location.href);
+        url.search = '';
+        url.hash = thought.id;
+        shareOrCopy({
+          title: `${title} · Living Charge · PRAYZVIBES`,
+          text: quote,
+          url: url.href,
+          copied: copy.thoughtCopied,
+          status
+        });
+      });
+    });
+  }
+
+  initRoomRail();
+  initTrackJourney();
+  initSharing();
 
   function initEpPreview() {
     const root = document.querySelector('[data-ep-preview]');
@@ -241,21 +404,25 @@
       complete = false;
       button.disabled = false;
       status.textContent = '';
+      document.documentElement.classList.add('is-audio-flowing');
       setButtonState('pause');
     });
     media.addEventListener('pause', () => {
+      document.documentElement.classList.remove('is-audio-flowing');
       if (!complete) setButtonState('play');
     });
     media.addEventListener('loadedmetadata', updateProgress);
     media.addEventListener('timeupdate', updateProgress);
     media.addEventListener('ended', () => {
       complete = true;
+      document.documentElement.classList.remove('is-audio-flowing');
       status.textContent = root.dataset.completeLabel || '';
       setButtonState('replay');
       updateProgress();
     });
     media.addEventListener('error', () => {
       loading = false;
+      document.documentElement.classList.remove('is-audio-flowing');
       button.disabled = false;
       status.textContent = root.dataset.errorLabel || '';
       setButtonState('play');

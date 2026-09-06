@@ -109,9 +109,13 @@ for (const [homepage, locale] of homepageLocales) {
   for (const signal of ["SEE CLEARLY", "LISTEN DEEPLY", "CREATE RESONANCE", "LIVE CONSCIOUSLY"]) {
     if (!html.includes(signal)) fail(`${homepage}: missing Living Charge signal ${signal}`);
   }
-  for (const canvasHost of ["flight", "kayak", "hike", "paint"]) {
-    if (!html.includes(`pv-atlas-host--${canvasHost}`)) fail(`${homepage}: missing living-canvas ${canvasHost} trace`);
+  if (/pv-atlas-host|data-pv-tag/.test(html)) fail(`${homepage}: synthetic outdoor atlas trace remains`);
+  if ((html.match(/data-room-link=/g) || []).length !== 3) fail(`${homepage}: expected the three-room Living Current rail`);
+  for (const room of ["outside", "atelier", "stage"]) {
+    if (!html.includes(`data-room-link="${room}"`)) fail(`${homepage}: missing ${room} room link`);
   }
+  if (!/data-share-berlin/.test(html)) fail(`${homepage}: missing Berlin sharing action`);
+  if (!/downloads\/prayzvibes-wabe-berlin-2026-11-04\.ics/.test(html)) fail(`${homepage}: missing Berlin calendar download`);
   if (/pv-studio-resonance/.test(html)) fail(`${homepage}: detached CREATE RESONANCE collage remains outside Living Charge`);
   if ((html.match(/class=["'][^"']*pv-shop-feature__product-link\b/g) || []).length !== 4) fail(`${homepage}: expected four direct Living Charge product links`);
   if ((html.match(/class=["'][^"']*pv-support-note\b/g) || []).length !== 1) fail(`${homepage}: expected one homepage support invitation`);
@@ -230,8 +234,10 @@ for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
   if (!html.includes("images/artist-cornfield-original-press-800.webp")) fail(`${file}: responsive derivative of original B photo is not active on the homepage`);
   if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
-  if (!html.includes("images/pasteup-v14/live-forest-800.webp")) fail(`${file}: responsive derivative of original E photo is missing`);
-  if (!html.includes("images/living-charge/street-signals/street-listen-deeply-full-v4.webp")) fail(`${file}: approved F artwork is missing`);
+  if (!html.includes("images/artist-live-forest.jpg")) fail(`${file}: original E forest photo is missing`);
+  for (const mark of ["see-clearly", "listen-deeply", "create-resonance", "live-consciously"]) {
+    if (!html.includes(`images/living-charge/mark-${mark}.svg`)) fail(`${file}: original Living Charge mark ${mark} is missing`);
+  }
 }
 
 for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html"]) {
@@ -240,26 +246,27 @@ for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html
   if (!html.includes('datetime="2026-11-04T20:00:00+01:00"')) fail(`${file}: confirmed Berlin date is missing from the schedule`);
 }
 
-const streetSignalAssets = [
-  "images/atelier-v20/see-clearly-full-v4.webp",
-  "images/living-charge/street-signals/street-listen-deeply-full-v4.webp",
-  "images/living-charge/street-signals/street-create-resonance-full-v4.webp",
-  "images/living-charge/street-signals/street-live-consciously-full-v4.webp",
+const originalMarkAssets = [
+  "images/living-charge/mark-see-clearly.svg",
+  "images/living-charge/mark-listen-deeply.svg",
+  "images/living-charge/mark-create-resonance.svg",
+  "images/living-charge/mark-live-consciously.svg",
 ];
-const streetSignalSources = [
+const originalMarkSources = [
   css,
   ...htmlFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8")),
 ].join("\n");
-for (const asset of streetSignalAssets) {
-  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: street-signal asset is missing`);
-  if (!streetSignalSources.includes(asset)) fail(`site: street-signal asset is not referenced: ${asset}`);
+for (const asset of originalMarkAssets) {
+  if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: original Living Charge mark is missing`);
+  if (!originalMarkSources.includes(asset)) fail(`site: original Living Charge mark is not referenced: ${asset}`);
 }
 if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("atelier-world.css: legacy cinematic journey imagery is still active");
 if (/\.pv-path[^{}]*::after\s*{[^}]*url\(/.test(css)) fail("atelier-world.css: a decorative journey overlay has returned");
 
-const canvasAtlas = "images/atelier-v24/outdoor-graffiti-atlas-v2.webp";
-if (!fs.existsSync(path.join(root, canvasAtlas))) fail(`${canvasAtlas}: living-canvas sketch atlas is missing`);
-if (!css.includes(canvasAtlas)) fail(`${canvasAtlas}: living-canvas sketch atlas is not referenced`);
+const atelierMaterial = "images/atelier-v25-material-wall-1920.webp";
+if (!fs.existsSync(path.join(root, atelierMaterial))) fail(`${atelierMaterial}: photorealistic atelier material is missing`);
+if (!css.includes(atelierMaterial)) fail(`${atelierMaterial}: atelier material is not referenced`);
+if (/outdoor-graffiti-atlas-v2/.test(css)) fail("atelier-world.css: synthetic outdoor atlas is still active");
 
 const berlinPanelAssets = [
   "images/events/arno-zillmers-open-mic-original-v14.jpg",
@@ -285,11 +292,16 @@ for (const [file, html] of renderedPages) {
     const normalizedFile = file.replaceAll('\\', '/');
     const homepage = /^(?:de\/|fr\/)?index\.html$/.test(normalizedFile);
     const expectedVersion = asset === 'atelier-world.css' && homepage
-      ? '20260906-living-canvas-v24'
+      ? '20260906-living-current-v25'
       : version;
     const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
     if (refs.length !== 1 || refs[0]?.[1] !== expectedVersion) fail(`${file}: expected one ${asset}?v=${expectedVersion} reference`);
   }
+}
+
+for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (!/atelier-world\.js\?v=20260906-living-current-v25/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
 }
 
 if (errors.length) {
