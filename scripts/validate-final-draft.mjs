@@ -31,7 +31,8 @@ for (const htmlFile of htmlFiles) {
   const redirect = /http-equiv=["']refresh["']/i.test(html);
   const normalizedHtmlFile = htmlFile.replaceAll("\\", "/");
 
-  if (!redirect && !/final\.css/.test(html)) fail(`${htmlFile}: final.css is missing`);
+  if (!redirect && !/atelier-world\.css/.test(html)) fail(`${htmlFile}: atelier-world.css is missing`);
+  if (!redirect && /href=["'][^"']*(?:final|street-editorial|pasteup|atelier|material|atelier-workroom|atelier-spaces)\.css/.test(html)) fail(`${htmlFile}: superseded design layer is still loaded`);
   if (/studio\.css/.test(html)) fail(`${htmlFile}: stale studio.css reference`);
   if (!redirect && /^(?:de\/|fr\/)?pages\/.+\.html$/.test(normalizedHtmlFile)) {
     const shopNavLinks = (html.match(/href=["']\.\.\/index\.html#shop["']/g) || []).length;
@@ -191,17 +192,20 @@ try {
   fail(`script.js: ${error.message}`);
 }
 
-const css = fs.readFileSync(path.join(root, "final.css"), "utf8");
+// Validate the stylesheet actually loaded by v22, not the archived cascade.
+const css = fs.readFileSync(path.join(root, "atelier-world.css"), "utf8");
 const openBraces = (css.match(/{/g) || []).length;
 const closeBraces = (css.match(/}/g) || []).length;
-if (openBraces !== closeBraces) fail(`final.css: brace mismatch ${openBraces}/${closeBraces}`);
-if (!/html\s*{\s*font-size:\s*18px/.test(css)) fail("final.css: desktop base type is below the agreed size");
-if (!/@media \(max-width: 640px\)[\s\S]*?html\s*{\s*font-size:\s*16\.5px/.test(css)) fail("final.css: mobile base type safeguard is missing");
+if (openBraces !== closeBraces) fail(`atelier-world.css: brace mismatch ${openBraces}/${closeBraces}`);
+if (!/html\s*{\s*font-size:\s*18px/.test(css)) fail("atelier-world.css: base type is below the agreed size");
+const rootSizes = [...css.matchAll(/html\s*{[^}]*font-size:\s*([^;}]+)/g)].map(match => match[1].trim());
+if (rootSizes.some(size => size !== '18px')) fail("atelier-world.css: mobile or conditional root type shrinks below the 18px baseline");
+if (!/@media \(max-width: 520px\)/.test(css) || !/@media \(max-width: 900px\)/.test(css)) fail("atelier-world.css: responsive layout safeguards are missing");
 
 for (const asset of ["fonts/PermanentMarker-Regular.ttf", "fonts/PermanentMarker-Apache-2.0.txt"]) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: local graffiti font asset is missing`);
 }
-if (!css.includes('font-family: "PV Permanent Marker"')) fail("final.css: local graffiti font face is missing");
+if (!/font-family:\s*["']PV Permanent Marker["']/.test(css)) fail("atelier-world.css: local graffiti font face is missing");
 
 const editorialHeroAssets = [
   "images/artist-cornfield-original-press-480.webp",
@@ -233,15 +237,10 @@ for (const file of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html
 }
 
 const streetSignalAssets = [
-  "images/living-charge/street-signals/street-listen-deeply-v4.webp",
-  "images/living-charge/street-signals/street-create-resonance-v4.webp",
-  "images/living-charge/street-signals/street-see-clearly-v4.webp",
-  "images/living-charge/street-signals/street-live-consciously-v4.webp",
-  "images/living-charge/street-signals/street-living-charge-viaduct-full-v4.webp",
+  "images/atelier-v20/see-clearly-full-v4.webp",
   "images/living-charge/street-signals/street-listen-deeply-full-v4.webp",
   "images/living-charge/street-signals/street-create-resonance-full-v4.webp",
   "images/living-charge/street-signals/street-live-consciously-full-v4.webp",
-  "images/living-charge/street-signals/roller-line-v4.svg",
 ];
 const streetSignalSources = [
   css,
@@ -251,8 +250,8 @@ for (const asset of streetSignalAssets) {
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: street-signal asset is missing`);
   if (!streetSignalSources.includes(asset)) fail(`site: street-signal asset is not referenced: ${asset}`);
 }
-if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("final.css: legacy cinematic journey imagery is still active");
-if (!/\.pv-path\[data-journey-path\]::after\s*{\s*content:\s*none;\s*}/.test(css)) fail("final.css: journey turtle overlay is not disabled");
+if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("atelier-world.css: legacy cinematic journey imagery is still active");
+if (/\.pv-path[^{}]*::after\s*{[^}]*url\(/.test(css)) fail("atelier-world.css: a decorative journey overlay has returned");
 
 const berlinPanelAssets = [
   "images/events/arno-zillmers-open-mic-original-v14.jpg",
@@ -269,15 +268,15 @@ for (const asset of berlinPanelAssets) {
 const renderedPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
-const assetVersions = new Set();
+const expectedAssetVersions = new Map([
+  ['atelier-world.css', '20260906-atelier-v22'],
+  ['script.js', '20260905-local-refinement-v9'],
+]);
 for (const [file, html] of renderedPages) {
-  for (const match of html.matchAll(/(?:final\.css|script\.js)\?v=([^"']+)/g)) assetVersions.add(match[1]);
-  if ((html.match(/final\.css\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned final.css reference`);
-  if ((html.match(/script\.js\?v=/g) || []).length !== 1) fail(`${file}: expected one versioned script.js reference`);
-}
-const expectedAssetVersions = new Set(["20260905-local-refinement-v9"]);
-if ([...assetVersions].some((version) => !expectedAssetVersions.has(version)) || assetVersions.size !== expectedAssetVersions.size) {
-  fail(`HTML: inconsistent asset versions: ${[...assetVersions].join(", ") || "none"}`);
+  for (const [asset, version] of expectedAssetVersions) {
+    const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
+    if (refs.length !== 1 || refs[0]?.[1] !== version) fail(`${file}: expected one ${asset}?v=${version} reference`);
+  }
 }
 
 if (errors.length) {
