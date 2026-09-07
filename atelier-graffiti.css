@@ -1,0 +1,245 @@
+/* v30 — large, responsive painted marks, in the original Living Charge pigments.
+   Additive homepage layer: photos and interaction hooks are unchanged.
+   All artwork occupies normal flow, never the text/video/control layer. */
+.pv-world .pv-home {
+  --pv-pigment-olive: #313622;
+  --pv-pigment-gold: #d1b464;
+  --pv-pigment-bone: #e9e4d7;
+  --pv-pigment-green: #a0b57d;
+  --pv-pigment-brown: #311f14;
+}
+
+/* The user explicitly replaces the black signature plaque with sprayed type.
+   Lighten removes a neutral black compositing backdrop without a box or shadow.
+   This is image presentation; the generated artwork remains unmodified. */
+.pv-world .aw-wordmark.pv-sprayed-wordmark {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+  mix-blend-mode: lighten;
+  overflow: hidden;
+}
+
+.pv-world .pv-sprayed-wordmark > img {
+  width: 114%;
+  max-width: none;
+  height: auto;
+  margin: -5% -7%;
+  filter: none;
+}
+
+.pv-world .pv-home > .aw-hero {
+  padding-inline: clamp(18px, 3vw, 64px) !important;
+  padding-top: calc(var(--header-height) + 18px) !important;
+  gap: 28px 8%;
+}
+.pv-world .aw-intro { grid-column: 1; grid-row: 2; padding-inline-start: 3vw; }
+.pv-world .aw-hero-art { grid-column: 2; grid-row: 2; margin-top: 0; margin-inline-end: 3vw; }
+
+.pv-world :is(.pv-paths__intro, .pv-story__copy, .pv-event-feature__media) {
+  background-color: var(--pv-pigment-bone);
+}
+
+.pv-world .pv-graffiti {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pv-world .pv-graffiti > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: var(--pv-art-ratio);
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+  /* Only the outer paper edge fades; the complete word remains inside it. */
+  mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent),
+    linear-gradient(0deg, transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
+}
+
+/* A study on the arrival manuscript, not another navigation tile. */
+.pv-world .pv-graffiti--arrival {
+  --pv-art-ratio: 1384 / 1136;
+  grid-column: 2;
+  grid-row: 1 / 6;
+  align-self: center;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  mix-blend-mode: darken;
+}
+.pv-world .pv-paths__intro {
+  grid-column: 1 / -1;
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: 0 clamp(24px, 4vw, 60px);
+  padding: clamp(22px, 3vw, 48px);
+}
+.pv-world .pv-paths__intro > :not(.pv-graffiti) { grid-column: 1; }
+.pv-world .pv-paths__intro .pv-place-notes { margin-bottom: 0; }
+.pv-world .pv-paths__grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  width: 100%;
+}
+.pv-world .pv-paths__grid > a:last-child { grid-column: 1 / -1; }
+
+/* Marker signature after the personal story; text retains its own clear space. */
+.pv-world .pv-graffiti--signature {
+  --pv-art-ratio: 1774 / 887;
+  width: min(90%, 24rem);
+  margin: 1.3rem 0 0 auto;
+  mix-blend-mode: darken;
+}
+
+/* The organiser's original poster remains intact and independently clickable.
+   Its PRAYZVIBES study is placed underneath, never on top of event details. */
+.pv-world .pv-graffiti--berlin {
+  --pv-art-ratio: 1609 / 978;
+  width: 100%;
+  max-width: none;
+  margin: 2rem auto 0;
+  mix-blend-mode: darken;
+  z-index: 3;
+}
+.pv-world .pv-event-feature__media {
+  /* Let the painted mark blend with the actual textured chapter underneath,
+     not a separate, flat rectangle inside a nested stacking group. */
+  background: none;
+  z-index: auto !important;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+}
+.pv-world .pv-home > .pv-event-feature { background-color: var(--pv-pigment-gold); }
+.pv-world .pv-event-feature__media > a {
+  display: block;
+  position: relative;
+  z-index: 3;
+  padding: 10px;
+  background: var(--pv-pigment-bone);
+  transform: rotate(-2deg);
+  box-shadow: 7px 12px 20px #311f1430;
+}
+
+/* A translucent strip, not an opaque navigation wall. Real links and readable
+   accessible names remain; the generated lettering supplies the visible ink. */
+.pv-world .pv-room-rail {
+  --room-rail-height: 96px;
+  min-height: 96px;
+  padding: 0 clamp(8px, 3vw, 48px);
+  background: #e9e4d7a3;
+  color: #311f14;
+  backdrop-filter: blur(5px);
+  border: 0;
+  box-shadow: 0 1px 0 #31362233;
+}
+.pv-world .pv-room-rail a {
+  gap: clamp(8px, 1.5vw, 24px);
+  min-height: 96px;
+  padding: 8px 20px;
+  border: 0;
+  background: transparent;
+  color: #311f14;
+  font-size: 1.25rem;
+  transition: background-color .2s ease;
+}
+.pv-world .pv-room-rail a:last-child { border: 0; }
+.pv-world .pv-room-rail a > .pv-room-number { display: block; font-size: 1rem; color: #594621; }
+.pv-world .pv-room-rail .pv-room-tag {
+  display: block;
+  width: min(100%, 180px);
+  height: auto;
+  aspect-ratio: 2;
+  object-fit: fill;
+  /* The image itself supplies the ink mask. White is removed at display time,
+     so a translucent parent cannot turn the image backdrop into a white tile. */
+  mask-image: linear-gradient(#fff, #fff), var(--pv-tag-image);
+  mask-mode: alpha, luminance;
+  mask-composite: subtract;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.pv-world .pv-room-rail a[aria-current="true"] { background: #d1b46430; box-shadow: inset 0 -3px #313622; }
+.pv-world .pv-room-rail a:hover { background: #e9e4d780; }
+.pv-world .pv-room-rail a:focus-visible { outline: 3px solid #313622; outline-offset: -5px; }
+
+/* Metal becomes painted love for music: no rectangular mount or frame. */
+.pv-world .pv-coin-memory { background-color: var(--pv-pigment-bone); }
+.pv-world .pv-coin-memory__object {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 0;
+  border: 0;
+}
+.pv-world .pv-coin-memory__object img {
+  width: min(100%, 400px);
+  height: auto;
+  justify-self: center;
+  padding: 0;
+  background: none;
+  transform: none;
+  box-shadow: none;
+  mix-blend-mode: multiply;
+}
+.pv-world .pv-coin-memory__object figcaption { max-width: 40ch; }
+
+@media (max-width: 900px) {
+  .pv-world .aw-intro { grid-column: 1; grid-row: 4; padding-inline: 0; }
+  .pv-world .aw-hero-art { grid-column: 1; grid-row: 3; margin-inline-end: 4%; }
+  .pv-world .aw-preview-mobile { grid-row: 2; }
+  .pv-world .pv-paths__intro { grid-template-columns: minmax(0, 1fr); }
+  .pv-world .pv-graffiti--arrival { grid-column: 1; grid-row: auto; margin: 1.5rem auto 0; max-width: 38rem; }
+  .pv-world .pv-room-rail a { padding: 7px 8px; gap: 8px; }
+}
+
+@media (max-width: 620px) {
+  .pv-world .pv-home > .aw-hero { gap: 24px; }
+  .pv-world .pv-graffiti--arrival { max-width: none; margin-top: 1rem; }
+  .pv-world .pv-graffiti--signature { width: 100%; }
+  .pv-world .pv-graffiti--berlin { margin-top: 1rem; }
+  .pv-world .pv-paths__grid { grid-template-columns: minmax(0, 1fr); }
+  .pv-world .pv-room-rail { min-height: 86px; padding-inline: 3px; }
+  .pv-world .pv-room-rail a { min-height: 86px; padding: 7px 2px; flex-direction: column; gap: 0; }
+  .pv-world .pv-room-rail a > .pv-room-number { font: 600 .78rem/1 var(--pv-body); }
+  .pv-world .pv-room-rail .pv-room-tag { height: auto; width: 100%; }
+  .pv-world .pv-coin-memory__object img { width: 100%; }
+}
+
+@media print, (forced-colors: active) {
+  .pv-world .pv-graffiti { display: none; }
+  .pv-world .pv-room-rail { background: Canvas; color: CanvasText; backdrop-filter: none; }
+  .pv-world .pv-room-rail .pv-room-tag { display: none; }
+  .pv-world .pv-room-rail .pv-room-name { position: static !important; width: auto; height: auto; clip-path: none; white-space: normal; overflow: visible; color: CanvasText; }
+}

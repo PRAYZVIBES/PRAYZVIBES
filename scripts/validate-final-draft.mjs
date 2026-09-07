@@ -266,12 +266,12 @@ if (/images\/thresholds\/journey-0[1-5]/.test(css)) fail("atelier-world.css: leg
 if (/\.pv-path[^{}]*::after\s*{[^}]*url\(/.test(css)) fail("atelier-world.css: a decorative journey overlay has returned");
 
 for (const name of ['hero-painted-alpine-v26', 'atelier-cream-surface-v26', 'living-charge-concrete-v26']) {
-  const asset = `images/atelier-v26/${name}.webp`;
+  const asset = `images/atelier-v28/${name}.webp`;
   if (!fs.existsSync(path.join(root, asset))) fail(`${asset}: material study is missing`);
   if (!originalMarkSources.includes(asset)) fail(`${asset}: material study is unused`);
 }
 if ((css.match(/url\('images\/atelier-v25-material-wall-1920\.webp'\)/g) || []).length > 1) fail('atelier-world.css: the photographed wall repeats across rooms');
-if (!fs.existsSync(path.join(root,'images/atelier-v27/gold-blue-impasto.webp'))) fail('v27: pigment material missing');
+if (!fs.existsSync(path.join(root,'images/atelier-v28/gold-blue-impasto.webp'))) fail('v27: pigment material missing');
 if (/outdoor-graffiti-atlas-v2/.test(css)) fail("atelier-world.css: synthetic outdoor atlas is still active");
 
 const berlinPanelAssets = [
@@ -290,9 +290,9 @@ const renderedPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
   .filter(([, html]) => !/http-equiv=["']refresh["']/i.test(html));
 const expectedAssetVersions = new Map([
-  ['atelier-world.css', '20260907-living-workbench-v27'],
-  ['script.js', '20260907-living-workbench-v27'],
-  ['atelier-world.js', '20260907-living-workbench-v27'],
+  ['atelier-world.css', '20260907-atelier-polish-v28'],
+  ['script.js', '20260907-atelier-polish-v28'],
+  ['atelier-world.js', '20260907-atelier-polish-v28'],
 ]);
 for (const [file, html] of renderedPages) {
   for (const [asset, version] of expectedAssetVersions) {
@@ -304,7 +304,7 @@ for (const [file, html] of renderedPages) {
 
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  if (!/atelier-world\.js\?v=20260907-living-workbench-v27/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
+  if (!/atelier-world\.js\?v=20260907-atelier-polish-v28/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
   if (/src=["'][^"']*atelier\.js/.test(html)) fail(`${file}: obsolete duplicate interaction script is loaded`);
   const order = ['journey','music','watch','about','living-charge','shop','berlin-2026-11-04','live-preview','next-release'];
   const positions = order.map(id => html.indexOf(`id="${id}"`));
@@ -324,6 +324,22 @@ for (const page of ['pages/live.html', 'de/pages/live.html', 'fr/pages/live.html
   const html = fs.readFileSync(path.join(root, page), 'utf8');
   if (!/data-share-berlin/.test(html) || !/downloads\/prayzvibes-wabe-berlin-2026-11-04\.ics/.test(html)) fail(`${page}: event take-away actions missing`);
   if (!/data-share-url="https:\/\/www.prayzvibes.com\/(?:de\/|fr\/)?pages\/live.html#berlin-2026-11-04"/.test(html)) fail(`${page}: share URL misses event metadata`);
+}
+
+// v28: preserve the audio-only, consent-respecting polish and honest provenance.
+for (const [homepage, locale] of homepageLocales) {
+  const html = fs.readFileSync(path.join(root, homepage), 'utf8');
+  if ((html.match(/<audio\b[^>]*data-(?:ep-)?preview-media\b/g) || []).length !== 2) fail(`${homepage}: expected two audio-only previews`);
+  for (const match of html.matchAll(/data-src="([^"]+\.m4a)"/g)) {
+    const asset = resolveReference(homepage, match[1]);
+    if (!asset || !fs.existsSync(asset) || fs.statSync(asset).size > 600000) fail(`${homepage}: preview audio missing or unexpectedly large`);
+  }
+  if (!/pv-coin-memory__object/.test(html) || !html.includes('images/atelier-v30/coin-music-heart.webp')) fail(`${homepage}: requested coin-to-music-heart artwork missing`);
+  const coinDisclosure = homepage.startsWith('de/') ? 'Künstlerische Interpretation' : homepage.startsWith('fr/') ? 'Interprétation artistique' : 'Artistic interpretation';
+  if (!html.includes(coinDisclosure)) fail(`${homepage}: edited coin must be disclosed as an artistic interpretation`);
+  if (!/class="atelier-chapter-mark" data-charge-node="living-charge"[^>]*href="#pv-thoughts-title"/.test(html)) fail(`${homepage}: Living Charge mark must introduce the whole chapter`);
+  if ((html.match(/class="pv-charge-reply"/g) || []).length !== 2) fail(`${homepage}: listening-to-thought connection missing`);
+  if (!html.includes('pv-event-tools__actions')) fail(`${homepage}: calendar and reservation grouping missing`);
 }
 
 if (errors.length) {

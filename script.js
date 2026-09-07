@@ -58,6 +58,25 @@
   const menuToggle = document.querySelector(".menu-toggle");
   const mobileMenu = document.querySelector(".mobile-menu");
   let lastFocused = null;
+  const menuInertState = new Map();
+
+  const setMenuBackground = (open) => {
+    if (open && !menuInertState.size) {
+      // Keep only the menu and its close button available to virtual cursors.
+      const background = [...document.body.children].filter((node) =>
+        node !== header && node !== mobileMenu && !['SCRIPT', 'STYLE', 'LINK'].includes(node.tagName));
+      const headerSiblings = header ? [...header.children].filter((node) => node !== menuToggle && !node.contains(menuToggle)) : [];
+      [...background, ...headerSiblings].forEach((node) => {
+        menuInertState.set(node, node.hasAttribute('inert'));
+        node.setAttribute('inert', '');
+      });
+    } else if (!open) {
+      menuInertState.forEach((wasInert, node) => {
+        if (!wasInert) node.removeAttribute('inert');
+      });
+      menuInertState.clear();
+    }
+  };
 
   const setHeaderState = () => {
     if (header) header.classList.toggle("scrolled", window.scrollY > 24);
@@ -77,6 +96,7 @@
     mobileMenu.classList.toggle("active", open);
     mobileMenu.setAttribute("aria-hidden", String(!open));
     document.body.classList.toggle("menu-open", open);
+    setMenuBackground(open);
     if (open) {
       lastFocused = document.activeElement;
       mobileMenu.querySelector("a")?.focus();
@@ -571,6 +591,9 @@
     previewDockDismissed = true;
     pauseNativePreview();
     updatePreviewDockVisibility();
+    // Return to the current visible room, or the original player when no rail exists.
+    const roomAnchor = document.querySelector('[data-room-rail] [aria-current="true"]');
+    (roomAnchor?.getClientRects().length ? roomAnchor : nativePreviewToggle)?.focus();
   });
 
   nativePreviewClose?.addEventListener("click", () => {

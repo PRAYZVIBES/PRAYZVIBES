@@ -1,4 +1,4 @@
-/* PRAYZVIBES Living Workbench v27.
+/* PRAYZVIBES Living Workbench v28 — polish draft.
    Native details remain complete without JavaScript. This layer only keeps the
    large artwork in sync and controls the user-initiated local EP excerpt. */
 (() => {
@@ -436,7 +436,22 @@
     });
     const paths = [layers[0], layers[1], trail, layers[2], layers[3], flow, pulse];
     paths.forEach((path) => { path.setAttribute('pathLength', '1000'); svg.append(path); });
+    const lead = document.createElementNS(ns, 'path');
+    lead.classList.add('pv-current__lead');
+    svg.append(lead);
     main.prepend(svg);
+    let activeSource = null;
+    let activeMark = null;
+    const layoutLead = () => {
+      if (!activeSource || !activeMark) { lead.removeAttribute('d'); return; }
+      const base = main.getBoundingClientRect();
+      const source = activeSource.getBoundingClientRect();
+      const mark = activeMark.getBoundingClientRect();
+      const x = source.right - base.left + 3, y = source.top - base.top + source.height / 2;
+      const tx = mark.left - base.left + mark.width / 2, ty = mark.top - base.top + mark.height / 2;
+      const lane = Math.min(main.clientWidth - 8, Math.max(x + 36, (x + tx) / 2));
+      lead.setAttribute('d', `M ${x} ${y} C ${lane} ${y}, ${lane} ${ty}, ${tx} ${ty}`);
+    };
     let totalLength = 0;
     let geometry = [];
     let scheduled = false;
@@ -475,6 +490,7 @@
       paths.forEach((path) => path.setAttribute('d', d));
       totalLength = flow.getTotalLength();
       geometry = Array.from({ length: 301 }, (_, i) => ({ point: flow.getPointAtLength(totalLength * i / 300), ratio: i / 300 }));
+      layoutLead();
       update();
     };
     const update = () => {
@@ -510,8 +526,19 @@
       if ([...flowing].some(audible)) soundFrame = requestAnimationFrame(readSound);
     }
     const updateSound = () => {
-      const playing = [...flowing].some(audible);
+      const current = [...flowing].find(audible);
+      const playing = Boolean(current);
       document.documentElement.classList.toggle('is-audio-flowing', playing);
+      main.querySelectorAll('.is-charge-source,.is-charge-listening').forEach((el) => el.classList.remove('is-charge-source','is-charge-listening'));
+      activeSource = current?.closest('[data-native-preview],[data-ep-preview],[data-native-film]') || null;
+      const section = activeSource?.closest('section');
+      activeMark = section?.querySelector('.atelier-signal--origin,.atelier-chapter-mark') || null;
+      if (activeSource) {
+        activeSource.classList.add('is-charge-source','has-charge-session');
+        activeMark?.classList.add('is-charge-listening');
+        if (section?.id === 'top') main.querySelector('.atelier-signal--2')?.classList.add('is-charge-listening');
+      }
+      layoutLead();
       if (playing && !soundFrame) soundFrame = requestAnimationFrame(readSound);
       if (!playing) {
         cancelAnimationFrame(soundFrame); soundFrame = 0;
@@ -558,16 +585,19 @@
     if (origin && work) { origin.classList.add('atelier-signal--origin'); work.prepend(origin); }
     const intro = document.querySelector('.aw-intro');
     const preview = intro?.querySelector('.pv-quick-preview');
+    const bio = intro?.querySelector('.aw-bio');
     const heading = document.querySelector('.aw-wordmark');
     if (preview && intro && heading && work) {
       const query = window.matchMedia('(max-width: 900px)');
       const positionPreview = () => {
         if (query.matches) {
           heading.after(preview); preview.after(work); work.after(intro);
+          if (bio) preview.prepend(bio);
           preview.classList.add('aw-preview-mobile');
         } else {
           heading.after(intro); intro.after(work);
           intro.insertBefore(preview,intro.querySelector('.pv-actions'));
+          if (bio) preview.before(bio);
           preview.classList.remove('aw-preview-mobile');
         }
       };
