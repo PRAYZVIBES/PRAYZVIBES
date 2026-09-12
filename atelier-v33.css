@@ -1,0 +1,81 @@
+/* v33: pigment belongs to its substrate. Original photographs and SVG shapes
+   are unmodified. The new raster surface is generated, not a personal photo. */
+.pv-v33 { --v33-wall:url('/images/pv-v33-mineral.jpg'); }
+.pv-v33 .pv-handline::after {
+  background-image:url('/images/pv-v33-marker.png');
+  height:.31em;bottom:-.16em;transform:rotate(-.7deg);
+}
+/* The large study is paint ON one wall, not a bevelled symbol on a second slab.
+   Shared image coordinates allow the same pores to continue through pigment. */
+.pv-v33 .pv-thoughts__art {
+  padding:0;background:transparent;box-shadow:none;transform:rotate(-.65deg);
+}
+.pv-v33 .pv-thoughts__art > a {
+  position:relative;isolation:isolate;background-color:#313622;
+  background-image:var(--v33-wall);background-position:center;
+  background-size:100% 100%;box-shadow:inset 0 0 0 1px #e9e4d716;
+  overflow:hidden;
+}
+.pv-v33 .pv-thoughts__art > a::before {
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:var(--v33-wall) center/100% 100%;mix-blend-mode:multiply;opacity:.43;
+}
+.pv-v33 .pv-thoughts__art .atelier-stencil {isolation:isolate;filter:none !important;}
+.pv-v33 .pv-thoughts__art .atelier-stencil::after {
+  /* 70% artwork width: compensate to align the surface under the exact mask. */
+  background-color:#d1b464;background-image:linear-gradient(#d1b464ce,#d1b464ce),var(--v33-wall);
+  background-position:center;background-size:142.857% 142.857%;
+  background-blend-mode:normal;opacity:.96;filter:none;
+}
+.pv-v33 .pv-thoughts__art .atelier-stencil::before {
+  content:'';position:absolute;inset:0;pointer-events:none;
+  mask:var(--stencil-image) center/contain no-repeat;
+  background:#d1b464;opacity:.15;filter:blur(.7px);
+}
+.pv-v33 .pv-thoughts__caption {padding:15px 2px 0;color:#e9e4d7;}
+/* Single-pigment chapter impressions; shallow physical mounts stay distinct. */
+.pv-v33 :is(.atelier-signal,.atelier-chapter-mark) {
+  background-color:#313622;background-image:var(--v33-wall);background-size:480px auto;
+  border:1px solid #e9e4d717;box-shadow:1px 2px 2px #311f1466,3px 5px 6px #311f1433;
+}
+.pv-v33 .atelier-stencil::after {
+  background-color:#d1b464;
+  background-image:linear-gradient(#d1b464df,#d1b464df),var(--v33-wall);
+  background-size:190px auto;filter:none;
+}
+.pv-v33 :is(.is-charge-listening,.is-audio-flowing) .atelier-stencil {filter:none;}
+/* Paint has no object-level lifting shadow. Preserve every approved letter. */
+.pv-v33 .pv-graffiti {filter:none;box-shadow:none;}
+.pv-v33 .pv-graffiti--berlin {mix-blend-mode:multiply;}
+/* Prints keep natural colour and safe straight image boundaries. Wear is only
+   on the physical paper edge, not repeated scratches across original faces. */
+.pv-v33 .pv-story__portrait {
+  border:1px solid #311f1433;
+  box-shadow:1px 2px 1px #311f1455,4px 7px 11px #311f1429;
+  background-color:#e9e4d7;
+  background-image:linear-gradient(102deg,#e9e4d700 83%,#311f1414 97%,#e9e4d7 100%);
+}
+.pv-v33 .pv-story__portrait::before {top:-13px;left:23%;transform:rotate(-4deg);opacity:.91;}
+.pv-v33 .pv-story__portrait::after {
+  content:'';position:absolute;right:1px;bottom:1px;width:19px;height:13px;
+  background:linear-gradient(145deg,#e9e4d700 42%,#311f1426 50%,#e9e4d7 57%);
+  pointer-events:none;z-index:4;
+}
+/* Quiet invitations use the established words and captions, not extra copy. */
+.pv-v33 .pv-photo-inspect {text-underline-offset:.22em;text-decoration-thickness:1px;}
+.pv-v33 .pv-coin-memory {border-top:1px solid #311f1430;}
+.pv-v33 .pv-coin-memory__object {border-top:0;}
+.pv-v33 .pv-coin-memory__object img {background:none;box-shadow:none;}
+
+/* Review-only control, appended outside the public main. No new visitor copy. */
+.pv-draft-review {position:relative;z-index:5;margin:24px auto;max-width:min(420px,calc(100vw - 24px));font:14px/1.5 system-ui,sans-serif;color:#311f14;}
+.pv-draft-review > summary {cursor:pointer;min-height:44px;padding:10px 15px;background:#e9e4d7;border:1px solid #311f1488;box-shadow:0 2px 8px #311f1433;list-style:revert;}
+.pv-draft-review[open] {background:#e9e4d7;border:1px solid #311f1470;box-shadow:0 7px 24px #311f1466;}
+.pv-draft-review[open] > summary {border:0;border-bottom:1px solid #311f1444;box-shadow:none;}
+.pv-draft-review nav {padding:12px;display:grid;gap:5px;max-height:65vh;overflow:auto;}
+.pv-draft-review a {padding:10px;color:#311f14;border:1px solid #311f1430;text-decoration:underline;text-underline-offset:3px;}
+.pv-draft-review a[aria-current=page] {background:#313622;color:#e9e4d7;}
+.pv-draft-review p {margin:6px 10px;max-width:30ch;font-size:12px;}
+.pv-draft-review :focus-visible {outline:3px solid #311f14;outline-offset:2px;}
+@media print {.pv-draft-review{display:none;}}
+@media(forced-colors:active){.pv-v33 .atelier-stencil::before,.pv-v33 .pv-thoughts__art>a::before{display:none;}}

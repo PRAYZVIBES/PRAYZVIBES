@@ -1,0 +1,50 @@
+/* Unpublished v32 interaction finish. Palette-derived light and shade only.
+   These are digitally constructed physical cues, not photographed materials. */
+.pv-v32 .pv-current__shadow {stroke:#311f146e;stroke-width:9;transform:translate(1.5px,2px);filter:blur(1.8px);}
+.pv-v32 .pv-current__glow {stroke:#d1b464;stroke-width:15;opacity:calc(.035 + var(--charge-energy,0)*.16);filter:blur(5px);}
+.pv-v32 .pv-current__trail {stroke:#311f14;stroke-width:5.6;opacity:.88;}
+.pv-v32 .pv-current__jacket {stroke:#d1b464;stroke-width:3.7;}
+.pv-v32 .pv-current__highlight {stroke:#e9e4d7;stroke-width:.8;transform:translate(-.5px,-.6px);opacity:.68;}
+.pv-v32 .pv-current__flow {stroke:#d1b464;stroke-width:1.7;opacity:.32;}
+.pv-v32 .pv-current__pulse {stroke:#e9e4d7;stroke-width:calc(1.1px + var(--charge-energy,0)*1.4px);stroke-dasharray:3 39;opacity:calc(.11 + var(--charge-energy,0)*.6);filter:none;animation:none !important;}
+.pv-v32 .pv-current__lead {stroke:#d1b464;stroke-width:calc(1.4px + var(--charge-energy,0)*1.5px);opacity:calc(.22 + var(--charge-energy,0)*.5);filter:drop-shadow(0 0 3px #d1b46455);}
+.pv-v32 .pv-current__local-glow {stroke:#d1b464;stroke-width:16;opacity:.24;filter:blur(4px);}
+.pv-v32 .pv-current__local-core {stroke:#e9e4d7;stroke-width:2.1;opacity:.9;}
+.pv-v32 [data-charge-node].is-charge-local {filter:drop-shadow(1px 2px 1px #311f1455) drop-shadow(0 0 7px #d1b4645c);}
+.pv-v32 [data-charge-node]:focus-visible {outline:3px solid #d1b464;outline-offset:6px;}
+.pv-motion-paused .pv-v32 .pv-current__pulse {opacity:.11;stroke-width:1.1;}
+
+/* A visible invitation, without turning the existing image or caption into a
+   new destination. Supplied photography remains unfiltered and uncropped. */
+.pv-v32 .pv-inspectable-photo {position:relative;}
+.pv-v32 .pv-photo-inspect {position:relative;z-index:5;display:flex;align-items:center;justify-content:center;width:fit-content;max-width:100%;min-height:44px;margin:8px 0 0 auto;padding:9px 12px;border:1px solid #311f14b3;border-radius:2px;background:#e9e4d7f2;color:#311f14;font:600 .73rem/1.3 var(--pv-body,system-ui);text-align:center;box-shadow:1px 2px 3px #311f1433;cursor:zoom-in;transform:none;}
+.pv-v32 .pv-photo-inspect:hover {background:#e9e4d7;border-color:#311f14;}
+.pv-v32 :is(.pv-photo-inspect,.pv-photo-dialog__close,.pv-calendar-reset):focus-visible {outline:3px solid #d1b464;outline-offset:4px;box-shadow:0 0 0 6px #311f14;}
+html.pv-photo-open {overflow:hidden;scrollbar-gutter:stable;}
+.pv-v32 .pv-photo-dialog {width:min(94vw,1080px);max-width:1080px;max-height:92vh;max-height:92dvh;margin:auto;padding:clamp(14px,2.5vw,30px);border:1px solid #d1b46488;border-radius:2px;background:#e9e4d7;color:#311f14;box-shadow:7px 13px 38px #311f1466;overscroll-behavior:contain;overflow:auto;}
+.pv-v32 .pv-photo-dialog[open] {display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:14px;}
+.pv-v32 .pv-photo-dialog::backdrop {background:#313622e6;backdrop-filter:blur(3px);}
+.pv-v32 .pv-photo-dialog__header {display:flex;align-items:center;justify-content:space-between;gap:16px;font:600 .75rem/1.4 var(--pv-body,system-ui);}
+.pv-v32 .pv-photo-dialog__close {min-height:44px;padding:10px 14px;border:1px solid #311f14;background:#e9e4d7;color:#311f14;font:600 .8rem/1.3 var(--pv-body,system-ui);cursor:pointer;}
+.pv-v32 .pv-photo-dialog__image {display:block;width:100%;height:auto;max-height:calc(84vh - 130px);max-height:calc(84dvh - 130px);object-fit:contain;object-position:center;filter:none;transform:none;box-shadow:none;}
+.pv-v32 .pv-photo-dialog #pv-photo-caption {margin:0;max-width:none;color:#311f14;font:400 .95rem/1.5 var(--pv-body,system-ui);}
+.pv-v32 .pv-photo-dialog__status {margin:0;font:400 .85rem/1.4 var(--pv-body,system-ui);}
+.pv-v32 .pv-photo-dialog__status:empty {display:none;}
+
+/* Only the lower leaf moves. The upper attachment and perforated remainder
+   stay in place. Motion has an explicit reset; the .ics anchor stays native. */
+.pv-v32 .pv-tear-ticket {touch-action:pan-y;isolation:isolate;margin-bottom:12px;}
+.pv-v32 .pv-tear-ticket__stub {position:relative;z-index:2;background:#313622;color:#e9e4d7;padding-bottom:15px;border-bottom:0;box-shadow:1px 2px 2px #311f1455;}
+.pv-v32 .pv-tear-ticket__stub::after {content:"";position:absolute;left:0;right:0;bottom:-8px;height:10px;background:#e9e4d7;clip-path:polygon(0 0,100% 0,100% 58%,97% 90%,94% 55%,90% 85%,86% 56%,82% 95%,78% 58%,74% 86%,70% 54%,66% 90%,62% 58%,58% 85%,54% 58%,50% 92%,46% 56%,42% 88%,38% 58%,34% 92%,30% 56%,26% 88%,22% 52%,18% 94%,14% 58%,10% 87%,6% 54%,3% 90%,0 58%);opacity:0;transition:opacity .18s ease;}
+.pv-v32 .pv-tear-ticket__leaf {position:relative;border-top:1px dashed #311f1499;transform-origin:15% 0;box-shadow:1px 2px 2px #311f1455,3px 7px 11px #311f1433;will-change:auto;}
+.pv-v32 .pv-tear-ticket.is-torn .pv-tear-ticket__stub::after {opacity:1;}
+.pv-v32 .pv-tear-ticket.is-torn .pv-tear-ticket__leaf {animation:pv-v32-calendar-release .76s cubic-bezier(.2,.55,.3,1) both;clip-path:polygon(0 1.8%,3% .4%,7% 1.5%,11% .3%,15% 1.6%,19% .2%,23% 1.4%,27% .5%,31% 1.8%,35% .3%,39% 1.5%,43% .2%,47% 1.7%,51% .4%,55% 1.5%,59% .1%,63% 1.7%,67% .4%,71% 1.5%,75% .3%,79% 1.8%,83% .5%,87% 1.5%,91% .2%,95% 1.7%,100% .4%,100% 100%,0 100%);}
+@keyframes pv-v32-calendar-release {0%{transform:translate(0,0) rotateX(0) rotateZ(-1deg);}22%{transform:translate(0,3px) rotateX(-13deg) rotateZ(1deg);}55%{transform:translate(5px,19px) rotateX(-3deg) rotateZ(4deg);}100%{transform:translate(8px,26px) rotateX(0) rotateZ(3deg);}}
+.pv-v32 .pv-calendar-reset {align-self:start;min-height:44px;max-width:100%;padding:10px 12px;margin:22px 0 0;border:1px solid #311f14a3;border-radius:2px;background:#e9e4d7;color:#311f14;font:600 .78rem/1.4 var(--pv-body,system-ui);cursor:pointer;}
+.pv-v32 .pv-calendar-reset[hidden] {display:none;}
+.pv-v32 .pv-tear-ticket__status {color:#311f14;max-width:42ch;line-height:1.5;}
+@media(max-width:600px){.pv-v32 .pv-photo-inspect {padding:8px 10px;font-size:.68rem;}.pv-v32 .pv-photo-dialog {width:94vw;padding:14px;}.pv-v32 .pv-photo-dialog__header {gap:8px;}.pv-v32 .pv-photo-dialog__header > span {max-width:12ch;}}
+@media(prefers-reduced-motion:reduce){.pv-v32 .pv-current__local-glow {filter:none;opacity:.13;}.pv-v32 [data-charge-node].is-charge-local {transform:none;}.pv-v32 .pv-tear-ticket__leaf,.pv-v32 .pv-tear-ticket__stub::after {animation:none !important;transition:none !important;}.pv-v32 .pv-tear-ticket.is-torn .pv-tear-ticket__leaf {transform:translateY(12px);}}
+.pv-motion-paused .pv-v32 .pv-tear-ticket__leaf,.pv-motion-paused .pv-v32 .pv-tear-ticket__stub::after {animation:none !important;transition:none !important;}
+.pv-motion-paused .pv-v32 .pv-tear-ticket.is-torn .pv-tear-ticket__leaf {transform:translateY(12px);}
+@media(forced-colors:active){.pv-v32 .pv-current {display:none;}.pv-v32 :is(.pv-photo-inspect,.pv-photo-dialog,.pv-photo-dialog__close,.pv-calendar-reset) {border:2px solid ButtonText;}.pv-v32 [data-charge-node]:focus-visible {outline:3px solid Highlight;}}
