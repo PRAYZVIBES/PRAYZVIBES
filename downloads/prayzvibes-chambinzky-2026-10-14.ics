@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PRAYZVIBES//Live Dates//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:prayzvibes-chambinzky-20261014@prayzvibes.com
+DTSTAMP:20260924T120000Z
+DTSTART:20261014T173000Z
+SUMMARY:PRAYZVIBES - Singer Songwriter Contest (2. Vorrunde)
+LOCATION:Chambinzky KulturKlub\, Valentin-Becker-Straße 2\, Würzburg
+DESCRIPTION:Evening starts at 19:30 local time. PRAYZ stage time is not sp
+ ecified.
+URL:https://chambinzky.com/ssc2026
+END:VEVENT
+END:VCALENDAR

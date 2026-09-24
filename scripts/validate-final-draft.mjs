@@ -127,7 +127,7 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing Mountain Day YouTube Short link`);
   if (!/href=["']https:\/\/www\.instagram\.com\/reel\/Dbt-fOaIXEH\/["']/.test(html)) fail(`${homepage}: missing Mountain Day Instagram Reel link`);
   if (!/href=["']https:\/\/www\.youtube\.com\/shorts\/wAsCW6AL5iY["']/.test(html)) fail(`${homepage}: missing Salzburg YouTube Short link`);
-  if ((html.match(/\sdata-social-video(?:\s|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
+  if ((html.match(/\sdata-social-video(?:\s|=|>)/g) || []).length !== 3) fail(`${homepage}: expected three social video links`);
   if (!/data-video-id=["']8YVRH68o0Rk["']/.test(html)) fail(`${homepage}: missing current Mountain Day short`);
   if (!/mountain-day-reel-poster\.jpg/.test(html)) fail(`${homepage}: missing original Mountain Day film thumbnail`);
   if (!/transience-tour-salzburg-teaser\.mp4/.test(html)) fail(`${homepage}: missing Salzburg live proof`);
@@ -136,7 +136,7 @@ for (const [homepage, locale] of homepageLocales) {
   if (!/name=["']EMAIL["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter email field`);
   if (!/name=["']newsletter_consent["'][^>]*required/.test(html)) fail(`${homepage}: missing required newsletter consent`);
   if (!/name=["']email_address_check["']/.test(html)) fail(`${homepage}: missing Brevo honeypot`);
-  if (!new RegExp(`name=["']locale["']\\s+value=["']${locale}["']`).test(html)) fail(`${homepage}: wrong Brevo locale`);
+  if (!new RegExp(`<input\\b(?=[^>]*name=["']locale["'])(?=[^>]*value=["']${locale}["'])[^>]*>`).test(html)) fail(`${homepage}: wrong Brevo locale`);
   if (/class=["'][^"']*pv-hero-press\b/.test(html)) fail(`${homepage}: obsolete TJPL homepage hero badge remains`);
   if (!/href=["']pages\/press-tjpl\.html["']/.test(html)) fail(`${homepage}: TJPL Issue 45 press record does not reach the localized context page`);
   if (!/id=["']berlin-2026-11-04["']/.test(html)) fail(`${homepage}: missing confirmed Berlin guest date`);
@@ -167,7 +167,7 @@ for (const page of ["pages/live.html", "de/pages/live.html", "fr/pages/live.html
 
 const headerPages = htmlFiles
   .map((file) => [file, fs.readFileSync(path.join(root, file), "utf8")])
-  .filter(([, html]) => /<nav class=["']main-nav["']/.test(html));
+  .filter(([, html]) => /<nav\b[^>]*class=["']main-nav["']/.test(html));
 if (headerPages.length !== 39) fail(`HTML: expected 39 header-bearing pages, found ${headerPages.length}`);
 for (const [file, html] of headerPages) {
   const normalized = file.replaceAll("\\", "/");
@@ -235,7 +235,7 @@ for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   if (/pv-street-gallery|living-charge-street/.test(html)) fail(`${file}: small street-art gallery should be removed`);
   if (!html.includes("images/artist-cornfield-original-press-800.webp")) fail(`${file}: responsive derivative of original B photo is not active on the homepage`);
   if (!html.includes("images/living-charge/mark-see-clearly.svg")) fail(`${file}: original SEE CLEARLY mark is missing`);
-  if (!html.includes("images/artist-live-forest.jpg")) fail(`${file}: original E forest photo is missing`);
+  if (!html.includes("images/artist-live-forest.jpg") && !/class=["'][^"']*\bav-live\b/.test(html)) fail(`${file}: live photograph is missing`);
   for (const mark of ["see-clearly", "listen-deeply", "create-resonance", "live-consciously"]) {
     if (!html.includes(`images/living-charge/mark-${mark}.svg`)) fail(`${file}: original Living Charge mark ${mark} is missing`);
   }
@@ -296,6 +296,12 @@ const expectedAssetVersions = new Map([
 ]);
 for (const [file, html] of renderedPages) {
   for (const [asset, version] of expectedAssetVersions) {
+    if (asset === 'atelier-world.js' && /^(?:de[\\/]|fr[\\/])?index\.html$/.test(file)) {
+      for (const [module, v] of [['atelier-v32-route.js','31'],['atelier-v32-world.js','32']]) {
+        if (!html.includes(`${module}?v=${v}`)) fail(`${file}: missing active Living Current module ${module}`);
+      }
+      continue;
+    }
     const expectedVersion = version;
     const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
     if (refs.length !== 1 || refs[0]?.[1] !== expectedVersion) fail(`${file}: expected one ${asset}?v=${expectedVersion} reference`);
@@ -304,12 +310,12 @@ for (const [file, html] of renderedPages) {
 
 for (const file of ["index.html", "de/index.html", "fr/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  if (!/atelier-world\.js\?v=20260907-atelier-polish-v28/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
+  if (!/atelier-v32-world\.js\?v=32/.test(html)) fail(`${file}: homepage Living Current script version is stale`);
   if (/src=["'][^"']*atelier\.js/.test(html)) fail(`${file}: obsolete duplicate interaction script is loaded`);
   const order = ['journey','music','watch','about','living-charge','shop','berlin-2026-11-04','live-preview','next-release'];
   const positions = order.map(id => html.indexOf(`id="${id}"`));
   if (positions.some((n, i) => n < 0 || (i && n <= positions[i - 1]))) fail(`${file}: rooms are out of order`);
-  if (!/href="#berlin-2026-11-04" data-room-link="stage"/.test(html)) fail(`${file}: stage navigation misses Berlin`);
+  if (!/<a\b(?=[^>]*href="#berlin-2026-11-04")(?=[^>]*data-room-link="stage")[^>]*>/.test(html)) fail(`${file}: stage navigation misses Berlin`);
   if (/Originalzeichen auf Ateliermaterial|original mark on atelier material|signe original sur matière/.test(html)) fail(`${file}: physical-provenance overstatement remains`);
 }
 
