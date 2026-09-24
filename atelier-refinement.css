@@ -1,0 +1,55 @@
+/* Fine adjustments to the existing atelier composition. */
+html.atelier-visual body #music .pv-release__art{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(125px,.48fr);gap:22px 14px;align-items:start;height:auto;min-height:0}
+html.atelier-visual body #music .pv-release__field{grid-column:1/-1;position:relative!important;inset:auto!important;width:100%!important;margin:0!important;padding-bottom:18px!important;transform:rotate(-1deg)!important}
+html.atelier-visual body #music .pv-release__field figcaption{max-width:none!important;padding-right:0!important;margin-bottom:12px}
+html.atelier-visual body #music .pv-photo-inspect{position:relative!important;inset:auto!important;display:block;transform:none!important;max-width:100%;margin:12px 0 0;min-height:44px;white-space:normal;text-align:left}
+html.atelier-visual body #music .pv-release__cover{grid-column:2;position:relative!important;inset:auto!important;width:100%!important;max-width:220px;margin:0!important;transform:rotate(2deg)!important;justify-self:end}
+html.atelier-visual body #music .pv-release__stamp{grid-column:1;grid-row:2;position:relative!important;inset:auto!important;align-self:center;justify-self:start}
+
+html.atelier-visual body #next-release .pv-next-release__form{padding:clamp(20px,3vw,38px)!important;border:1px solid #b5865155!important;box-shadow:0 14px 35px #0004!important;transform:none!important}
+html.atelier-visual body #next-release #sib-form{box-shadow:none!important;border:0!important;background:transparent!important;padding:0!important;margin:0!important}
+html.atelier-visual body #next-release .newsletter-field{display:flex!important;flex-direction:column;gap:12px;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
+html.atelier-visual body #next-release #EMAIL{width:100%;min-width:0;background:#151c15!important;color:#f2e8d1!important;border:1px solid #b88c57!important;border-radius:3px;padding:16px!important;box-shadow:inset 0 1px 5px #0003;min-height:54px;font-size:16px}
+html.atelier-visual body #next-release #EMAIL::placeholder{color:#b9b39f!important;opacity:1}
+html.atelier-visual body #next-release .newsletter-field button{width:100%;min-height:54px;margin:0!important;background:#d2b371!important;color:#241e14!important;border:1px solid #e5cc97!important;border-radius:3px;box-shadow:0 3px 9px #0003!important;padding:14px 18px!important;font-size:13px;letter-spacing:.065em;line-height:1.5}
+html.atelier-visual body #next-release :is(input,button):focus-visible{outline:3px solid #f2d9a0!important;outline-offset:4px}
+html.atelier-visual body #next-release .newsletter-consent{margin-top:21px;line-height:1.65!important}
+html.atelier-visual body #next-release .newsletter-consent input{accent-color:#d2b371;flex:0 0 20px}
+html.atelier-visual body #next-release .entry__specification{font-size:13px;line-height:1.7;margin-bottom:0}
+html.atelier-visual body #next-release .pv-newsletter-gift__source{font-size:12px!important;line-height:1.7}
+
+html.atelier-visual body .pv-trademark-note{font-size:12px!important;line-height:1.7!important;color:#cbbfaa!important;max-width:58ch;margin:4px 0 12px!important}
+html.atelier-visual body .pv-trademark-note a{color:#e3cc95!important;text-underline-offset:3px;text-decoration:underline;display:inline}
+html.atelier-visual body .pv-trademark-footer{text-align:center;font-size:12px;line-height:1.6;margin:20px auto 8px;padding:0 24px;color:#cbbfaa}
+html.atelier-visual body .pv-trademark-footer a{color:inherit;text-underline-offset:3px}
+html.atelier-visual body #shop .pv-shop-feature__product--light .pv-shop-feature__media{background:radial-gradient(ellipse at 50% 44%,#a18c5638,transparent 70%)!important}
+html.atelier-visual body #shop .pv-shop-feature__product--light img{mix-blend-mode:normal!important;filter:drop-shadow(0 12px 14px #0005)!important}
+
+/* Preserve the room order; tighten pauses and the personal archive hanging. */
+html.atelier-visual body .pv-home>section:not(#top){padding-block:64px!important;min-height:0!important}
+html.atelier-visual body .pv-home>#journey{row-gap:20px!important}
+html.atelier-visual body #journey .av-flight-memory{max-width:920px;margin:32px auto 4px;padding:26px 12px 0}
+html.atelier-visual body .av-flight-memory__heading{margin-bottom:24px}
+html.atelier-visual body .pv-home>.aw-hero{padding-bottom:48px!important;row-gap:18px!important}
+html.atelier-visual body .av-charge-intro{gap:20px;padding-block:14px 20px}
+html.atelier-visual body .atelier-signals .atelier-signal{min-height:150px!important;padding:14px 6px!important}
+html.atelier-visual body #about .pv-story__portrait{max-width:380px;width:100%;justify-self:start}
+html.atelier-visual body #live-preview .pv-memory-print{max-width:310px}
+@media(max-width:900px){
+ html.atelier-visual body .pv-home>section:not(#top){padding-block:44px!important}
+ html.atelier-visual body #music .pv-release__cover{width:100%!important;margin:0!important}
+ html.atelier-visual body .aw-intro .pv-quick-preview{border-top:1px solid #d2b37188!important;border-bottom:1px solid #d2b37188!important}
+ html.atelier-visual body #about .pv-story__portrait{max-width:320px;justify-self:center}
+ html.atelier-visual body .pv-home .pv-graffiti--arrival{max-width:320px!important;margin-block:18px!important}
+ html.atelier-visual body .av-flight-memory__prints{grid-template-columns:.95fr 1fr;gap:24px 18px;padding-inline:3px}
+ html.atelier-visual body .av-flight-print--portugal{grid-column:1;grid-row:1/3;max-width:none}
+ html.atelier-visual body .av-flight-print--austria{grid-column:2;grid-row:1;max-width:none}
+ html.atelier-visual body .av-flight-print--annecy{grid-column:2;grid-row:2;max-width:none}
+ html.atelier-visual body .av-flight-print{padding:6px 6px 9px}
+ html.atelier-visual body .av-flight-print figcaption{font-size:12px;gap:3px;margin-top:8px}
+ html.atelier-visual body .av-flight-print figcaption span:last-child{font-size:10px}
+ html.atelier-visual body #journey .av-flight-memory{margin-top:25px;padding:22px 0 0}
+}
+@media(max-width:400px){html.atelier-visual body #music .pv-release__art{grid-template-columns:minmax(0,1fr) 125px}html.atelier-visual body .av-flight-print figcaption{font-size:11px}.av-flight-memory__prints{gap:22px 14px}}
+@media(forced-colors:active){html.atelier-visual body #next-release :is(#EMAIL,.newsletter-field button){border:2px solid ButtonText!important}html.atelier-visual body #next-release :is(input,button):focus-visible{outline-color:Highlight!important}}
+html.atelier-visual body #next-release #EMAIL{flex:0 0 auto!important;height:54px!important}

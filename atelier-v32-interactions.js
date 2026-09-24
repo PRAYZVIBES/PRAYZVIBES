@@ -7,25 +7,25 @@
   const lang = document.documentElement.lang.slice(0, 2);
   const copy = ({
     de: {
-      inspect: 'Foto näher ansehen', close: 'Foto schließen', original: 'Originalfoto',
+      inspect: 'Foto näher ansehen', close: 'Foto schließen', original: 'Fotografie in Großansicht',
       reset: 'Kalenderblatt wieder anheften', ready: 'Kalenderblatt wieder angeheftet.',
       released: 'Kalenderblatt gelöst. Die Kalenderdatei wurde angefordert.',
       photoError: 'Das Foto konnte nicht geladen werden.'
     },
     fr: {
-      inspect: 'Regarder la photo de plus près', close: 'Fermer la photo', original: 'Photo originale',
+      inspect: 'Regarder la photo de plus près', close: 'Fermer la photo', original: 'Photographie en grand format',
       reset: 'Rattacher la feuille du calendrier', ready: 'La feuille du calendrier est rattachée.',
       released: 'Feuille détachée. Le fichier calendrier a été demandé.',
       photoError: 'La photo n’a pas pu être chargée.'
     },
     en: {
-      inspect: 'Look closer at the photograph', close: 'Close photograph', original: 'Original photograph',
+      inspect: 'Look closer at the photograph', close: 'Close photograph', original: 'Photograph in detail',
       reset: 'Pin the calendar leaf back', ready: 'The calendar leaf is pinned back.',
       released: 'Calendar leaf released. The calendar file was requested.',
       photoError: 'The photograph could not be loaded.'
     }
   })[lang] || {
-    inspect: 'Look closer at the photograph', close: 'Close photograph', original: 'Original photograph',
+    inspect: 'Look closer at the photograph', close: 'Close photograph', original: 'Photograph in detail',
     reset: 'Pin the calendar leaf back', ready: 'The calendar leaf is pinned back.',
     released: 'Calendar leaf released. The calendar file was requested.',
     photoError: 'The photograph could not be loaded.'
