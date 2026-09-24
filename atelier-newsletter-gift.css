@@ -1,0 +1,8 @@
+/* Newsletter welcome gift, within the existing form. */
+html.atelier-visual body #next-release .pv-newsletter-gift{display:grid;grid-template-columns:100px minmax(0,1fr);gap:22px;align-items:center;margin:0 0 28px;padding:0 0 26px;border-bottom:1px solid #c6a87555;position:relative}
+html.atelier-visual body #next-release .pv-newsletter-gift img{position:static;display:block;width:100%;height:auto;max-height:none;object-fit:contain;transform:rotate(-3deg);border:5px solid #d8cbb0;box-sizing:border-box;box-shadow:5px 7px 15px #0006;filter:none;opacity:1}
+html.atelier-visual body #next-release .pv-newsletter-gift h3{font:400 clamp(24px,2.3vw,31px)/1.18 Georgia,serif;text-transform:none;letter-spacing:0;color:#f1e7cc;margin:6px 0 12px}
+html.atelier-visual body #next-release .pv-newsletter-gift p{font-size:14px;line-height:1.65;color:#e0d6c0;margin:0 0 10px}
+html.atelier-visual body #next-release .pv-newsletter-gift .pv-newsletter-gift__eyebrow{font:600 10px/1.5 sans-serif;letter-spacing:.13em;text-transform:uppercase;color:#dec38f}
+html.atelier-visual body #next-release .pv-newsletter-gift .pv-newsletter-gift__source{font-size:11px;line-height:1.55;color:#c5bca7;margin:0}
+@media(max-width:620px){html.atelier-visual body #next-release .pv-newsletter-gift{grid-template-columns:75px minmax(0,1fr);gap:18px}html.atelier-visual body #next-release .pv-newsletter-gift p{font-size:13px}html.atelier-visual body #next-release .pv-newsletter-gift h3{font-size:25px}}

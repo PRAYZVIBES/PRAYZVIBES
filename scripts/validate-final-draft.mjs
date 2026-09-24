@@ -302,7 +302,8 @@ for (const [file, html] of renderedPages) {
       }
       continue;
     }
-    const expectedVersion = version;
+    const expectedVersion = asset === 'script.js' && /^(?:de[\\/]|fr[\\/])?index\.html$/.test(file)
+      ? '20260924-newsletter-direct' : version;
     const refs = [...html.matchAll(new RegExp(asset.replace('.', '\\.') + '\\?v=([^"\']+)', 'g'))];
     if (refs.length !== 1 || refs[0]?.[1] !== expectedVersion) fail(`${file}: expected one ${asset}?v=${expectedVersion} reference`);
   }

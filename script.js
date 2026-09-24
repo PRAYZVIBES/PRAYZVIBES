@@ -873,7 +873,7 @@
   const brevoForm = document.querySelector("#sib-form");
   let brevoLoading = false;
   const loadBrevo = () => {
-    if (brevoLoading || document.querySelector('script[src*="sibforms.com/forms/end-form"]')) return;
+    if (brevoForm?.dataset.brevoNative === "true" || brevoLoading || document.querySelector('script[src*="sibforms.com/forms/end-form"]')) return;
     brevoLoading = true;
     const script = document.createElement("script");
     script.src = "https://sibforms.com/forms/end-form/build/main.js";
@@ -904,6 +904,52 @@
   }
   document.addEventListener("sib-form:success", checkNewsletterSuccess);
   document.addEventListener("newsletter:success", checkNewsletterSuccess);
+
+  // Our custom layout submits directly; the Brevo widget requires its own DOM.
+  if (brevoForm?.dataset.brevoNative === "true") {
+    const errorPanel = document.querySelector("#error-message");
+    const submitButton = brevoForm.querySelector('button[type="submit"]');
+    let submitting = false;
+    const setPanel = (panel, visible) => {
+      if (!panel) return;
+      panel.hidden = !visible;
+      panel.style.display = visible ? "block" : "none";
+      panel.setAttribute("aria-hidden", String(!visible));
+    };
+    brevoForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (submitting || !brevoForm.reportValidity()) return;
+      submitting = true;
+      setPanel(errorPanel, false);
+      setPanel(brevoSuccess, false);
+      brevoForm.setAttribute("aria-busy", "true");
+      if (submitButton) submitButton.disabled = true;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 25000);
+      try {
+        const response = await fetch(brevoForm.action, {
+          method: "POST",
+          body: new FormData(brevoForm),
+          signal: controller.signal
+        });
+        const result = await response.json();
+        if (!response.ok || result.success !== true) throw new Error("Signup not confirmed");
+        setPanel(brevoSuccess, true);
+        brevoForm.reset();
+        document.dispatchEvent(new Event("newsletter:success"));
+        brevoSuccess?.scrollIntoView({ block: "nearest", behavior: "auto" });
+      } catch {
+        // Do not retry automatically: a lost response may still have sent the email.
+        setPanel(errorPanel, true);
+        errorPanel?.scrollIntoView({ block: "nearest", behavior: "auto" });
+      } finally {
+        clearTimeout(timeout);
+        submitting = false;
+        brevoForm.removeAttribute("aria-busy");
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+  }
 
   const getLinkPlacement = (link) => {
     if (link.dataset.listenPlacement) return link.dataset.listenPlacement;
