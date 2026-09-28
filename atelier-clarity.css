@@ -1,0 +1,185 @@
+/* Unpublished, reversible refinement. Originals and historical styles stay intact. */
+html[data-clarity]{--clarity-olive:#313622;--clarity-gold:#D1B464;--clarity-bone:#E9E4D7;--clarity-green:#A0B57D;--clarity-brown:#311F14}
+html[data-clarity] body .pv-home>section{scroll-margin-top:110px}
+/* Reserved space includes the glow and the keyboard focus ring, not only the icon. */
+html[data-clarity] body .pv-home>section:not(#top)>.atelier-chapter-mark{position:relative!important;inset:auto!important;grid-column:1/-1!important;grid-row:auto!important;justify-self:start;align-self:start;display:flex!important;width:72px!important;height:72px!important;margin:0 0 12px!important;padding:4px!important;transform:none!important;z-index:5}
+html[data-clarity] body .pv-home>section:not(#top)>.atelier-chapter-mark :is(img,.atelier-stencil){width:60px!important;height:60px!important}
+html[data-clarity] body .pv-home>section>.pv-room-label{grid-column:1/-1;position:relative;margin:0 0 24px!important;padding:0!important;max-width:none}
+html[data-clarity] body .pv-home>section>.atelier-chapter-mark::before{inset:-10px!important}
+html[data-clarity] body .pv-home>section:is(#journey,#about)>.atelier-chapter-mark{grid-row:1!important;margin:0!important}
+html[data-clarity] body :is(#journey,#about)>.pv-room-label{grid-row:1!important;align-self:center!important;margin:0!important;padding-left:105px!important}
+html[data-clarity] body #about .pv-story__copy{grid-row:2 / span 2!important}
+html[data-clarity] body #about .pv-story__portrait{grid-row:2!important}
+html[data-clarity] body #about .pv-coin-memory{grid-row:3!important}
+html[data-clarity] body .aw-home{hyphens:none!important;overflow-wrap:anywhere!important;word-break:normal!important}
+html[data-clarity] body .clarity-repeated-entry{display:none!important}
+html[data-clarity] body .clarity-invitation{padding:0;margin:12px 0 8px;border:0;background:transparent;box-shadow:none;max-width:45ch}
+html[data-clarity] body .clarity-invitation p{font:400 clamp(1.15rem,1.8vw,1.65rem)/1.45 var(--pv-display,Georgia,serif);color:var(--clarity-bone);margin:0 0 10px}
+html[data-clarity] body .clarity-invitation cite{display:block;font:400 .7rem/1.6 var(--pv-body,Arial,sans-serif);color:var(--clarity-green);font-style:normal;letter-spacing:.015em}
+html[data-clarity] body .pv-atelier-controls{justify-content:flex-end;gap:12px;padding-block:8px!important}
+html[data-clarity] body .pv-atelier-controls>span{display:none}
+html[data-clarity] body .clarity-book-note{max-width:700px;margin:40px 0 8px auto;padding:24px 0 12px 30px;border:0;border-left:2px solid var(--clarity-green);background:none;box-shadow:none;transform:none}
+html[data-clarity] body .clarity-book-note blockquote{padding:0;margin:0;border:0;background:none}
+html[data-clarity] body .clarity-book-note blockquote p{font:400 clamp(1.18rem,2vw,1.7rem)/1.5 Georgia,serif!important;max-width:42ch;text-wrap:pretty;margin:0 0 15px;color:var(--clarity-bone)!important}
+html[data-clarity] body .clarity-book-note figcaption{font:.78rem/1.7 var(--pv-body,Arial,sans-serif);letter-spacing:.015em;color:var(--clarity-bone)!important;max-width:58ch}
+html[data-clarity] body .pv-photo-inspect{hyphens:none!important;overflow-wrap:normal!important;word-break:normal!important}
+/* Keep photographs' actual colour; this does not change their pixels. */
+html[data-clarity] body .pv-home :is(.aw-portrait,.aw-landscape,.av-print,.av-merch-print,.pv-story__portrait,.pv-song-photo)>img{filter:none!important}
+html[data-clarity] body .pv-home .pv-thought[open]{border-left:2px solid var(--clarity-gold)!important;padding-left:18px}
+html[data-clarity] body .pv-thought[open]>summary{color:var(--clarity-bone)}
+html[data-clarity] body .pv-thought__source{font-size:.7rem;line-height:1.6}
+/* Local response uses existing audio analysis. Playback remains independent of motion. */
+html[data-clarity] body :is(.pv-quick-preview,.pv-ep-preview){transition:box-shadow .35s,border-color .35s}
+html[data-clarity] body :is(.pv-quick-preview,.pv-ep-preview).is-charge-source{box-shadow:-3px 0 0 var(--clarity-gold),-14px 0 35px #D1B46126!important;border-color:var(--clarity-gold)!important}
+html[data-clarity][data-clarity-audio="top"] .av-lamp-hardware[data-lamp-for="top"] .av-bulb-filament,
+html[data-clarity][data-clarity-audio="music"] .av-lamp-hardware[data-lamp-for="music"] .av-bulb-filament{stroke:var(--clarity-bone);filter:drop-shadow(0 0 4px #D1B464);opacity:calc(.65 + var(--charge-energy,0)*.35)}
+/* Newsletter hierarchy is connection first. Original gift, disclosure and consent retained. */
+html[data-clarity] body .clarity-newsletter-heading h3{font:400 clamp(1.5rem,2.1vw,2rem)/1.18 var(--pv-display,Georgia,serif);text-transform:none;letter-spacing:-.015em;margin:0 0 12px}
+html[data-clarity] body .clarity-newsletter-heading>p{font-size:.85rem;line-height:1.7;margin:0 0 24px}
+html[data-clarity] body .pv-next-release__form .pv-newsletter-gift{margin:28px 0 0;padding:24px 0 0;border-top:1px solid #D1B46455;grid-template-columns:76px minmax(0,1fr);gap:20px;align-items:start}
+html[data-clarity] body .pv-next-release__form .pv-newsletter-gift>img{width:76px;max-width:100%;transform:rotate(-2deg);margin:0}
+html[data-clarity] body .pv-newsletter-gift #newsletter-gift-title{font-size:1.2rem;line-height:1.25}
+html[data-clarity] body .pv-newsletter-gift p{font-size:.75rem;line-height:1.65}
+/* Reversible composition studies: neither is a new global art direction. */
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body #journey .pv-paths__grid{display:flex!important;flex-wrap:wrap;gap:0 28px!important;padding:18px 0!important;border:0!important;border-block:1px solid #E9E4D755!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body #journey .pv-paths__grid>a{flex:1 1 190px;min-height:76px!important;max-width:none;display:flex;align-items:center;gap:12px;padding:12px 0!important;border:0!important;background:none!important;box-shadow:none!important}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body .pv-paths__grid .pv-path__number{font-size:.7rem;opacity:.75;flex-shrink:0;min-width:2ch;white-space:nowrap;overflow-wrap:normal}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body .pv-paths__grid .pv-path__title{font-size:1rem}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body #journey .pv-handline{font:inherit!important;text-transform:none;transform:none;background:none}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) body #journey .pv-handline::after{display:none}
+html[data-clarity][data-study="nature"] body .pv-home>#journey{background:linear-gradient(0deg,#313622fa 0%,#31362299 28%,transparent 58%),linear-gradient(90deg,#313622f5 0%,#313622d4 46%,#31362238 100%),var(--av-A6) center/cover!important}
+html[data-clarity][data-study="nature"] body #journey .pv-paths__grid{background:#313622db!important;padding:12px 18px!important}
+html[data-clarity][data-study="nature"] body #journey .pv-graffiti--arrival{max-width:500px!important;width:100%!important;justify-self:end;align-self:end;margin-bottom:12px!important;transform:rotate(-5deg)!important}
+html[data-clarity] body #journey .pv-graffiti--arrival img{opacity:.78!important}
+html[data-clarity] body #journey .pv-graffiti--arrival .av-hand-note{font-size:max(14px,.85rem)!important;opacity:1!important;line-height:1.5!important}
+/* Percentage row gaps do not contribute to intrinsic grid height: text was
+   covered by the next section, especially after a responsive column collapse. */
+html[data-clarity] body .pv-home>:is(#music,#watch,#living-charge,#live-preview,#support,#epk){row-gap:clamp(28px,3.2rem,64px)!important}
+html[data-clarity] body .pv-home :is(.pv-kicker,.av-flight-memory__note,.pv-newsletter-gift__eyebrow){font-size:max(12px,.7rem)!important;line-height:1.6!important}
+html[data-clarity] body .pv-home :is(.aw-portrait figcaption,.aw-landscape figcaption,.av-flight-print figcaption,.pv-thoughts__caption,.pv-photo-inspect,.pv-media-privacy){font-size:max(13px,.75rem)!important;line-height:1.6!important}
+html[data-clarity] body :is(.pv-home,.site-footer) :is(p,h2,h3,a,button,summary,figcaption,cite){overflow-wrap:anywhere}
+html[data-clarity] body .pv-home :is(button,.pv-button,.pv-text-link,.pv-portrait-sign){max-width:100%!important;min-width:0!important;white-space:normal!important;hyphens:none!important}
+html[data-clarity] body .pv-home :is(.pv-actions,.pv-social-video-links){flex-wrap:wrap;gap:12px 20px}
+html[data-clarity] body .pv-social-video-links{display:flex}
+html[data-clarity] body #journey .pv-paths__grid>a{min-width:0!important;max-width:100%!important}
+html[data-clarity] body :is(.pv-path__copy,.av-charge-intro>div,.pv-coin-memory figcaption,.pv-thought>summary>span){min-width:0!important;max-width:100%}
+html[data-clarity] body .pv-thought>summary{grid-template-columns:32px 52px minmax(0,1fr) 24px!important}
+html[data-clarity] body :is(.pv-story__copy,.pv-event-feature__copy,.pv-live__copy){display:flow-root!important}
+html[data-clarity] body .pv-thoughts__art>a{height:auto!important;overflow:visible!important}
+html[data-clarity] body .pv-portrait-sign{display:inline-block!important}
+html[data-clarity] body .footer-brand{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+html[data-clarity] body #watch .video-load{width:calc(100% - 28px)!important;max-width:320px!important;justify-content:center;gap:10px;line-height:1.5!important}
+/* Large user text gets a linear reading layout; artwork/content remain present. */
+html[data-clarity].clarity-text-large body .pv-home>section{display:block!important}
+html[data-clarity].clarity-text-large body .pv-home>section> :not(.pv-material-grain,.av-copper-fixtures,.av-material-overlay){margin-block:24px!important}
+html[data-clarity].clarity-text-large body :is(.aw-intro,.av-charge-intro,.pv-paths__grid,.pv-coin-memory figure,.pv-shop-feature__intro){display:block!important;min-width:0!important;max-width:100%!important}
+html[data-clarity].clarity-text-large body :is(.av-charge-intro>div,.pv-path__copy){min-width:0!important;width:100%!important}
+html[data-clarity].clarity-text-large body .pv-home>section>.pv-room-label{padding-left:0!important}
+html[data-clarity].clarity-text-large body :is(.pv-release__art,.aw-portrait,.aw-landscape){position:relative!important;top:auto!important;max-width:100%!important;transform:none!important}
+html[data-clarity].clarity-text-large body .pv-path{display:block!important;margin-block:20px}
+html[data-clarity].clarity-text-large body .pv-path__arrow{display:none}
+html[data-clarity].clarity-text-large body .pv-thoughts__art a{overflow:visible!important;height:auto!important;aspect-ratio:auto!important}
+html[data-clarity].clarity-text-large body .pv-thought>summary{grid-template-columns:40px minmax(0,1fr) 24px!important;gap:10px!important;padding-inline:0!important}
+html[data-clarity].clarity-text-large body .pv-thought>summary::before{display:none!important}
+html[data-clarity].clarity-text-large body .pv-thought>summary>img{width:40px!important;height:40px!important}
+html[data-clarity].clarity-text-large body .pv-thought>summary>b{font-size:24px!important;line-height:1.2!important;width:24px!important;min-width:0!important}
+html[data-clarity].clarity-text-large body .av-monochrome{float:none!important;max-width:100%!important;margin:28px 0 0!important;transform:none!important}
+html[data-clarity].clarity-text-large body .pv-tear-ticket__leaf{display:block!important;transform:none!important;width:100%!important}
+html[data-clarity].clarity-text-large body .pv-tear-ticket__leaf>*{display:block!important;margin-block:10px;overflow-wrap:anywhere;white-space:normal!important}
+html[data-clarity].clarity-text-large body #watch .video-consent{aspect-ratio:auto!important;height:auto!important;overflow:visible!important}
+html[data-clarity].clarity-text-large body #watch .video-consent>img{position:relative!important;display:block;width:100%!important;height:auto!important}
+html[data-clarity].clarity-text-large body #watch .video-load{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;max-width:none!important;margin-top:12px!important;display:block!important}
+html[data-clarity].clarity-text-large body #watch .video-shade{display:none}
+html[data-clarity][data-study="nature"] body #journey .av-flight-memory{max-width:1050px;margin-top:38px;padding-top:32px}
+html[data-clarity][data-study="nature"] body .av-flight-memory__prints{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:28px;align-items:start}
+html[data-clarity][data-study="nature"] body .av-flight-print--portugal{grid-column:1;grid-row:1;max-width:260px;margin:0 0 0 auto;transform:rotate(-2deg)}
+html[data-clarity][data-study="nature"] body .av-flight-print--austria{grid-column:1;grid-row:2;max-width:300px;transform:rotate(1deg)}
+html[data-clarity][data-study="nature"] body .av-flight-print--annecy{grid-column:2;grid-row:1/span 2;max-width:none;margin-top:34px;transform:rotate(.4deg)}
+html[data-clarity][data-study="nature"] body .av-flight-print--annecy img{object-fit:contain;width:100%;height:auto}
+html[data-clarity][data-study="graffiti"] body #journey .pv-graffiti--arrival{max-width:540px!important;width:100%!important;transform:rotate(-3deg)!important}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) .av-copper-fixtures{opacity:.74}
+html[data-clarity]:is([data-study="nature"],[data-study="graffiti"]) .av-copper-fixtures .av-lamp-hardware{opacity:1}
+@media(min-width:901px){
+ html[data-clarity] body #shop .pv-shop-feature__intro{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:7%;row-gap:18px!important;align-items:start}
+ html[data-clarity] body #shop .pv-shop-feature__intro>.pv-kicker{grid-column:1/-1;grid-row:1;margin:0}
+ html[data-clarity] body #shop .pv-shop-feature__intro>h2{grid-column:1;grid-row:2/span 2;max-width:14ch;font-size:clamp(2.2rem,4vw,3.6rem)}
+ html[data-clarity] body #shop .pv-shop-feature__intro>p:not([class]){grid-column:2;grid-row:2;margin:0;align-self:end}
+ html[data-clarity] body #shop .pv-shop-feature__intro>.pv-button{grid-column:2;grid-row:3;align-self:start;justify-self:start;margin:0}
+ html[data-clarity] body #shop .av-merch-memories{grid-column:1;grid-row:4/span 2;margin:0;max-width:480px}
+ html[data-clarity] body #shop .pv-shop-feature__reassurance{grid-column:2;grid-row:4;align-self:end;margin:0}
+ html[data-clarity] body #shop .pv-trademark-note{grid-column:2;grid-row:5;align-self:start;margin:0!important}
+ html[data-clarity] body #shop .pv-shop-feature__products{margin-top:35px}
+}
+@media(max-width:900px){
+ html[data-clarity][data-study="nature"] body .pv-home>#journey{background:linear-gradient(0deg,#313622fa 0%,#313622de 38%,#313622c7 100%),var(--av-A6) center/cover!important}
+ html[data-clarity] body .pv-home>.aw-hero{grid-template-columns:minmax(0,1.35fr) minmax(100px,.8fr)!important;grid-template-rows:none!important;gap:18px 18px!important}
+ html[data-clarity] body .aw-wordmark.pv-sprayed-wordmark{grid-column:1/-1!important;grid-row:1!important;margin:0!important;width:100%!important}
+ html[data-clarity] body .aw-intro{display:contents!important}
+ html[data-clarity] body .aw-intro .pv-kicker{grid-column:1/-1!important;grid-row:2!important;margin:0!important;max-width:100%!important;align-self:start}
+ html[data-clarity] body .aw-intro .aw-home{grid-column:1/-1!important;grid-row:3!important;font-size:clamp(1.85rem,7.5vw,3.2rem)!important;line-height:1.07;max-width:100%!important;margin:0!important;text-wrap:balance}
+ html[data-clarity] body .aw-intro .aw-bio{grid-column:1!important;grid-row:4!important;align-self:center;font-size:.94rem;line-height:1.7}
+ html[data-clarity] body .aw-hero .aw-portrait{grid-column:2!important;grid-row:4!important;width:100%!important;max-width:185px!important;padding:6px!important;margin:0!important;justify-self:end;align-self:center}
+ html[data-clarity] body .aw-intro .pv-quick-preview{grid-column:1/-1!important;grid-row:5!important;margin:0!important}
+ html[data-clarity] body .aw-intro .pv-actions{grid-column:1/-1!important;grid-row:6!important;margin:0!important}
+ html[data-clarity] body .aw-hero .aw-landscape{grid-column:1!important;grid-row:7!important;margin:16px 0 0!important;width:100%!important}
+ html[data-clarity] body .aw-hero .atelier-signal--origin{grid-column:2!important;grid-row:7!important;align-self:center}
+ html[data-clarity] body .atelier-signals{grid-row:8!important;grid-column:1/-1!important}
+ html[data-clarity] body .pv-atelier-controls{grid-row:9!important;grid-column:1/-1!important}
+ html[data-clarity] body .pv-home>section:not(#top)>.atelier-chapter-mark{width:64px!important;height:64px!important;margin-bottom:8px!important}
+ html[data-clarity] body .pv-home>section:not(#top)>.atelier-chapter-mark :is(img,.atelier-stencil){width:52px!important;height:52px!important}
+ html[data-clarity] body #about :is(.pv-story__copy,.pv-story__portrait,.pv-coin-memory){grid-row:auto!important}
+ html[data-clarity] body .clarity-book-note{padding-left:18px;margin-top:28px}
+ html[data-clarity] body #shop .pv-shop-feature__intro{display:flex!important;flex-direction:column;gap:20px!important}
+ html[data-clarity] body #shop .pv-shop-feature__intro>*{margin-block:0!important}
+ html[data-clarity] body #shop .av-merch-memories{order:3;margin-top:8px!important}
+ html[data-clarity] body #shop .pv-shop-feature__reassurance{order:4}
+ html[data-clarity] body #shop .pv-trademark-note{order:5}
+ html[data-clarity][data-study="nature"] body .av-flight-memory__prints{grid-template-columns:1fr 1fr;gap:24px 14px}
+ html[data-clarity][data-study="nature"] body .av-flight-print--annecy{grid-column:1/-1;grid-row:1;margin-top:0}
+ html[data-clarity][data-study="nature"] body .av-flight-print--portugal{grid-column:1;grid-row:2;margin:0;max-width:none}
+ html[data-clarity][data-study="nature"] body .av-flight-print--austria{grid-column:2;grid-row:2;margin-top:24px;max-width:none}
+}
+@media(max-width:400px){html[data-clarity] body .aw-intro .aw-bio{font-size:.87rem;line-height:1.6}html[data-clarity] body .aw-hero .aw-portrait .pv-photo-inspect{font-size:.67rem}}
+@media(max-width:900px){
+ html[data-clarity].clarity-stack body .pv-home>.aw-hero{grid-template-columns:minmax(0,1fr)!important}
+ html[data-clarity].clarity-stack body .aw-intro .aw-bio{grid-column:1/-1!important;grid-row:4!important}
+ html[data-clarity].clarity-stack body .aw-hero .aw-portrait{grid-column:1/-1!important;grid-row:7!important;max-width:240px!important;justify-self:center}
+ html[data-clarity].clarity-stack body .aw-hero .aw-landscape{grid-column:1/-1!important;grid-row:8!important}
+ html[data-clarity].clarity-stack body .aw-hero .atelier-signal--origin{grid-column:1/-1!important;grid-row:9!important;justify-self:center!important}
+ html[data-clarity].clarity-stack body .atelier-signals{grid-row:10!important}
+ html[data-clarity].clarity-stack body .pv-atelier-controls{grid-row:11!important}
+ html[data-clarity].clarity-stack body .av-flight-memory__prints{display:flex!important;flex-direction:column;gap:28px}
+ html[data-clarity].clarity-stack body .av-flight-print{width:100%;max-width:100%!important;margin:0!important}
+}
+@media(prefers-reduced-motion:reduce){html[data-clarity] body *,html[data-clarity] body *::before,html[data-clarity] body *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html[data-clarity].pv-motion-paused .av-bulb-filament{opacity:1!important;filter:none!important}
+/* A supplied working object, not another decorative collage. */
+html[data-clarity] body .clarity-songbook{grid-column:1/-1!important;grid-row:4!important;width:100%;max-width:980px;margin:38px 0 0!important;border:0!important;border-block:1px solid #D1B46466!important;background:none!important;padding:0!important;box-shadow:none!important;color:#E9E4D7}
+html[data-clarity] body .clarity-songbook>summary{display:flex!important;align-items:center;gap:24px;padding:22px 0!important;list-style:none;cursor:pointer;background:none!important;color:#E9E4D7!important}
+html[data-clarity] body .clarity-songbook>summary::-webkit-details-marker{display:none}
+html[data-clarity] body .clarity-songbook>summary::after{display:none!important}
+html[data-clarity] body .clarity-songbook>summary strong{display:block;font:400 clamp(1.4rem,2.6vw,2rem)/1.2 Georgia,serif!important;letter-spacing:0;text-transform:none}
+html[data-clarity] body .clarity-songbook>summary small{display:block;font:.78rem/1.6 Arial,sans-serif;margin-top:8px;color:#A0B57D}
+html[data-clarity] body .clarity-songbook__thumb{flex:0 0 70px;transform:rotate(-3deg);box-shadow:2px 4px 6px #0005}
+html[data-clarity] body .clarity-songbook__thumb img{display:block;width:70px;height:auto;filter:none}
+html[data-clarity] body .clarity-songbook__plus{margin-left:auto;font:300 32px/1 Arial,sans-serif;color:#D1B464}
+html[data-clarity] body .clarity-songbook[open] .clarity-songbook__plus{transform:rotate(45deg)}
+html[data-clarity] body .clarity-songbook__inside{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.8fr);align-items:start;gap:28px 50px;padding:18px 0 32px}
+html[data-clarity] body .clarity-songbook__intro{grid-column:1/-1;font-size:.95rem!important;line-height:1.75;max-width:65ch;margin:0!important;color:#E9E4D7!important}
+html[data-clarity] body .clarity-songbook figure{margin:0!important;padding:0!important;background:none!important;transform:none!important;border:0!important;box-shadow:none!important}
+html[data-clarity] body .clarity-songbook__page button{display:block;width:100%;padding:0;border:0;background:transparent;color:#E9E4D7;text-align:left;cursor:zoom-in}
+html[data-clarity] body .clarity-songbook__page img{display:block;width:100%;height:auto;filter:none!important;box-shadow:3px 6px 14px #0005}
+html[data-clarity] body .clarity-songbook__page button span{display:block;padding-top:12px;font:.78rem/1.5 Arial,sans-serif;color:#D1B464}
+html[data-clarity] body .clarity-songbook__film h3{font:400 1.15rem/1.4 Georgia,serif!important;text-transform:none!important;color:#E9E4D7!important;margin:0 0 16px!important}
+html[data-clarity] body .clarity-songbook__film video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:#311F14;max-height:570px;object-fit:contain}
+html[data-clarity] body .clarity-songbook figcaption{font:.75rem/1.65 Arial,sans-serif!important;color:#E9E4D7!important;text-transform:none;letter-spacing:0;margin-top:12px}
+html[data-clarity] body .clarity-songbook :is(summary,button):focus-visible{outline:3px solid #D1B464;outline-offset:6px}
+html[data-clarity] body .clarity-songbook-dialog{position:fixed!important;inset:4vh auto auto 50%!important;transform:translateX(-50%)!important;width:min(94vw,1040px);max-width:none;max-height:92vh;overflow:auto;margin:0!important;padding:20px;background:#E9E4D7;color:#311F14;border:1px solid #D1B464;box-sizing:border-box;overscroll-behavior:contain;z-index:10000}
+html[data-clarity] body .clarity-songbook-dialog::backdrop{background:#11180fee;backdrop-filter:blur(3px)}
+html[data-clarity] body .clarity-songbook-dialog header{display:flex;position:sticky;top:-20px;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;background:#E9E4D7;z-index:2}
+html[data-clarity] body .clarity-songbook-dialog h3{font:400 1.1rem/1.3 Georgia,serif!important;text-transform:none!important;color:#311F14!important;margin:0}
+html[data-clarity] body .clarity-songbook-dialog button{padding:10px 12px;border:1px solid #313622;background:#313622;color:#E9E4D7;font:14px/1.4 Arial,sans-serif;cursor:pointer}
+html[data-clarity] body .clarity-songbook-dialog>a{display:inline-block;margin:6px 0 18px;color:#311F14;font:14px/1.5 Arial,sans-serif;text-decoration:underline}
+html[data-clarity] body .clarity-songbook-dialog>img{display:block;width:100%;height:auto;filter:none!important}
+@media(max-width:600px){html[data-clarity] body .clarity-songbook{grid-row:auto!important;margin-top:26px!important}html[data-clarity] body .clarity-songbook>summary{gap:18px}html[data-clarity] body .clarity-songbook__thumb{flex-basis:52px}html[data-clarity] body .clarity-songbook__thumb img{width:52px}html[data-clarity] body .clarity-songbook__inside{grid-template-columns:minmax(0,1fr);gap:28px}html[data-clarity] body .clarity-songbook__film{max-width:320px;justify-self:center}html[data-clarity] body .clarity-songbook-dialog{padding:12px}html[data-clarity] body .clarity-songbook-dialog header{top:-12px}}
+@media(forced-colors:active){html[data-clarity] body .clarity-book-note{border-color:CanvasText}html[data-clarity] body :is(.clarity-invitation,.clarity-book-note,.clarity-newsletter-heading) :is(p,cite,figcaption){color:CanvasText!important}}
