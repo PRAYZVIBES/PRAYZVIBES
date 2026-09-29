@@ -1,0 +1,26 @@
+/* Press-only refinements: existing page content and photography remain intact. */
+body[data-page="epk"] { --press-ink:#311f14; --press-paper:#e9e4d7; }
+body[data-page="epk"] section[id] { scroll-margin-top:7rem; }
+.press-jumps {display:flex;flex-wrap:wrap;gap:.6rem 1.1rem;margin-block:1.25rem;}
+.press-jumps a {font-size:1rem;text-decoration:underline;text-underline-offset:.22em;min-height:44px;display:inline-flex;align-items:center;}
+.press-pdf-note {font-size:.9rem;line-height:1.6;max-width:55ch;}
+.press-short-bio {margin-top:2rem;border-top:1px solid #a0b57d;padding-top:1.5rem;}
+.press-short-bio p {max-width:78ch;}
+.press-dates {display:inline-block;margin-top:1.5rem;text-decoration:underline;min-height:44px;}
+.press-photo-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;}
+body[data-page="epk"] #press-images .section-heading h2 {font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.12;max-width:22ch;}
+.press-photo {margin:0;min-width:0;}
+.press-photo__image {display:block;background:#313622;}
+.press-photo img {display:block;width:100%;height:clamp(280px,38vw,500px);object-fit:contain;border-radius:0;}
+.press-photo figcaption {padding:1.2rem 0 1.6rem;border-bottom:1px solid #313622;color:#311f14;}
+.press-photo h3 {font-size:1.35rem;line-height:1.3;margin:.3rem 0;}
+.press-photo .eyebrow {color:#311f14;}
+.press-photo figcaption a {display:inline-flex;align-items:center;min-height:44px;color:#311f14;text-decoration:underline;text-underline-offset:.2em;}
+.press-image-spec {font-size:.9rem;}
+.press-rights-note {max-width:76ch;padding:1.4rem 0;margin-top:1rem;}
+body[data-page="epk"] a:focus-visible,body[data-page="epk"] button:focus-visible {outline:3px solid #311f14;outline-offset:5px;box-shadow:0 0 0 7px #e9e4d7;}
+body[data-page="epk"] .fact-list>li {min-width:0;}
+body[data-page="epk"] .fact-list a {overflow-wrap:anywhere;}
+body[data-page="epk"] .content-grid>* {min-width:0;}
+@media(max-width:600px){.press-photo-grid{grid-template-columns:1fr;}.press-photo img{height:auto;max-height:560px;}.press-jumps{gap:.3rem 1rem;}body[data-page="epk"] h1{font-size:clamp(2.4rem,11vw,4rem);overflow-wrap:normal;}.press-photo h3{font-size:1.2rem;}}
+@media(prefers-reduced-motion:reduce){body[data-page="epk"] *,body[data-page="epk"] *::before,body[data-page="epk"] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
