@@ -1,0 +1,101 @@
+/* Small, reversible refinement of the approved 28/29 September site. */
+html[data-finesse] body .pv-home :is(.clarity-invitation cite,.pv-thought__source,.pv-thoughts__caption,.clarity-book-note figcaption,.av-flight-memory__note,.aw-portrait figcaption,.aw-landscape figcaption,.pv-media-privacy){font-size:max(14px,.8rem)!important;line-height:1.65!important;letter-spacing:.01em}
+/* One meaningful active edge, not two parallel strokes. */
+html[data-finesse] body .pv-thought[open]>summary{box-shadow:none!important;background:transparent!important}
+html[data-finesse] body .pv-thought[open]{padding-left:clamp(14px,1.4vw,22px)!important}
+html[data-finesse] body .pv-thoughts__windows{box-shadow:none!important;border-color:transparent!important;background:transparent!important}
+html[data-finesse] body .pv-thought__body blockquote{max-width:36ch;margin-block:12px 20px}
+html[data-finesse] body .pv-thought__source{margin-block:0 20px!important;color:#e9e4d7!important}
+html[data-finesse] body .pv-thought__actions{display:flex!important;flex-wrap:wrap;align-items:center;gap:8px 22px!important}
+html[data-finesse] body .pv-thought__actions a{min-height:44px;display:inline-flex;align-items:center;line-height:1.5!important;padding-block:8px!important}
+html[data-finesse] body .pv-thought__actions a:not(:first-child){font-weight:400!important;border-bottom-color:#a0b57d66!important;color:#e9e4d7!important}
+/* The quotation is a pause, not another boxed work. Its source stays readable. */
+html[data-finesse] body .clarity-book-note{border-left-color:#a0b57d99!important;padding-left:clamp(18px,2vw,30px)}
+html[data-finesse] body .clarity-book-note blockquote p{max-width:40ch;line-height:1.55!important}
+html[data-finesse] body .pv-home :is(.pv-quick-preview__button,.pv-ep-preview__button){min-height:56px}
+html[data-finesse] body .pv-quick-preview__copy small{min-height:1.65em;line-height:1.65;font-size:max(14px,.8rem)}
+html[data-finesse] body :is(.pv-quick-preview,.pv-ep-preview)[data-finesse-state="paused"]{border-color:#a0b57d88}
+html[data-finesse] body .pv-home :is(a,button,summary):focus-visible{outline:3px solid #d1b464!important;outline-offset:5px!important}
+html[data-finesse] body .pv-thought>summary{scroll-margin-top:calc(var(--header-height,80px) + 30px)}
+@media(max-width:600px){html[data-finesse] body .pv-thoughts__windows{padding-inline:0!important}html[data-finesse] body .pv-thought__actions{display:flex!important;flex-direction:column;align-items:flex-start;gap:4px!important}html[data-finesse] body .pv-thought__body blockquote{font-size:1.08rem;line-height:1.6}html[data-finesse] body .pv-thoughts__caption{padding-block:10px!important}}
+@media(prefers-reduced-motion:reduce){html[data-finesse] body :is(.pv-thought,.pv-thought__body,.pv-quick-preview,.pv-ep-preview){transition:none!important;animation:none!important}}
+@media(forced-colors:active){html[data-finesse] body .pv-thought__actions a,html[data-finesse] body .pv-thought__source{color:CanvasText!important}html[data-finesse] body .pv-home :is(a,button,summary):focus-visible{outline-color:Highlight!important}}
+/* Visually verified at 320 CSS px / 200% text: keep the title out of the
+   thumbnail/toggle row instead of squeezing it into a 150 px column. */
+html[data-finesse].clarity-text-large body .clarity-songbook>summary{display:grid!important;grid-template-columns:minmax(0,1fr) 44px;grid-template-areas:'thumb toggle' 'title title';gap:16px;align-items:start}
+html[data-finesse].clarity-text-large body .clarity-songbook__thumb{grid-area:thumb;justify-self:start}
+html[data-finesse].clarity-text-large body .clarity-songbook>summary>span:not([class]){grid-area:title;min-width:0}
+html[data-finesse].clarity-text-large body .clarity-songbook__plus{grid-area:toggle;justify-self:center;align-self:center;margin:0}
+@media(max-width:600px){html[data-finesse] body .language-switcher{column-gap:8px}html[data-finesse] body .language-switcher a{min-height:44px}}
+/* Council pages 19–21: a real, existing song destination beside its origin. */
+html[data-finesse] body .council-songbook-listen{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin:0 0 8px}
+html[data-finesse] body .council-songbook-listen a{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:10px 0;border-bottom:1px solid #d1b464;color:#d1b464!important;font:600 1rem/1.5 Arial,sans-serif;text-decoration:none;white-space:normal}
+html[data-finesse] body .council-songbook-listen small{color:#e9e4d7;font:400 max(14px,.8rem)/1.65 Arial,sans-serif}
+html[data-finesse] body .clarity-songbook :is(figcaption,summary small,.clarity-songbook__page button span){font-size:max(14px,.8rem)!important;line-height:1.65!important}
+/* Council pages 4–6 and 10–12: approved songbook composition. */
+html[data-council-study="songbook"] body .clarity-songbook{max-width:1100px}
+html[data-council-study="songbook"] body .clarity-songbook__inside{grid-template-columns:minmax(0,1.2fr) minmax(0,.85fr);grid-template-areas:'page intro' 'page listen' 'page film';column-gap:clamp(28px,4vw,68px);row-gap:24px;padding-block:32px 44px;align-items:start}
+html[data-council-study="songbook"] body .clarity-songbook__intro{grid-area:intro;align-self:end;max-width:34ch}
+html[data-council-study="songbook"] body .council-songbook-listen{grid-area:listen;display:block}
+html[data-council-study="songbook"] body .council-songbook-listen small{display:block;margin-top:12px}
+html[data-council-study="songbook"] body .clarity-songbook__page{grid-area:page}
+html[data-council-study="songbook"] body .clarity-songbook__page img{box-shadow:1px 2px 2px #311f1470,8px 12px 22px #311f1440!important;outline:1px solid #e9e4d733;outline-offset:-1px}
+html[data-council-study="songbook"] body .clarity-songbook__film{grid-area:film;width:100%;max-width:265px;margin-top:12px!important}
+html[data-council-study="songbook"] body .clarity-songbook__film video{max-height:350px;object-fit:contain;object-position:left center;background:transparent}
+@media(max-width:700px){html[data-council-study="songbook"] body .clarity-songbook__inside{grid-template-columns:minmax(0,1fr);grid-template-areas:'intro' 'listen' 'page' 'film';gap:28px}html[data-council-study="songbook"] body .clarity-songbook__film{justify-self:start}html[data-council-study="songbook"] body .clarity-songbook__intro{max-width:none}html[data-council-study="songbook"] body .clarity-songbook__page img{box-shadow:1px 2px 2px #311f1460,4px 6px 14px #311f1430!important}}
+/* The real performance opens the stage chapter. Dates and posters remain intact. */
+html[data-finesse] body #live-preview{grid-template-columns:minmax(0,1.03fr) minmax(0,1fr)!important;column-gap:clamp(32px,5vw,80px)!important;padding-bottom:clamp(48px,6vw,90px)!important}
+html[data-finesse] body #live-preview>.pv-room-label{grid-column:1/-1!important;grid-row:1!important;margin-bottom:22px!important}
+html[data-finesse] body #live-preview>.pv-room-label>span{flex:0 0 auto;min-width:2.3ch;white-space:nowrap}
+html[data-finesse] body #live-preview>.pv-live__media{grid-column:1!important;grid-row:2!important;width:100%!important;max-width:490px!important;justify-self:center;margin:0!important}
+html[data-finesse] body #live-preview>.pv-live__copy{grid-column:2!important;grid-row:2!important;align-self:start}
+html[data-finesse] body #live-preview .pv-native-film video{object-fit:contain!important}
+html[data-finesse] body #berlin-2026-11-04{padding-top:clamp(44px,5vw,76px)!important}
+html[data-finesse] body .av-wuerzburg-event{grid-row:1!important;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px 38px;align-items:center;margin-bottom:28px!important}
+html[data-finesse] body .av-live-sequence{grid-column:1/-1}
+html[data-finesse] body .av-wuerzburg-banner{transform:none!important}
+html[data-finesse] body .av-wuerzburg-details{display:block;padding:0;min-width:0}
+html[data-finesse] body .av-wuerzburg-details .pv-actions{margin-top:18px}
+html[data-finesse] body .av-wuerzburg-details :is(p,.pv-button,.pv-text-link){font-size:max(14px,.85rem)!important;line-height:1.65}
+html[data-finesse] body #berlin-2026-11-04>.pv-event-feature__media{max-width:400px;justify-self:center;width:100%;grid-row:2!important}
+html[data-finesse] body #berlin-2026-11-04>.pv-event-feature__copy{grid-row:2!important}
+html[data-finesse] body .av-wuerzburg-details :is(a,button){min-height:44px;display:inline-flex;align-items:center}
+@media(max-width:900px){html[data-finesse] body #live-preview{grid-template-columns:minmax(0,1fr)!important}html[data-finesse] body #live-preview>.pv-live__media{grid-column:1!important;grid-row:2!important;max-width:440px!important}html[data-finesse] body #live-preview>.pv-live__copy{grid-column:1!important;grid-row:3!important}html[data-finesse] body .av-wuerzburg-event{grid-template-columns:minmax(0,1fr)}html[data-finesse] body #berlin-2026-11-04>.pv-event-feature__media{max-width:360px}html[data-finesse] body #berlin-2026-11-04>.pv-event-feature__copy{grid-row:3!important}}
+html[data-finesse].clarity-text-large body #live-preview{grid-template-columns:minmax(0,1fr)!important}
+html[data-finesse].clarity-text-large body #live-preview>.pv-live__copy{grid-column:1!important;grid-row:3!important}
+html[data-finesse].clarity-text-large body .av-wuerzburg-event{grid-template-columns:minmax(0,1fr)}
+html[data-finesse].clarity-text-large body #berlin-2026-11-04>.pv-event-feature__copy{grid-row:3!important}
+/* Use the existing measured RMS signal. No extra analyser or animation loop. */
+html[data-finesse] body .av-lamp-hardware .av-bulb-filament{stroke:#d1b464!important;opacity:.68!important;filter:drop-shadow(0 0 .6px #d1b464)!important;transition:opacity .18s ease-out,filter .18s ease-out}
+@media(prefers-reduced-motion:no-preference){
+html[data-finesse].is-audio-flowing:not(.pv-motion-paused)[data-clarity-audio="top"] body .av-lamp-hardware[data-lamp-for="top"] .av-bulb-filament,
+html[data-finesse].is-audio-flowing:not(.pv-motion-paused)[data-clarity-audio="live-preview"] body .av-lamp-hardware[data-lamp-for="live-preview"] .av-bulb-filament{opacity:clamp(.68,calc(.68 + var(--charge-energy,0)*1.4),1)!important;filter:drop-shadow(0 0 calc(.6px + var(--charge-energy,0)*8px) #d1b464)!important}
+html[data-finesse].is-audio-flowing:not(.pv-motion-paused) body .is-charge-listening .atelier-stencil{filter:drop-shadow(0 0 calc(var(--charge-energy,0)*6px) #d1b464)!important}
+}
+html[data-finesse].pv-motion-paused body .av-lamp-hardware .av-bulb-filament{opacity:.68!important;filter:none!important;transition:none!important}
+html[data-finesse].pv-motion-paused body .is-charge-listening .atelier-stencil{filter:none!important}
+@media(prefers-reduced-motion:reduce){html[data-finesse] body .av-lamp-hardware .av-bulb-filament{opacity:.68!important;filter:none!important;transition:none!important}html[data-finesse] body .is-charge-listening .atelier-stencil{filter:none!important}}
+/* Material council, 01 October: one quiet mineral surface and one painted
+   gesture, not a new wallpaper system. Supplied AI material; see provenance.
+   Original photographs, handwriting and wordmark are not edited or replaced. */
+html[data-finesse] body #journey .clarity-book-note{
+ box-sizing:border-box;max-width:min(900px,100%);margin:40px 0 12px auto;
+ padding:clamp(28px,3.6vw,52px) clamp(24px,3.6vw,52px) clamp(30px,3.6vw,52px) 27%;
+ border:0!important;border-radius:0;background:linear-gradient(90deg,transparent 20%,#E9E4D7B8 27%),#E9E4D7 url('/images/atelier-material-wall.webp') left center/cover no-repeat!important;
+ box-shadow:none!important;transform:none!important;scroll-margin-top:140px;
+}
+html[data-finesse] body #journey .clarity-book-note blockquote p{color:#311F14!important;font-weight:400!important;text-shadow:none!important;max-width:40ch}
+html[data-finesse] body #journey .clarity-book-note figcaption{color:#313622!important;text-shadow:none!important;max-width:55ch}
+/* Physical paint is decorative and non-interactive; its box remains in flow. */
+html[data-finesse] body #music #pv-release-title::after{content:'';display:block;width:min(220px,70%);aspect-ratio:3/1;margin:8px 0 0;background:url('/images/atelier-material-gold.webp') center/contain no-repeat;pointer-events:none}
+@media(max-width:700px){
+ html[data-finesse] body #journey .clarity-book-note{margin-top:28px;padding:28px 22px 32px;background-image:linear-gradient(#E9E4D7B8,#E9E4D7B8),url('/images/atelier-material-wall.webp')!important;background-position:right center!important}
+ html[data-finesse] body #music #pv-release-title::after{width:min(150px,60%)}
+}
+/* Large text gets a quiet right-hand plaster crop, never a fixed paper box. */
+html[data-finesse].clarity-text-large body #journey .clarity-book-note{padding:clamp(22px,3vw,40px);background:#E9E4D7!important}
+@media(forced-colors:active){
+ html[data-finesse] body #journey .clarity-book-note{background:Canvas!important;border:1px solid CanvasText!important}
+ html[data-finesse] body #journey .clarity-book-note :is(blockquote p,figcaption){color:CanvasText!important}
+ html[data-finesse] body #music #pv-release-title::after{display:none}
+}
