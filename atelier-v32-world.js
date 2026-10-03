@@ -174,7 +174,7 @@
     const roots = [
       ['outside', document.querySelector('#journey')],
       ['atelier', document.querySelector('#about')],
-      ['stage', document.querySelector('#berlin-2026-11-04')]
+      ['stage', document.querySelector('#live-preview')]
     ].filter(([, node]) => node);
     const links = [...rail.querySelectorAll('[data-room-link]')];
     links.forEach((link) => link.addEventListener('click', () => recordInteraction('room_navigation', { room_name: link.dataset.roomLink })));
