@@ -42,6 +42,14 @@
     footer nav{display:flex;gap:22px}
     a:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
     @media(max-width:560px){header{align-items:flex-start}.brand{font-size:14px;letter-spacing:.12em}.langs{gap:8px}main{padding:100px 0 90px}h1{margin-bottom:30px}blockquote{max-width:100%}}
+
+    .borrowed-words{margin:58px 0 0;padding:27px 0 0;border-top:1px solid var(--line)}
+    .borrowed-words h2{margin:0 0 22px;color:#735c36;font:700 11px Arial,Helvetica,sans-serif;letter-spacing:.2em;text-transform:uppercase}
+    .borrowed-words-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+    .borrowed-words figure{margin:0;max-width:370px}
+    .borrowed-words figure p{margin:0;font-size:clamp(18px,2vw,23px);line-height:1.4;font-style:italic}
+    .borrowed-words figcaption{margin-top:13px;color:#725d3d;font:600 12px Arial,Helvetica,sans-serif;letter-spacing:.06em}
+    @media(max-width:600px){.borrowed-words-grid{grid-template-columns:1fr;gap:27px}}
   </style>
 </head>
 <body>
@@ -53,6 +61,13 @@
     <blockquote><p>Ich sage nicht die Musik ab.</p><p>Ich weigere mich, sie als Fluchtweg zu benutzen. Manches muss gefühlt werden, statt davor wegzulaufen.</p></blockquote>
     <p class="body">Ich kann euch nicht das Beste von mir geben, wenn ich so tue, als wäre alles in Ordnung. Im Moment brauche ich Raum für das Leben jenseits der Arbeit.</p>
     <p class="status">Für den Rest des Jahres 2026 gibt es keine PRAYZVIBES-Auftritte und keine Pressearbeit.</p>
+    <section class="borrowed-words" aria-labelledby="borrowed-words-title">
+      <h2 id="borrowed-words-title">Zwei Gedanken für diesen Moment</h2>
+      <div class="borrowed-words-grid">
+        <figure><p lang="en">“Love is so short, forgetting is so long.”</p><figcaption>— Pablo Neruda</figcaption></figure>
+        <figure><p lang="en">“One of the symptoms of an approaching nervous breakdown is the belief that one's work is terribly important.”</p><figcaption>— Bertrand Russell</figcaption></figure>
+      </div>
+    </section>
     <p class="thanks">Danke, dass ihr mir den Raum gebt, ehrlich zu sein.</p>
   </main>
   <footer><span>© 2026 PRAYZVIBES</span><nav aria-label="Legal"><a href="/de/pages/imprint.html">Impressum</a><a href="/de/pages/privacy.html">Datenschutz</a></nav></footer>
