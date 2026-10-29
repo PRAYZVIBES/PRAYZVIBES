@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"><channel><title>PRAYZVIBES</title><link>https://www.prayzvibes.com/</link><description>Contact: hello@prayzvibes.com</description><language>en</language></channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PRAYZVIBES</title>
+    <link>https://www.prayzvibes.com/</link>
+    <description>New music, live notes and selected stories from PRAYZVIBES.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 09 Aug 2026 18:00:00 +0200</lastBuildDate>
+    <atom:link href="https://www.prayzvibes.com/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Transience EP — out now</title>
+      <link>https://listen.music-hub.com/rAGDlw</link>
+      <guid isPermaLink="false">prayzvibes-transience-ep-2026</guid>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0200</pubDate>
+      <description>Transience is a four-song EP by PRAYZVIBES, available now digitally, on CD and on vinyl.</description>
+    </item>
+    <item>
+      <title>Mountain Day — out now</title>
+      <link>https://listen.music-hub.com/5JnBx3</link>
+      <guid isPermaLink="false">prayzvibes-mountain-day-2026</guid>
+      <pubDate>Fri, 31 Jul 2026 00:00:00 +0200</pubDate>
+      <description>Mountain Day is the focus track from Transience and is available now on all major platforms.</description>
+    </item>
+    <item>
+      <title>Exclusive Interview with PRAYZVIBES</title>
+      <link>https://illustratemagazine.com/exclusive-interview-with-prayzvibes/</link>
+      <guid isPermaLink="true">https://illustratemagazine.com/exclusive-interview-with-prayzvibes/</guid>
+      <pubDate>Sat, 20 Jun 2026 12:00:00 +0200</pubDate>
+      <description>Illustrate Magazine speaks with PRAYZVIBES about authenticity, connection and the road ahead.</description>
+    </item>
+    <item>
+      <title>High Week</title>
+      <link>https://prayzvibes.bandcamp.com/track/high-week-2</link>
+      <guid isPermaLink="false">prayzvibes-high-week-2026</guid>
+      <pubDate>Fri, 29 May 2026 00:00:00 +0200</pubDate>
+      <description>High Week is available on Bandcamp and streaming services worldwide.</description>
+    </item>
+  </channel>
+</rss>
