@@ -1,0 +1,86 @@
+/* PRAYZVIBES sauna editorial placements · 2026-10-29 */
+.pv-sauna-about {
+  width: min(1180px, calc(100% - 40px));
+  margin: clamp(38px, 6vw, 72px) auto 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(240px, .75fr);
+  align-items: end;
+  gap: clamp(22px, 4vw, 52px);
+}
+
+.pv-sauna-about__image {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #3a2418;
+  box-shadow: 0 28px 70px rgba(38, 23, 14, .22);
+  transform: rotate(-.45deg);
+}
+
+.pv-sauna-about__image::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(255, 240, 210, .34);
+  pointer-events: none;
+}
+
+.pv-sauna-about__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.pv-sauna-about__note {
+  max-width: 30rem;
+  padding: 0 0 clamp(8px, 2vw, 24px);
+}
+
+.pv-sauna-about__note .eyebrow { margin-bottom: 12px; }
+.pv-sauna-about__note h2 { margin: 0 0 14px; }
+.pv-sauna-about__note p:last-child { margin-bottom: 0; }
+
+.pv-thought__sauna {
+  position: relative;
+  width: min(100%, 720px);
+  margin: 0 0 28px;
+  overflow: hidden;
+  background: #2f2118;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .28);
+}
+
+.pv-thought__sauna img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.pv-thought__sauna figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  margin: 0;
+  padding: 8px 12px;
+  background: rgba(18, 15, 12, .78);
+  color: #f3e8d1;
+  font-size: .76rem;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 760px) {
+  .pv-sauna-about { grid-template-columns: 1fr; }
+  .pv-sauna-about__image { transform: none; }
+  .pv-sauna-about__note { padding-bottom: 0; }
+  .pv-thought__sauna figcaption { left: 10px; bottom: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-sauna-about__image { transform: none; }
+}
