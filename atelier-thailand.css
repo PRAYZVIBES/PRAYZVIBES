@@ -1,0 +1,180 @@
+/* Thailand field notes + Louis memorial · 2026-11-04 */
+
+html.atelier-visual body .pv-thailand-atelier {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.72fr);
+  gap: clamp(24px, 5vw, 74px);
+  align-items: center;
+  margin-top: clamp(34px, 6vw, 82px);
+  padding-top: clamp(30px, 4vw, 54px);
+  border-top: 1px solid rgba(215, 196, 146, .26);
+}
+
+html.atelier-visual body .pv-thailand-atelier__intro {
+  max-width: 32rem;
+}
+
+html.atelier-visual body .pv-thailand-atelier__intro h3 {
+  margin: .55rem 0 1rem;
+  color: #f0e6d1;
+  font-family: var(--pv-display, Georgia, serif);
+  font-size: clamp(1.8rem, 3vw, 3.1rem);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+html.atelier-visual body .pv-thailand-atelier__intro > p:last-child {
+  color: rgba(240, 230, 209, .76);
+  line-height: 1.68;
+}
+
+html.atelier-visual body .pv-thailand-atelier__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 24px);
+}
+
+html.atelier-visual body .pv-thailand-atelier figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #171a14;
+  border: 1px solid rgba(215, 196, 146, .22);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .34);
+}
+
+html.atelier-visual body .pv-thailand-atelier figure:nth-child(1) {
+  transform: rotate(-.65deg);
+}
+
+html.atelier-visual body .pv-thailand-atelier figure:nth-child(2) {
+  transform: translateY(14px) rotate(.55deg);
+}
+
+html.atelier-visual body .pv-thailand-atelier__wide {
+  grid-column: 1 / -1;
+  transform: rotate(-.25deg) !important;
+}
+
+html.atelier-visual body .pv-thailand-atelier figure:not(.pv-thailand-atelier__wide) img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+html.atelier-visual body .pv-thailand-atelier figure:nth-child(1) img {
+  object-position: 50% 38%;
+}
+
+html.atelier-visual body .pv-thailand-atelier figure:nth-child(2) img {
+  object-position: 50% 31%;
+}
+
+html.atelier-visual body .pv-thailand-atelier__wide img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2.5 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+
+html.atelier-visual body .pv-thailand-atelier figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 28px 14px 12px;
+  color: #f2e9d7;
+  background: linear-gradient(transparent, rgba(10, 12, 9, .88));
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+html.atelier-visual body .pv-louis-memory {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: clamp(92px, 11vw, 150px) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 34px);
+  align-items: end;
+  width: min(100%, 620px);
+  margin-top: clamp(30px, 5vw, 62px);
+  padding: 18px 24px 0;
+  color: #e9dfcc;
+  background: linear-gradient(105deg, rgba(23, 27, 20, .92), rgba(43, 39, 27, .72));
+  border: 1px solid rgba(209, 180, 100, .3);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .34);
+}
+
+html.atelier-visual body .pv-louis-memory img {
+  align-self: end;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(7px 9px 12px rgba(0, 0, 0, .45));
+}
+
+html.atelier-visual body .pv-louis-memory > div {
+  padding-bottom: 19px;
+}
+
+html.atelier-visual body .pv-louis-memory h3 {
+  margin: .2rem 0 .28rem;
+  color: #f4ead6;
+  font-family: var(--pv-display, Georgia, serif);
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+  line-height: 1.08;
+}
+
+html.atelier-visual body .pv-louis-memory p {
+  margin: 0;
+  color: rgba(244, 234, 214, .72);
+}
+
+html.atelier-visual body .pv-louis-memory .pv-kicker {
+  color: #d1b464;
+}
+
+@media (max-width: 820px) {
+  html.atelier-visual body .pv-thailand-atelier {
+    grid-template-columns: 1fr;
+  }
+
+  html.atelier-visual body .pv-thailand-atelier__intro {
+    max-width: 42rem;
+  }
+}
+
+@media (max-width: 560px) {
+  html.atelier-visual body .pv-thailand-atelier__grid {
+    grid-template-columns: 1fr;
+  }
+
+  html.atelier-visual body .pv-thailand-atelier figure,
+  html.atelier-visual body .pv-thailand-atelier figure:nth-child(2) {
+    grid-column: 1;
+    transform: none !important;
+  }
+
+  html.atelier-visual body .pv-thailand-atelier figure:not(.pv-thailand-atelier__wide) img {
+    aspect-ratio: 4 / 4.6;
+  }
+
+  html.atelier-visual body .pv-thailand-atelier__wide img {
+    aspect-ratio: 1.6 / 1;
+  }
+
+  html.atelier-visual body .pv-louis-memory {
+    grid-template-columns: 96px minmax(0, 1fr);
+    padding-inline: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.atelier-visual body .pv-thailand-atelier figure {
+    transform: none !important;
+  }
+}
