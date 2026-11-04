@@ -2,10 +2,7 @@
 
 html.atelier-visual body .pv-thailand-atelier {
   grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.72fr);
-  gap: clamp(24px, 5vw, 74px);
-  align-items: center;
+  display: block;
   margin-top: clamp(34px, 6vw, 82px);
   padding-top: clamp(30px, 4vw, 54px);
   border-top: 1px solid rgba(215, 196, 146, .26);
@@ -34,6 +31,8 @@ html.atelier-visual body .pv-thailand-atelier__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 2vw, 24px);
+  width: min(100%, 1080px);
+  margin-inline: auto;
 }
 
 html.atelier-visual body .pv-thailand-atelier figure {
@@ -41,8 +40,8 @@ html.atelier-visual body .pv-thailand-atelier figure {
   margin: 0;
   overflow: hidden;
   background: #171a14;
-  border: 1px solid rgba(215, 196, 146, .22);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, .34);
+  border: 1px solid rgba(215, 196, 146, .14);
+  box-shadow: 0 24px 54px rgba(0, 0, 0, .44);
 }
 
 html.atelier-visual body .pv-thailand-atelier figure:nth-child(1) {
@@ -82,14 +81,51 @@ html.atelier-visual body .pv-thailand-atelier__wide img {
 }
 
 html.atelier-visual body .pv-thailand-atelier figcaption {
+  display: none;
+}
+
+/* The current portrait belongs in the opening frame, while the travel images
+   remain uncaptioned fragments rather than an explained travel chapter. */
+.pv-eden-intro .pv-eden-artist {
   position: absolute;
-  inset: auto 0 0;
-  padding: 28px 14px 12px;
-  color: #f2e9d7;
-  background: linear-gradient(transparent, rgba(10, 12, 9, .88));
-  font-size: .78rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  top: clamp(76px, 8vw, 112px);
+  right: clamp(-94px, -3vw, -18px);
+  z-index: 0;
+  width: min(38vw, 560px);
+  margin: 0;
+  opacity: .96;
+  pointer-events: none;
+  filter: drop-shadow(-24px 34px 45px rgba(0, 0, 0, .52));
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 24%, #000 100%);
+}
+
+.pv-eden-intro .pv-eden-artist img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(1.24) saturate(.94) contrast(1.03);
+}
+
+.pv-eden-intro__eyebrow,
+.pv-eden-intro__grid {
+  position: relative;
+  z-index: 1;
+}
+
+.pv-eden-intro__copy {
+  padding: clamp(20px, 3vw, 40px);
+  background: linear-gradient(100deg, rgba(17, 21, 14, .92) 0 56%, rgba(17, 21, 14, .24) 78%, transparent);
+  backdrop-filter: blur(1.5px);
+}
+
+html.atelier-visual body .aw-hero .aw-landscape > img {
+  object-fit: cover !important;
+  object-position: center 42% !important;
+}
+
+html.atelier-visual body .pv-home :is(#journey, #watch, #next-release) {
+  background-blend-mode: multiply, soft-light, normal;
 }
 
 html.atelier-visual body .pv-louis-memory {
@@ -146,9 +182,30 @@ html.atelier-visual body .pv-louis-memory .pv-kicker {
   html.atelier-visual body .pv-thailand-atelier__intro {
     max-width: 42rem;
   }
+
+  .pv-eden-intro .pv-eden-artist {
+    top: 82px;
+    right: -72px;
+    width: min(52vw, 430px);
+    opacity: .78;
+  }
 }
 
 @media (max-width: 560px) {
+  .pv-eden-intro .pv-eden-artist {
+    top: 68px;
+    right: -76px;
+    width: min(72vw, 390px);
+    opacity: .68;
+  }
+
+  .pv-eden-intro__copy {
+    position: relative;
+    z-index: 2;
+    padding: 18px 14px;
+    background: rgba(17, 21, 14, .72);
+  }
+
   html.atelier-visual body .pv-thailand-atelier__grid {
     grid-template-columns: 1fr;
   }
