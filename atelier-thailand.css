@@ -256,8 +256,441 @@ html.atelier-visual body .pv-louis-memory .pv-kicker {
   }
 }
 
+/* Detail pass · local study · 2026-11-05
+   Shared rhythm, tactile responses and small-screen calm. */
+html.atelier-visual body {
+  --pv-detail-ease: cubic-bezier(.22, .72, .26, 1);
+  --pv-detail-focus: #f2cf76;
+}
+
+html.atelier-visual body :is(
+  .pv-eden-intro__copy h2,
+  .pv-paths__intro h2,
+  .pv-story__copy h2,
+  .pv-thoughts__intro h2
+) {
+  text-wrap: balance;
+  hyphens: none;
+  word-break: normal;
+}
+
+html.atelier-visual body :is(
+  .pv-eden-intro__lead,
+  .pv-eden-intro__promise,
+  .pv-paths__intro > p,
+  .pv-story__copy > p,
+  .pv-thoughts__intro > p:last-child
+) {
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+
+html.atelier-visual body :is(a, button, summary):focus-visible {
+  outline: 2px solid var(--pv-detail-focus);
+  outline-offset: 5px;
+}
+
+/* A single warm photographic treatment ties records, travel, portrait and
+   atelier material together without flattening their individual character. */
+html.atelier-visual body :is(
+  .pv-eden-cover,
+  .pv-eden-transience,
+  .pv-paths__archive figure,
+  .pv-thailand-atelier figure,
+  .pv-louis-memory
+) {
+  box-shadow: 0 2px 2px rgba(0,0,0,.28), 0 18px 38px rgba(0,0,0,.2);
+}
+
+html.atelier-visual body :is(
+  .pv-eden-cover img,
+  .pv-eden-transience img,
+  .pv-thailand-atelier figure img,
+  .pv-louis-memory img
+) {
+  transition: transform .7s var(--pv-detail-ease), filter .7s var(--pv-detail-ease);
+  transform-origin: center;
+}
+
+.pv-eden-tracklist li,
+.pv-eden-intro__actions a,
+html.atelier-visual body .atelier-signal {
+  transition:
+    transform .42s var(--pv-detail-ease),
+    box-shadow .42s var(--pv-detail-ease),
+    border-color .42s ease,
+    background-color .42s ease;
+}
+
+html.atelier-visual body .atelier-signal img {
+  transition: transform .5s var(--pv-detail-ease), filter .5s var(--pv-detail-ease);
+}
+
+/* Quiet seams between chapters: light changes before the subject changes. */
+html.atelier-visual body .pv-home > :is(#journey, #about, #living-charge) {
+  box-shadow:
+    inset 0 1px rgba(242,207,118,.13),
+    inset 0 42px 70px -64px rgba(242,207,118,.3);
+}
+
+html.atelier-visual body #living-charge .pv-thoughts__windows details {
+  transition: border-color .35s ease, background-color .35s ease, transform .35s var(--pv-detail-ease);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html.atelier-visual body :is(.pv-eden-cover, .pv-eden-transience):hover img,
+  html.atelier-visual body .pv-thailand-atelier figure:hover img {
+    transform: scale(1.018);
+    filter: saturate(1.04) contrast(1.025);
+  }
+
+  .pv-eden-tracklist li:hover {
+    transform: translateY(-2px);
+    border-color: rgba(242,207,118,.5);
+  }
+
+  .pv-eden-intro__actions a:hover {
+    transform: translateY(-2px);
+  }
+
+  html.atelier-visual body .atelier-signal:hover img {
+    transform: scale(1.055);
+    filter: drop-shadow(0 0 12px rgba(242,207,118,.44));
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__windows details:hover {
+    transform: translateY(-2px);
+    border-color: rgba(242,207,118,.36);
+  }
+}
+
+@media (max-width: 900px) {
+  html.atelier-visual body .pv-home > :is(#journey, #about, #living-charge) {
+    box-shadow:
+      inset 0 1px rgba(242,207,118,.11),
+      inset 0 28px 48px -44px rgba(242,207,118,.24);
+  }
+
+  .pv-eden-intro__copy {
+    padding-inline: clamp(14px, 4vw, 24px);
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__intro > p:last-child {
+    max-width: 42ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .pv-eden-intro__eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .pv-eden-intro__copy h2 {
+    font-size: clamp(3rem, 15vw, 4.45rem);
+    line-height: .94;
+  }
+
+  .pv-eden-intro__lead {
+    font-size: clamp(1.05rem, 5vw, 1.28rem);
+    line-height: 1.45;
+  }
+
+  .pv-eden-tracklist {
+    gap: 6px;
+  }
+
+  .pv-eden-tracklist li {
+    min-height: 52px;
+  }
+
+  html.atelier-visual body .aw-hero .atelier-signals {
+    gap: 10px;
+  }
+
+  html.atelier-visual body .aw-hero .atelier-signals .atelier-signal {
+    min-height: 128px !important;
+    padding: 12px 8px;
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__intro h2 {
+    max-width: 11ch;
+    font-size: clamp(2.2rem, 10.8vw, 3rem);
+    line-height: 1.04;
+  }
+
+  html.atelier-visual body .pv-louis-memory {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  html.atelier-visual body .pv-louis-memory h3 {
+    font-size: clamp(1.15rem, 6.2vw, 1.55rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.atelier-visual body :is(
+    .pv-eden-cover img,
+    .pv-eden-transience img,
+    .pv-thailand-atelier figure img,
+    .pv-louis-memory img,
+    .pv-eden-tracklist li,
+    .pv-eden-intro__actions a,
+    .atelier-signal,
+    .atelier-signal img,
+    #living-charge .pv-thoughts__windows details
+  ) {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* The old bulbs do not blink; they breathe. Slightly different cycles keep
+   the installation organic while the photographs remain the focus. */
+@media (prefers-reduced-motion: no-preference) {
+  html.atelier-visual:not(.pv-motion-paused) body .av-lamp-beam {
+    animation: pv-tungsten-pool 8.6s ease-in-out infinite;
+  }
+
+  html.atelier-visual:not(.pv-motion-paused) body .av-room-light {
+    animation: pv-tungsten-room 10.4s ease-in-out infinite -2.7s;
+  }
+
+  html.atelier-visual:not(.pv-motion-paused) body .av-lamp-hardware .av-bulb-filament {
+    animation: pv-filament-breathe 7.3s ease-in-out infinite;
+  }
+
+  html.atelier-visual:not(.pv-motion-paused) body .av-lamp-hardware:nth-of-type(3n + 1) .av-bulb-filament {
+    animation-duration: 9.1s;
+    animation-delay: -4.2s;
+  }
+
+  html.atelier-visual:not(.pv-motion-paused) body .av-lamp-hardware:nth-of-type(3n + 2) .av-bulb-filament {
+    animation-duration: 8.2s;
+    animation-delay: -1.6s;
+  }
+
+  @keyframes pv-tungsten-pool {
+    0%, 100% { filter: brightness(.98); }
+    17% { filter: brightness(1.018); }
+    19% { filter: brightness(.992); }
+    43% { filter: brightness(1.028); }
+    47% { filter: brightness(1.006); }
+    74% { filter: brightness(1.022); }
+    77% { filter: brightness(.996); }
+  }
+
+  @keyframes pv-tungsten-room {
+    0%, 100% { opacity: .76; filter: brightness(.99); }
+    28% { opacity: .8; filter: brightness(1.018); }
+    31% { opacity: .775; filter: brightness(1); }
+    63% { opacity: .81; filter: brightness(1.025); }
+    66% { opacity: .785; filter: brightness(1.005); }
+  }
+
+  @keyframes pv-filament-breathe {
+    0%, 100% { stroke-opacity: .88; stroke-width: 1; }
+    22% { stroke-opacity: .97; stroke-width: 1.045; }
+    25% { stroke-opacity: .9; stroke-width: 1.01; }
+    58% { stroke-opacity: 1; stroke-width: 1.065; }
+    61% { stroke-opacity: .92; stroke-width: 1.018; }
+    82% { stroke-opacity: .98; stroke-width: 1.05; }
+  }
+}
+
+html.pv-motion-paused body :is(.av-lamp-beam, .av-room-light, .av-bulb-filament) {
+  animation: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html.atelier-visual body .pv-thailand-atelier figure {
     transform: none !important;
+  }
+}
+
+/* Visual hierarchy pass · local study · 2026-11-05
+   One primary idea per viewport, without changing the page structure. */
+html.atelier-visual body .pv-home > section[id] {
+  scroll-margin-top: calc(var(--header-height, 80px) + 18px);
+}
+
+/* L'EDEN remains the opening promise. The record is important, but the artist
+   and the bilingual story now share the frame instead of sitting behind it. */
+@media (min-width: 1100px) {
+  .pv-eden-intro__grid {
+    grid-template-columns: minmax(310px, .82fr) minmax(470px, 1.18fr);
+    gap: clamp(34px, 5vw, 76px);
+  }
+
+  .pv-eden-intro__records {
+    min-height: clamp(560px, 49vw, 680px);
+  }
+
+  .pv-eden-cover {
+    right: 7%;
+    width: min(77%, 560px);
+  }
+
+  .pv-eden-transience {
+    left: 2%;
+    width: min(37%, 250px);
+  }
+
+  .pv-eden-intro__copy h2 {
+    font-size: clamp(4rem, 6.7vw, 7.45rem);
+  }
+
+  .pv-eden-intro .pv-eden-artist {
+    right: clamp(-62px, -2vw, -24px);
+    width: min(34vw, 510px);
+    opacity: .84;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 31%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 31%, #000 100%);
+  }
+
+  .pv-eden-intro__copy {
+    background: linear-gradient(100deg, rgba(17, 21, 14, .94) 0 62%, rgba(17, 21, 14, .32) 82%, transparent);
+  }
+}
+
+.pv-eden-tracklist li.pv-eden-tracklist__bonus {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 5px 14px rgba(0,0,0,.18);
+}
+
+.pv-eden-tracklist li.pv-eden-tracklist__bonus,
+.pv-eden-tracklist li.pv-eden-tracklist__bonus strong,
+.pv-eden-tracklist li.pv-eden-tracklist__bonus span,
+.pv-eden-tracklist li.pv-eden-tracklist__bonus::before,
+.pv-eden-intro__actions .pv-eden-intro__primary {
+  color: #171b12 !important;
+}
+
+/* Keep the second opening chapter concise: it introduces the world instead of
+   repeating the scale of the L'EDEN campaign above it. */
+html.atelier-visual body .pv-home > .aw-hero {
+  row-gap: clamp(14px, 2vw, 28px) !important;
+}
+
+html.atelier-visual body .aw-hero .atelier-signals {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  gap: clamp(10px, 1.5vw, 20px);
+}
+
+html.atelier-visual body .aw-hero .atelier-signals .atelier-signal {
+  flex: 1 1 132px;
+  width: auto !important;
+  min-width: 122px;
+  min-height: 138px !important;
+}
+
+/* Journey graffiti behaves like pigment on the photographic wall, not a
+   second poster competing with the temple and the invitation. */
+html.atelier-visual body #journey .pv-paths__intro .pv-graffiti--arrival {
+  width: min(78%, 360px) !important;
+  right: -9% !important;
+  opacity: 1 !important;
+  transform: rotate(-2.4deg) !important;
+  mix-blend-mode: multiply !important;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 38%, rgba(0,0,0,.78) 61%, transparent 79%) !important;
+  mask-image: radial-gradient(ellipse at center, #000 38%, rgba(0,0,0,.78) 61%, transparent 79%) !important;
+}
+
+html.atelier-visual body #journey .pv-graffiti--arrival::before {
+  opacity: 0 !important;
+}
+
+html.atelier-visual body #journey .pv-graffiti--arrival img {
+  opacity: .14 !important;
+  mix-blend-mode: multiply !important;
+  filter: grayscale(1) brightness(2.4) contrast(4) sepia(.12) !important;
+}
+
+/* The portrait and statement are the focal pair in the atelier. The signature
+   is retained as a quiet trace of the hand that made the page. */
+html.atelier-visual body #about .pv-graffiti--signature {
+  width: min(58%, 390px) !important;
+  margin: 22px 0 12px auto !important;
+  opacity: .46 !important;
+  transform: rotate(-2deg) !important;
+  mix-blend-mode: screen !important;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 34%, rgba(0,0,0,.72) 62%, transparent 82%) !important;
+  mask-image: radial-gradient(ellipse at center, #000 34%, rgba(0,0,0,.72) 62%, transparent 82%) !important;
+}
+
+html.atelier-visual body #about .pv-graffiti--signature::before {
+  opacity: .16;
+}
+
+/* Living Charge becomes a compact installation: statement, illuminated work,
+   four openings and the quiet Thailand triptych. */
+@media (min-width: 901px) {
+  html.atelier-visual body .pv-home > #living-charge {
+    grid-template-columns: minmax(260px, .74fr) minmax(430px, 1.26fr) !important;
+    column-gap: clamp(42px, 6vw, 94px) !important;
+    row-gap: clamp(28px, 3vw, 44px) !important;
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__intro {
+    width: 100%;
+    max-width: none;
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__art {
+    width: min(100%, 330px);
+    justify-self: center;
+  }
+
+  html.atelier-visual body #living-charge .pv-thoughts__windows {
+    padding-top: 4px;
+  }
+
+  html.atelier-visual body #living-charge .pv-thailand-atelier {
+    margin-top: clamp(18px, 3vw, 40px);
+    padding-top: clamp(22px, 3vw, 38px);
+  }
+}
+
+@media (max-width: 900px) {
+  html.atelier-visual body #journey .pv-paths__intro .pv-graffiti--arrival {
+    position: relative !important;
+    right: auto !important;
+    width: min(68%, 330px) !important;
+    margin: 12px 0 10px auto !important;
+  }
+
+  html.atelier-visual body #about .pv-graffiti--signature {
+    width: min(64%, 340px) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .pv-eden-intro__records {
+    min-height: min(104vw, 438px);
+  }
+
+  .pv-eden-cover {
+    left: 11%;
+    width: 77%;
+    max-width: 77%;
+  }
+
+  .pv-eden-transience {
+    width: 36%;
+    max-width: 36%;
+  }
+
+  .pv-eden-intro__copy h2 {
+    font-size: clamp(3.35rem, 16vw, 5rem);
+  }
+
+  html.atelier-visual body .aw-hero .atelier-signals .atelier-signal {
+    flex-basis: calc(50% - 8px);
+    min-width: 0;
+  }
+
+  html.atelier-visual body #journey .pv-paths__intro .pv-graffiti--arrival,
+  html.atelier-visual body #about .pv-graffiti--signature {
+    width: min(72%, 280px) !important;
   }
 }
