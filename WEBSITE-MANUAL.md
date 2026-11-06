@@ -26,19 +26,19 @@ Update the three homepages and the three `epk.html` pages together. Copy one com
 
 ### Keep the five journey routes working
 
-The homepage journey bar is intentional: **01 Listen**, **02 Invite**, **03 Meet PRAYZ**, **04 Shop**, **05 Stay close**. The Living Charge marks behind these routes are decorative identifiers, not a separate homepage campaign.
+The homepage journey bar is intentional: **01 Listen**, **02 Live**, **03 Meet PRAYZ**, **04 Living Charge**, **05 Stay close**. The Living Charge marks behind these routes are artistic identifiers, not a shop campaign.
 
 - 01 starts the native 24-second Mountain Day preview and lands at the Mountain Day section.
-- 02 opens the live proof and routes enquiries through the localized `book.html` page.
+- 02 opens the live documentation and public-date archive.
 - 03 leads to the personal story.
-- 04 leads to the Living Charge shop presentation.
+- 04 leads to the Living Charge signs and thoughts.
 - 05 keeps the Eagle Spirit email field visible.
 
 Keep EPK access as an unnumbered professional utility. Do not add a sixth journey tile.
 
-### Maintain booking paths
+### Keep booking paths paused
 
-The public booking route is `pages/book.html`, with equivalent pages below `de/pages` and `fr/pages`. Keep direct email, SofaConcerts and BackstagePro available there. Homepage booking buttons should point to this page rather than forcing an email application to open immediately.
+Public booking calls to action, the booking email, SofaConcerts and BackstagePro are intentionally absent. The former localized `book.html` routes are noindexed compatibility redirects to the live archive. Do not reactivate booking without an explicit new decision from Andreas.
 
 ### Replace a short video
 
@@ -56,21 +56,11 @@ The current Spotify destination is playlist ID `0CPFAsBogOHppa1epmYLNO`. Update 
 
 PRAYZ Worlds, PRAYZ REMIX and the High Week film share the compact **Further roads** section. Keep all five destinations available when changing that layout.
 
-### Update store links
+### Keep commerce paused
 
-- Digital music: Bandcamp
-- CD and vinyl: ElasticStage
-- Clothing and accessories: Fourthwall
+Bandcamp purchase links, ElasticStage, Fourthwall and Ko-fi are intentionally absent from the public site. Products may remain private in their external dashboards; do not delete product data or source assets. Do not reactivate commerce without an explicit new decision from Andreas.
 
-Change a link only when the replacement page has been opened and tested.
-
-### Update direct support
-
-The direct-support destination is `https://ko-fi.com/prayzvibes`.
-
-Keep the homepage support section, the localized `support.html` pages and footer links aligned in all three languages. The wording should stay voluntary and low-pressure. Do not promise rewards, memberships or a recurring publishing schedule unless those offers are active and can be fulfilled.
-
-Ko-fi clicks are tracked as `support_click` with a `support_source` only after analytics consent. Payment itself happens on Ko-fi; the PRAYZVIBES website never collects payment data. Website links use harmless UTM source tags; the ready-to-copy social versions are in `SOCIAL-TRACKING-LINKS.md`.
+The former localized `support.html` routes are noindexed compatibility redirects to the atelier story.
 
 Use `AUDIENCE-DASHBOARD.md` for the small monthly review. It explains the release, live, shop, support, playlist, EPK and newsletter signals without turning the project into a spreadsheet exercise.
 
